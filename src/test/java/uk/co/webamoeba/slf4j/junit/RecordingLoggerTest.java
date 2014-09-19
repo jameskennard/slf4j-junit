@@ -4,6 +4,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
+import org.slf4j.Logger;
 import org.slf4j.Marker;
 import org.slf4j.helpers.BasicMarkerFactory;
 
@@ -23,6 +24,18 @@ public class RecordingLoggerTest {
 		
 		// Then
 		assertThat(name, is(expectedName));
+	}
+	
+	@Test
+	public void shouldImplementLogger() {
+		// Given
+		RecordingLogger recordingLogger = new RecordingLogger("a recording logger");
+		
+		// When
+		boolean isInstance = Logger.class.isInstance(recordingLogger);
+		
+		// Then
+		assertThat(isInstance, is(true));
 	}
 	
 	@Test
