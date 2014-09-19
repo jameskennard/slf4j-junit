@@ -10,8 +10,6 @@ import java.util.Collections;
 import org.junit.Test;
 
 /**
- * A register containing a history of {@link LogEvent LogEvents}.
- * 
  * @author James Kennard
  */
 public class LogEventRegisterTest {
@@ -25,7 +23,7 @@ public class LogEventRegisterTest {
 	public void shouldRegister() {
 		// Given
 		LogEventRegister logEventRegister = new LogEventRegister();
-		LogEvent logEvent = new LogEvent();
+		LogEvent logEvent = new LogEvent("A Log Event");
 
 		// When
 		logEventRegister.register(logEvent);

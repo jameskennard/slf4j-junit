@@ -1,7 +1,8 @@
 package uk.co.webamoeba.slf4j.junit.event;
 
-import static org.hamcrest.CoreMatchers.not;
+import static org.junit.Assert.assertNotNull;
 
+import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.sameInstance;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.CoreMatchers.is;
@@ -15,14 +16,19 @@ import org.junit.Test;
 public class LogEventRegistryTest {
 
 	@Test
-	public void shouldInstantiate() {
-		new LogEventRegistry();
+	public void shouldGetSingleton() {
+		assertNotNull(LogEventRegistry.getSingleton());
+	}
+	
+	@Test
+	public void shouldGetSingletonGivenCalledTwice() {
+		assertThat(LogEventRegistry.getSingleton(), is(sameInstance(LogEventRegistry.getSingleton())));
 	}
 	
 	@Test
 	public void shouldGetRegister() {
 		// Given
-		LogEventRegistry registry = new LogEventRegistry();
+		LogEventRegistry registry = LogEventRegistry.getSingleton();
 		String name = "Some Register";
 		
 		// When
@@ -35,7 +41,7 @@ public class LogEventRegistryTest {
 	@Test
 	public void shouldGetRegisterGivenSameName() {
 		// Given
-		LogEventRegistry registry = new LogEventRegistry();
+		LogEventRegistry registry = LogEventRegistry.getSingleton();
 		String name = "Some Register";
 		LogEventRegister expectedRegister = registry.getRegister(name);
 		
@@ -49,7 +55,7 @@ public class LogEventRegistryTest {
 	@Test
 	public void shouldGetRegisterGivenDifferentName() {
 		// Given
-		LogEventRegistry registry = new LogEventRegistry();
+		LogEventRegistry registry = LogEventRegistry.getSingleton();
 		String name = "Some Register";
 		String differentName = "Some Different Register";
 		LogEventRegister expectedRegister = registry.getRegister(name);

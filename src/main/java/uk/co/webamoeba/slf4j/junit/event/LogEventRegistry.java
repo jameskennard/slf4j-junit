@@ -10,7 +10,16 @@ import java.util.Map;
  */
 public class LogEventRegistry {
 
+	private static final LogEventRegistry LOG_EVENT_REGISTRY = new LogEventRegistry();
+	
 	private static final Map<String, LogEventRegister> LOG_EVENT_REGISTERS = new HashMap<String, LogEventRegister>();
+	
+	public static LogEventRegistry getSingleton() {
+		return LOG_EVENT_REGISTRY;
+	}
+	
+	private LogEventRegistry() {
+	}
 
 	/**
 	 * @param name The name of the {@link LogEventRegister} we want to get
