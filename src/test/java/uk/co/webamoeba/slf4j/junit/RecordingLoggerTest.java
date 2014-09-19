@@ -32,10 +32,10 @@ public class RecordingLoggerTest {
 		RecordingLogger recordingLogger = new RecordingLogger("a recording logger");
 		
 		// When
-		boolean isInstance = Logger.class.isInstance(recordingLogger);
+		boolean isLogger = Logger.class.isInstance(recordingLogger);
 		
 		// Then
-		assertThat(isInstance, is(true));
+		assertThat(isLogger, is(true));
 	}
 	
 	@Test
