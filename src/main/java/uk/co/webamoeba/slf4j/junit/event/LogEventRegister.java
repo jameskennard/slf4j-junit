@@ -35,4 +35,8 @@ public class LogEventRegister {
 		return Collections.unmodifiableList(logEvents);
 	}
 
+	public void clear() {
+		logEvents.clear();
+	}
+
 }

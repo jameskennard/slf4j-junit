@@ -1,9 +1,8 @@
 package uk.co.webamoeba.slf4j.junit.event;
 
-import static org.junit.Assert.fail;
-
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
 
 import java.util.Collections;
 
@@ -47,6 +46,19 @@ public class LogEventRegisterTest {
 		} catch (IllegalArgumentException e) {
 			assertThat(e.getMessage(), is("logEvent must not be null"));
 		}
+	}
+	
+	@Test
+	public void shouldClear() {
+		// Given
+		LogEventRegister logEventRegister = new LogEventRegister();
+		logEventRegister.register(new LogEvent("A Log Event"));
+		
+		// When
+		logEventRegister.clear();
+
+		// Then
+		assertThat(logEventRegister.getLogEvents(), is(Collections.<LogEvent> emptyList()));
 	}
 
 }
