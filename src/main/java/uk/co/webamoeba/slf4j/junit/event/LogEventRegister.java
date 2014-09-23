@@ -35,6 +35,11 @@ public class LogEventRegister {
 		return Collections.unmodifiableList(logEvents);
 	}
 
+	/**
+	 * Clears the {@link LogEventRegister}. That is to say, all {@link LogEvent LogEvents} that have been
+	 * {@link #register(LogEvent) registered} against this {@link LogEventRegister} will be removed from the
+	 * {@link LogEventRegister}.
+	 */
 	public void clear() {
 		logEvents.clear();
 	}

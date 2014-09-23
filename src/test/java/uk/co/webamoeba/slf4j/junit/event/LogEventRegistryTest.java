@@ -1,7 +1,8 @@
 package uk.co.webamoeba.slf4j.junit.event;
 
-import static org.junit.Assert.assertNotNull;
+import java.util.Collections;
 
+import static org.junit.Assert.assertNotNull;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.sameInstance;
 import static org.hamcrest.CoreMatchers.notNullValue;
@@ -67,4 +68,17 @@ public class LogEventRegistryTest {
 		assertThat(register, is(not(sameInstance(expectedRegister))));
 	}
 	
+	@Test
+	public void shouldClearAll() {
+		// Given
+		LogEventRegistry registry = LogEventRegistry.getSingleton();
+		LogEventRegister register = registry.getRegister("Some Register");
+		register.register(new LogEvent("Some Log Event"));
+		
+		// When
+		registry.clearAll();
+		
+		// Then
+		assertThat(register.getLogEvents(), is(Collections.<LogEvent> emptyList()));
+	}
 }
