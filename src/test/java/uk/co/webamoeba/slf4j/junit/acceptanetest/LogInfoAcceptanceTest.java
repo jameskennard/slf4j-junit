@@ -15,7 +15,6 @@ import org.slf4j.LoggerFactory;
 public class LogInfoAcceptanceTest {
 
 	@Test
-	@Ignore("Not ready for acceptance")
 	public void shouldMatchGivenInfoLogged() {
 		// Given
 		Logger logger = LoggerFactory.getLogger(LogInfoAcceptanceTest.class);
