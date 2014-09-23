@@ -127,6 +127,8 @@ public class RecordingLogger implements Logger {
 	}
 
 	public void info(String format, Object arg) {
+		LogEvent logEvent = new LogEvent(format, new Object[]{arg});
+		LogEventRegistry.getSingleton().getRegister(name).register(logEvent);
 	}
 
 	public void info(String format, Object arg1, Object arg2) {

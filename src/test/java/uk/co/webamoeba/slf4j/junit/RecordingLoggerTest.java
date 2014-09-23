@@ -5,6 +5,7 @@ import java.util.List;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.Marker;
@@ -18,6 +19,11 @@ import uk.co.webamoeba.slf4j.junit.event.LogEventRegistry;
  */
 public class RecordingLoggerTest {
 
+	@Before
+	public void clearLogs() {
+		LogEventRegistry.getSingleton().clearAll();
+	}
+	
 	@Test
 	public void shouldGetName() {
 		// Given
@@ -181,6 +187,23 @@ public class RecordingLoggerTest {
 		// Then
 		assertThat(logEvents(name).size(), is(1));
 		assertThat(logEvents(name).get(0).getMessage(), is(message));
+	}
+	
+	@Test
+	public void shouldLogInfoGivenFormatAndArgument() {
+		// Given
+		String format = "Format {}";
+		Object arg = "Argument";
+		String expectedMessage = "Format Argument";
+		String name = "a recording logger";
+		RecordingLogger recordingLogger = new RecordingLogger(name);
+
+		// When
+		recordingLogger.info(format, arg);
+
+		// Then
+		assertThat(logEvents(name).size(), is(1));
+		assertThat(logEvents(name).get(0).getMessage(), is(expectedMessage));
 	}
 
 	private List<LogEvent> logEvents(String name) {
