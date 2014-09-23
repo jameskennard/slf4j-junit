@@ -132,27 +132,37 @@ public class RecordingLogger implements Logger {
 	}
 
 	public void info(String format, Object arg1, Object arg2) {
+		LogEvent logEvent = new LogEvent(format, new Object[] {arg1, arg2});
+		LogEventRegistry.getSingleton().getRegister(name).register(logEvent);
 	}
 
 	public void info(String format, Object... arguments) {
+		LogEvent logEvent = new LogEvent(format, arguments);
+		LogEventRegistry.getSingleton().getRegister(name).register(logEvent);
 	}
 
 	public void info(String message, Throwable thowable) {
+		throw new UnsupportedOperationException();
 	}
 
 	public void info(Marker marker, String message) {
+		throw new UnsupportedOperationException();
 	}
 
 	public void info(Marker marker, String format, Object arg) {
+		throw new UnsupportedOperationException();
 	}
 
 	public void info(Marker marker, String format, Object arg1, Object arg2) {
+		throw new UnsupportedOperationException();
 	}
 
 	public void info(Marker marker, String format, Object... arguments) {
+		throw new UnsupportedOperationException();
 	}
 
 	public void info(Marker marker, String message, Throwable thowable) {
+		throw new UnsupportedOperationException();
 	}
 
 	public void warn(String message) {
