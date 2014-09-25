@@ -73,7 +73,7 @@ public class InfoLogEventMatcher extends BaseMatcher<Logger> {
 				description.appendText(", ").appendValue(argument);
 			}
 		} else {
-			description.appendValue(message.getMessage());
+			description.appendValue(message.getMessageAsString());
 		}
 		description.appendText(")");
 	}
@@ -99,17 +99,12 @@ public class InfoLogEventMatcher extends BaseMatcher<Logger> {
 				return true;
 			}
 		}
-		mismatchDescription.appendText("info to ").appendValue(logger.getName()).appendText(" with message ")
-				.appendValue(message.getMessage());
-		if (throwable != null) {
-			mismatchDescription.appendText(" and throwable ").appendValue(throwable);
-		}
-		mismatchDescription.appendText(" was not logged ");
+		describeMismatch(logger, mismatchDescription);
 		return false;
 	}
 
 	private boolean logEventMatches(LogEvent logEvent) {
-		if (!logEvent.getMessage().equals(message.getMessage())) {
+		if (!logEvent.getMessageAsString().equals(message.getMessageAsString())) {
 			return false;
 		}
 		if (notEqual(throwable, logEvent.getThrowable())) {
@@ -118,6 +113,21 @@ public class InfoLogEventMatcher extends BaseMatcher<Logger> {
 		return true;
 	}
 
+	/**
+	 * Describes why the matcher did not match by appending the description to the provided mismatchDescription.
+	 * 
+	 * @param logger The {@link RecordingLogger} that did not contain a matching {@link LogEvent}
+	 * @param mismatchDescription The description in which we want to describe the mismatch 
+	 */
+	private void describeMismatch(RecordingLogger logger, Description mismatchDescription) {
+		mismatchDescription.appendText("info to ").appendValue(logger.getName()).appendText(" with message ")
+				.appendValue(message.getMessageAsString());
+		if (throwable != null) {
+			mismatchDescription.appendText(" and throwable ").appendValue(throwable);
+		}
+		mismatchDescription.appendText(" was not logged ");
+	}
+	
 	/**
 	 * <code>null</code> safe method used to determine if two {@link Object Objects} are not equal. This method relies
 	 * on the {@link Object Objects} equals() method to determine equality for non <code>null</code> values.

@@ -188,7 +188,7 @@ public class RecordingLoggerTest {
 
 		// Then
 		assertThat(logEvents(name).size(), is(1));
-		assertThat(logEvents(name).get(0).getMessage(), is(message));
+		assertThat(logEvents(name).get(0).getMessageAsString(), is(message));
 	}
 
 	@Test
@@ -205,7 +205,7 @@ public class RecordingLoggerTest {
 
 		// Then
 		assertThat(logEvents(name).size(), is(1));
-		assertThat(logEvents(name).get(0).getMessage(), is(expectedMessage));
+		assertThat(logEvents(name).get(0).getMessageAsString(), is(expectedMessage));
 	}
 
 	@Test
@@ -223,7 +223,7 @@ public class RecordingLoggerTest {
 
 		// Then
 		assertThat(logEvents(name).size(), is(1));
-		assertThat(logEvents(name).get(0).getMessage(), is(expectedMessage));
+		assertThat(logEvents(name).get(0).getMessageAsString(), is(expectedMessage));
 	}
 
 	@Test
@@ -242,7 +242,7 @@ public class RecordingLoggerTest {
 
 		// Then
 		assertThat(logEvents(name).size(), is(1));
-		assertThat(logEvents(name).get(0).getMessage(), is(expectedMessage));
+		assertThat(logEvents(name).get(0).getMessageAsString(), is(expectedMessage));
 	}
 
 	@Test
@@ -258,7 +258,7 @@ public class RecordingLoggerTest {
 
 		// Then
 		assertThat(logEvents(name).size(), is(1));
-		assertThat(logEvents(name).get(0).getMessage(), is(message));
+		assertThat(logEvents(name).get(0).getMessageAsString(), is(message));
 		assertThat(logEvents(name).get(0).getThrowable(), is(sameInstance(throwable)));
 	}
 

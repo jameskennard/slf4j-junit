@@ -26,8 +26,8 @@ public class LogEvent {
 		this.throwable = throwable;
 	}
 
-	public String getMessage() {
-		return message.getMessage();
+	public String getMessageAsString() {
+		return message.getMessageAsString();
 	}
 	
 	public Throwable getThrowable() {
@@ -41,11 +41,11 @@ public class LogEvent {
 	 */
 	public static abstract class Message {
 
-		public abstract String getMessage();
+		public abstract String getMessageAsString();
 
 		@Override
 		public int hashCode() {
-			return 31 + ((getMessage() == null) ? 0 : getMessage().hashCode());
+			return 31 + ((getMessageAsString() == null) ? 0 : getMessageAsString().hashCode());
 		}
 
 		@Override
@@ -53,7 +53,7 @@ public class LogEvent {
 			if (obj == null || !Message.class.isInstance(obj)) {
 				return false;
 			}
-			return this == obj || getMessage().equals(((Message) obj).getMessage());
+			return this == obj || getMessageAsString().equals(((Message) obj).getMessageAsString());
 		}
 
 	}
@@ -71,7 +71,7 @@ public class LogEvent {
 			this.message = message;
 		}
 
-		public String getMessage() {
+		public String getMessageAsString() {
 			return message;
 		}
 
@@ -101,7 +101,7 @@ public class LogEvent {
 			return arguments;
 		}
 		
-		public String getMessage() {
+		public String getMessageAsString() {
 			return MessageFormatter.arrayFormat(format, arguments).getMessage();
 		}
 

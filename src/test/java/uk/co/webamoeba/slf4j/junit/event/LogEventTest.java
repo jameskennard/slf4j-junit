@@ -18,7 +18,7 @@ public class LogEventTest {
 		LogEvent logEvent = new LogEvent(expectedMessage);
 		
 		// When
-		String message = logEvent.getMessage();
+		String message = logEvent.getMessageAsString();
 		
 		// Then
 		assertThat(message, is(expectedMessage));
@@ -33,7 +33,7 @@ public class LogEventTest {
 		LogEvent logEvent = new LogEvent(format, arguments);
 		
 		// When
-		String message = logEvent.getMessage();
+		String message = logEvent.getMessageAsString();
 		
 		// Then
 		assertThat(message, is(expectedMessage));
