@@ -35,18 +35,15 @@ public class InfoLogEventMatcher extends BaseMatcher<Logger> {
 	private Message message;
 
 	/**
-	 * @param message
-	 *            The message we want the {@link LogEvent} to have.
+	 * @param message The message we want the {@link LogEvent} to have.
 	 */
 	public InfoLogEventMatcher(String message) {
 		this.message = new StringMessage(message);
 	}
 
 	/**
-	 * @param format
-	 *            The format of the message we want the {@link LogEvent} to have.
-	 * @param arguments
-	 *            The arguments we want to use to describe the parts of the message from the format
+	 * @param format The format of the message we want the {@link LogEvent} to have.
+	 * @param arguments The arguments we want to use to describe the parts of the message from the format
 	 */
 	public InfoLogEventMatcher(String format, Object... arguments) {
 		this.message = new FormattedMessage(format, arguments);
@@ -60,7 +57,17 @@ public class InfoLogEventMatcher extends BaseMatcher<Logger> {
 	}
 
 	public void describeTo(Description description) {
-		// TODO Auto-generated method stub
+		description.appendText("loggedInfo(");
+		if (message.getClass() == FormattedMessage.class) {
+			FormattedMessage formattedMessage = (FormattedMessage) message;
+			description.appendValue(formattedMessage.getFormat());
+			for (Object argument : formattedMessage.getArguments()) {
+				description.appendText(", ").appendValue(argument);
+			}
+		} else {
+			description.appendValue(message.getMessage());
+		}
+		description.appendText(")");
 	}
 
 	@Override

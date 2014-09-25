@@ -25,7 +25,7 @@ public class InfoLogEventMatcherTest {
 	public void clearAll() {
 		LogEventRegistry.getSingleton().clearAll();
 	}
-	
+
 	@Test
 	public void shouldImplementMatcher() {
 		assertThat(new InfoLogEventMatcher("Message"), is(instanceOf(Matcher.class)));
@@ -43,7 +43,7 @@ public class InfoLogEventMatcherTest {
 		// Then
 		assertFalse(matches);
 	}
-	
+
 	@Test
 	public void shouldDescribeToGivenUnexpectedTypeOfLogger() {
 		// Given
@@ -55,9 +55,10 @@ public class InfoLogEventMatcherTest {
 		matcher.describeMismatch(logger, description);
 
 		// Then
-		assertThat(description.toString(), is("the item is not a test logger, it looks like you are not using the matcher correctly "));
+		assertThat(description.toString(),
+				is("the item is not a test logger, it looks like you are not using the matcher correctly "));
 	}
-	
+
 	@Test
 	public void shouldMatchGivenLoggerHasMessage() {
 		// Given
@@ -72,7 +73,7 @@ public class InfoLogEventMatcherTest {
 		// Then
 		assertThat(matches, is(true));
 	}
-	
+
 	@Test
 	public void shouldMatchGivenLoggerHasStringMessageAndMatcherHasFormatedMessage() {
 		// Given
@@ -87,7 +88,7 @@ public class InfoLogEventMatcherTest {
 		// Then
 		assertThat(matches, is(true));
 	}
-	
+
 	@Test
 	public void shouldMatchGivenLoggerHasFormattedMessageAndMatcherHasStringMessage() {
 		// Given
@@ -102,7 +103,7 @@ public class InfoLogEventMatcherTest {
 		// Then
 		assertThat(matches, is(true));
 	}
-	
+
 	@Test
 	public void shouldNotMatchGivenLoggerHasNoLogEvents() {
 		// Given
@@ -116,7 +117,7 @@ public class InfoLogEventMatcherTest {
 		// Then
 		assertThat(matches, is(false));
 	}
-	
+
 	@Test
 	public void shouldNotMatchGivenLoggerHasLogEventWithDifferentMessage() {
 		// Given
@@ -130,7 +131,7 @@ public class InfoLogEventMatcherTest {
 		// Then
 		assertThat(matches, is(false));
 	}
-	
+
 	@Test
 	public void shouldDescribeMismatchGivenMessageNotLogged() {
 		// Given
@@ -144,6 +145,33 @@ public class InfoLogEventMatcherTest {
 		matcher.describeMismatch(logger, description);
 
 		// Then
-		assertThat(description.toString(), is("info to \"" + loggerName + "\" with message \"" + message + "\" was not logged "));
+		assertThat(description.toString(), is("info to \"" + loggerName + "\" with message \"" + message
+				+ "\" was not logged "));
+	}
+
+	@Test
+	public void shouldDescribeToGivenStringMessage() {
+		// Given
+		InfoLogEventMatcher matcher = new InfoLogEventMatcher("Some Message");
+		Description description = new StringDescription();
+
+		// When
+		matcher.describeTo(description);
+
+		// Then
+		assertThat(description.toString(), is("loggedInfo(\"Some Message\")"));
+	}
+	
+	@Test
+	public void shouldDescribeToGivenFormattedMessage() {
+		// Given
+		InfoLogEventMatcher matcher = new InfoLogEventMatcher("format", "argument");
+		Description description = new StringDescription();
+
+		// When
+		matcher.describeTo(description);
+
+		// Then
+		assertThat(description.toString(), is("loggedInfo(\"format\", \"argument\")"));
 	}
 }

@@ -82,6 +82,14 @@ public class LogEvent {
 			this.arguments = arguments;
 		}
 
+		public String getFormat() {
+			return format;
+		}
+		
+		public Object[] getArguments() {
+			return arguments;
+		}
+		
 		public String getMessage() {
 			return MessageFormatter.arrayFormat(format, arguments).getMessage();
 		}
