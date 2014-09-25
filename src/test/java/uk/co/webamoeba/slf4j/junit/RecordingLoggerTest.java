@@ -1,6 +1,7 @@
 package uk.co.webamoeba.slf4j.junit;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.sameInstance;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 
@@ -245,21 +246,20 @@ public class RecordingLoggerTest {
 	}
 
 	@Test
-	public void shouldFailToLogInfoGivenMessageAndThrowable() {
+	public void shouldLogInfoGivenMessageAndThrowable() {
 		// Given
 		String message = "Some Message";
-		Throwable thowable = new RuntimeException();
+		Throwable throwable = new RuntimeException();
 		String name = "a recording logger";
 		RecordingLogger recordingLogger = new RecordingLogger(name);
 
-		try {
-			// When
-			recordingLogger.info(message, thowable);
+		// When
+		recordingLogger.info(message, throwable);
 
-			// Then
-			fail("Should throw UnsupportedOperationException");
-		} catch (UnsupportedOperationException e) {
-		}
+		// Then
+		assertThat(logEvents(name).size(), is(1));
+		assertThat(logEvents(name).get(0).getMessage(), is(message));
+		assertThat(logEvents(name).get(0).getThrowable(), is(sameInstance(throwable)));
 	}
 
 	@Test

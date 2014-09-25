@@ -73,6 +73,54 @@ public class InfoLogEventMatcherTest {
 		// Then
 		assertThat(matches, is(true));
 	}
+	
+	@Test
+	public void shouldMatchGivenLoggerHasMessageAndThrowable() {
+		// Given
+		String message = "Some Message";
+		Throwable throwable = new Throwable();
+		InfoLogEventMatcher matcher = new InfoLogEventMatcher(message, throwable);
+		Logger logger = new RecordingLogger("A recording logger");
+		logger.info(message, throwable);
+
+		// When
+		boolean matches = matcher.matches(logger);
+
+		// Then
+		assertThat(matches, is(true));
+	}
+	
+	@Test
+	public void shouldNotMatchGivenLoggerHasMessageButNoThrowable() {
+		// Given
+		String message = "Some Message";
+		Throwable throwable = new Throwable();
+		InfoLogEventMatcher matcher = new InfoLogEventMatcher(message, throwable);
+		Logger logger = new RecordingLogger("A recording logger");
+		logger.info(message);
+
+		// When
+		boolean matches = matcher.matches(logger);
+
+		// Then
+		assertThat(matches, is(false));
+	}
+	
+	@Test
+	public void shouldNotMatchGivenLoggerHasMessageAndUnexpectedThrowable() {
+		// Given
+		String message = "Some Message";
+		Throwable throwable = new Throwable();
+		InfoLogEventMatcher matcher = new InfoLogEventMatcher(message);
+		Logger logger = new RecordingLogger("A recording logger");
+		logger.info(message, throwable);
+
+		// When
+		boolean matches = matcher.matches(logger);
+
+		// Then
+		assertThat(matches, is(false));
+	}
 
 	@Test
 	public void shouldMatchGivenLoggerHasStringMessageAndMatcherHasFormatedMessage() {
@@ -133,7 +181,7 @@ public class InfoLogEventMatcherTest {
 	}
 
 	@Test
-	public void shouldDescribeMismatchGivenMessageNotLogged() {
+	public void shouldDescribeMismatchGivenMessage() {
 		// Given
 		String message = "Some Message";
 		InfoLogEventMatcher matcher = new InfoLogEventMatcher(message);
@@ -147,6 +195,24 @@ public class InfoLogEventMatcherTest {
 		// Then
 		assertThat(description.toString(), is("info to \"" + loggerName + "\" with message \"" + message
 				+ "\" was not logged "));
+	}
+	
+	@Test
+	public void shouldDescribeMismatchGivenMessageAndThrowable() {
+		// Given
+		String message = "Some Message";
+		Throwable throwable = new Throwable();
+		InfoLogEventMatcher matcher = new InfoLogEventMatcher(message, throwable);
+		String loggerName = "A recording logger";
+		Logger logger = new RecordingLogger(loggerName);
+		Description description = new StringDescription();
+
+		// When
+		matcher.describeMismatch(logger, description);
+
+		// Then
+		assertThat(description.toString(), is("info to \"" + loggerName + "\" with message \"" + message
+				+ "\" and throwable <" + throwable + "> was not logged "));
 	}
 
 	@Test

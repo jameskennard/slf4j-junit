@@ -5,6 +5,7 @@ import static org.junit.Assert.assertThat;
 import static uk.co.webamoeba.slf4j.junit.LoggingMatchers.loggedInfo;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,6 +46,22 @@ public class LogInfoAcceptanceTest {
 		
 		// When
 		boolean matches = loggedInfo(format, argument).matches(logger);
+		
+		// Then
+		assertThat(matches, is(true));
+	}
+	
+	@Test
+	@Ignore("Not yet ready")
+	public void shouldMatchGivenInfoLoggedWithThrowable() {
+		// Given
+		Logger logger = LoggerFactory.getLogger(LogInfoAcceptanceTest.class);
+		String message = "Some Message";
+		Throwable throwable = new Throwable();
+		logger.info(message, throwable);
+		
+		// When
+		boolean matches = loggedInfo(message, throwable).matches(logger);
 		
 		// Then
 		assertThat(matches, is(true));

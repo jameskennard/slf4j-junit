@@ -20,19 +20,22 @@ import uk.co.webamoeba.slf4j.junit.event.LogEventRegistry;
  * Messages may be expressed as a plain {@link String} or as a format and zero or more argument {@link Object Objects}.
  * The matcher will match regardless of how the logger was called. For example, the following would both match:
  * </p>
- * <pre>
- * logger.info("Some Info");
- * assertThat(logger, new InfoLogEventMatcher("Some {}", "Info"));
  * 
- * logger.info("Some Format {}", "Some Argument");
- * assertThat(logger, new InfoLogEventMatcher("Some Format Some Argument"));
+ * <pre>
+ * logger.info(&quot;Some Info&quot;);
+ * assertThat(logger, new InfoLogEventMatcher(&quot;Some {}&quot;, &quot;Info&quot;));
+ * 
+ * logger.info(&quot;Some Format {}&quot;, &quot;Some Argument&quot;);
+ * assertThat(logger, new InfoLogEventMatcher(&quot;Some Format Some Argument&quot;));
  * </pre>
  * 
  * @author James Kennard
  */
 public class InfoLogEventMatcher extends BaseMatcher<Logger> {
 
-	private Message message;
+	private final Message message;
+
+	private Throwable throwable;
 
 	/**
 	 * @param message The message we want the {@link LogEvent} to have.
@@ -47,6 +50,11 @@ public class InfoLogEventMatcher extends BaseMatcher<Logger> {
 	 */
 	public InfoLogEventMatcher(String format, Object... arguments) {
 		this.message = new FormattedMessage(format, arguments);
+	}
+
+	public InfoLogEventMatcher(String message, Throwable throwable) {
+		this.throwable = throwable;
+		this.message = new StringMessage(message);
 	}
 
 	public boolean matches(Object item) {
@@ -87,12 +95,39 @@ public class InfoLogEventMatcher extends BaseMatcher<Logger> {
 	private boolean matches(RecordingLogger logger, Description mismatchDescription) {
 		LogEventRegister register = LogEventRegistry.getSingleton().getRegister(logger.getName());
 		for (LogEvent logEvent : register.getLogEvents()) {
-			if (logEvent.getMessage().equals(message.getMessage())) {
+			if (logEventMatches(logEvent)) {
 				return true;
 			}
 		}
 		mismatchDescription.appendText("info to ").appendValue(logger.getName()).appendText(" with message ")
-				.appendValue(message.getMessage()).appendText(" was not logged ");
+				.appendValue(message.getMessage());
+		if (throwable != null) {
+			mismatchDescription.appendText(" and throwable ").appendValue(throwable);
+		}
+		mismatchDescription.appendText(" was not logged ");
 		return false;
 	}
+
+	private boolean logEventMatches(LogEvent logEvent) {
+		if (!logEvent.getMessage().equals(message.getMessage())) {
+			return false;
+		}
+		if (notEqual(throwable, logEvent.getThrowable())) {
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * <code>null</code> safe method used to determine if two {@link Object Objects} are not equal. This method relies
+	 * on the {@link Object Objects} equals() method to determine equality for non <code>null</code> values.
+	 * 
+	 * @param object1
+	 * @param object2
+	 * @return
+	 */
+	private static boolean notEqual(Object object1, Object object2) {
+		return object1 == null && object2 != null || (object1 != null && !object1.equals(object2));
+	}
+
 }

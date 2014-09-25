@@ -9,7 +9,9 @@ import org.slf4j.helpers.MessageFormatter;
  */
 public class LogEvent {
 
-	private Message message;
+	private final Message message;
+	
+	private Throwable throwable;
 
 	public LogEvent(String message) {
 		this.message = new StringMessage(message);
@@ -19,8 +21,17 @@ public class LogEvent {
 		this.message = new FormattedMessage(format, arguments);
 	}
 
+	public LogEvent(String message, Throwable throwable) {
+		this.message = new StringMessage(message);
+		this.throwable = throwable;
+	}
+
 	public String getMessage() {
 		return message.getMessage();
+	}
+	
+	public Throwable getThrowable() {
+		return throwable;
 	}
 
 	/**
