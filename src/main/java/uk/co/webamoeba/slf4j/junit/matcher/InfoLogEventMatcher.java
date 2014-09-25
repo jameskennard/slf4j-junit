@@ -1,5 +1,6 @@
 package uk.co.webamoeba.slf4j.junit.matcher;
 
+import java.util.List;
 import java.util.logging.Level;
 
 import org.hamcrest.BaseMatcher;
@@ -128,7 +129,17 @@ public class InfoLogEventMatcher extends BaseMatcher<Logger> {
 		if (throwable != null) {
 			mismatchDescription.appendText(" and throwable ").appendValue(throwable);
 		}
-		mismatchDescription.appendText(" was not logged ");
+		mismatchDescription.appendText(" was not logged");
+		LogEventRegister register = LogEventRegistry.getSingleton().getRegister(logger.getName());
+		List<LogEvent> logEvents = register.getLogEvents();
+		if (logEvents.isEmpty()) {
+			mismatchDescription.appendText(" ");
+		} else {
+			mismatchDescription.appendText("; But these were logged ");
+			for (LogEvent logEvent : logEvents) {
+				mismatchDescription.appendDescriptionOf(logEvent).appendText(" ");
+			}
+		}
 	}
 	
 	/**

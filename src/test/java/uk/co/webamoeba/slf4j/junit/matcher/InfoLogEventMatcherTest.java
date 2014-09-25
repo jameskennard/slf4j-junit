@@ -213,6 +213,25 @@ public class InfoLogEventMatcherTest {
 		assertThat(description.toString(), is("info to \"" + loggerName + "\" with message \"" + message
 				+ "\" and throwable <" + throwable + "> was not logged "));
 	}
+	
+	@Test
+	public void shouldDescribeMismatchGivenSomethingElseWasLogged() {
+		// Given
+		String message = "Some Message";
+		String somethingElse = "Something Else";
+		InfoLogEventMatcher matcher = new InfoLogEventMatcher(message);
+		String loggerName = "A recording logger";
+		Logger logger = new RecordingLogger(loggerName);
+		logger.info(somethingElse);
+		Description description = new StringDescription();
+
+		// When
+		matcher.describeMismatch(logger, description);
+
+		// Then
+		assertThat(description.toString(), is("info to \"" + loggerName + "\" with message \"" + message
+				+ "\" was not logged; But these were logged info(\"" + somethingElse + "\") "));
+	}
 
 	@Test
 	public void shouldDescribeToGivenStringMessage() {
