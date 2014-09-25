@@ -1,5 +1,7 @@
 package uk.co.webamoeba.slf4j.junit.event;
 
+import org.hamcrest.Description;
+import org.hamcrest.SelfDescribing;
 import org.slf4j.helpers.MessageFormatter;
 
 /**
@@ -7,7 +9,7 @@ import org.slf4j.helpers.MessageFormatter;
  * 
  * @author James Kennard
  */
-public class LogEvent {
+public class LogEvent implements SelfDescribing {
 
 	private final Message message;
 	
@@ -36,6 +38,14 @@ public class LogEvent {
 	
 	public Throwable getThrowable() {
 		return throwable;
+	}
+	
+	public void describeTo(Description description) {
+		description.appendText("info(").appendValue(message.getMessageAsString());
+		if (throwable != null) {
+			description.appendText(", ").appendValue(throwable);
+		}
+		description.appendText(")");		
 	}
 
 	/**
@@ -75,8 +85,14 @@ public class LogEvent {
 			this.message = message;
 		}
 
+		@Override
 		public String getMessageAsString() {
 			return message;
+		}
+		
+		@Override
+		public String toString() {
+			return getMessageAsString();
 		}
 
 	}
@@ -105,8 +121,14 @@ public class LogEvent {
 			return arguments;
 		}
 		
+		@Override
 		public String getMessageAsString() {
 			return MessageFormatter.arrayFormat(format, arguments).getMessage();
+		}
+		
+		@Override
+		public String toString() {
+			return getMessageAsString();
 		}
 
 	}
