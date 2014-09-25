@@ -8,23 +8,48 @@ import org.slf4j.Logger;
 
 import uk.co.webamoeba.slf4j.junit.RecordingLogger;
 import uk.co.webamoeba.slf4j.junit.event.LogEvent;
+import uk.co.webamoeba.slf4j.junit.event.LogEvent.FormattedMessage;
+import uk.co.webamoeba.slf4j.junit.event.LogEvent.Message;
+import uk.co.webamoeba.slf4j.junit.event.LogEvent.StringMessage;
 import uk.co.webamoeba.slf4j.junit.event.LogEventRegister;
 import uk.co.webamoeba.slf4j.junit.event.LogEventRegistry;
 
 /**
  * Matcher capable of matching {@link Level#INFO} logging events with a specific message.
+ * <p>
+ * Messages may be expressed as a plain {@link String} or as a format and zero or more argument {@link Object Objects}.
+ * The matcher will match regardless of how the logger was called. For example, the following would both match:
+ * </p>
+ * <pre>
+ * logger.info("Some Info");
+ * assertThat(logger, new InfoLogEventMatcher("Some {}", "Info"));
+ * 
+ * logger.info("Some Format {}", "Some Argument");
+ * assertThat(logger, new InfoLogEventMatcher("Some Format Some Argument"));
+ * </pre>
  * 
  * @author James Kennard
  */
 public class InfoLogEventMatcher extends BaseMatcher<Logger> {
 
-	private String message;
+	private Message message;
 
 	/**
-	 * @param message The message we want the {@link LogEvent} to have.
+	 * @param message
+	 *            The message we want the {@link LogEvent} to have.
 	 */
 	public InfoLogEventMatcher(String message) {
-		this.message = message;
+		this.message = new StringMessage(message);
+	}
+
+	/**
+	 * @param format
+	 *            The format of the message we want the {@link LogEvent} to have.
+	 * @param arguments
+	 *            The arguments we want to use to describe the parts of the message from the format
+	 */
+	public InfoLogEventMatcher(String format, Object... arguments) {
+		this.message = new FormattedMessage(format, arguments);
 	}
 
 	public boolean matches(Object item) {
@@ -55,12 +80,12 @@ public class InfoLogEventMatcher extends BaseMatcher<Logger> {
 	private boolean matches(RecordingLogger logger, Description mismatchDescription) {
 		LogEventRegister register = LogEventRegistry.getSingleton().getRegister(logger.getName());
 		for (LogEvent logEvent : register.getLogEvents()) {
-			if (logEvent.getMessage().equals(message)) {
+			if (logEvent.getMessage().equals(message.getMessage())) {
 				return true;
 			}
 		}
 		mismatchDescription.appendText("info to ").appendValue(logger.getName()).appendText(" with message ")
-				.appendValue(message).appendText(" was not logged ");
+				.appendValue(message.getMessage()).appendText(" was not logged ");
 		return false;
 	}
 }

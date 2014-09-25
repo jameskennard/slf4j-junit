@@ -74,6 +74,36 @@ public class InfoLogEventMatcherTest {
 	}
 	
 	@Test
+	public void shouldMatchGivenLoggerHasStringMessageAndMatcherHasFormatedMessage() {
+		// Given
+		String message = "Some Message";
+		InfoLogEventMatcher matcher = new InfoLogEventMatcher("{}", message);
+		Logger logger = new RecordingLogger("A recording logger");
+		logger.info(message);
+
+		// When
+		boolean matches = matcher.matches(logger);
+
+		// Then
+		assertThat(matches, is(true));
+	}
+	
+	@Test
+	public void shouldMatchGivenLoggerHasFormattedMessageAndMatcherHasStringMessage() {
+		// Given
+		String message = "Some Message";
+		InfoLogEventMatcher matcher = new InfoLogEventMatcher(message);
+		Logger logger = new RecordingLogger("A recording logger");
+		logger.info("{}", message);
+
+		// When
+		boolean matches = matcher.matches(logger);
+
+		// Then
+		assertThat(matches, is(true));
+	}
+	
+	@Test
 	public void shouldNotMatchGivenLoggerHasNoLogEvents() {
 		// Given
 		String message = "Some Message";

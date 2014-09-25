@@ -14,4 +14,8 @@ public class LoggingMatchers {
 		return new InfoLogEventMatcher(message);
 	}
 	
+	public static Matcher<Logger> loggedInfo(String format, Object... arguments) {
+		return new InfoLogEventMatcher(format, arguments);
+	}
+	
 }
