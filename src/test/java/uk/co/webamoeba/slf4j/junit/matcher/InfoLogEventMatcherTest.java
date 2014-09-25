@@ -55,8 +55,7 @@ public class InfoLogEventMatcherTest {
 		matcher.describeMismatch(logger, description);
 
 		// Then
-		assertThat(description.toString(),
-				is("the item is not a test logger, it looks like you are not using the matcher correctly "));
+		assertThat(description.toString(), is("the item is not a test logger, it looks like you are not using the matcher correctly "));
 	}
 
 	@Test
@@ -226,6 +225,21 @@ public class InfoLogEventMatcherTest {
 
 		// Then
 		assertThat(description.toString(), is("loggedInfo(\"Some Message\")"));
+	}
+	
+	@Test
+	public void shouldDescribeToGivenStringMessageAndThrowable() {
+		// Given
+		String message = "Some Message";
+		Throwable throwable = new Throwable();
+		InfoLogEventMatcher matcher = new InfoLogEventMatcher(message, throwable);
+		Description description = new StringDescription();
+
+		// When
+		matcher.describeTo(description);
+
+		// Then
+		assertThat(description.toString(), is("loggedInfo(\"Some Message\", <" + throwable + ">)"));
 	}
 	
 	@Test

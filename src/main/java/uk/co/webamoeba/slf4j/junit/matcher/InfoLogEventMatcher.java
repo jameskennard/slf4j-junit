@@ -75,6 +75,9 @@ public class InfoLogEventMatcher extends BaseMatcher<Logger> {
 		} else {
 			description.appendValue(message.getMessageAsString());
 		}
+		if (throwable != null) {
+			description.appendText(", ") .appendValue(throwable);
+		}
 		description.appendText(")");
 	}
 
