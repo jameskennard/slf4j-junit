@@ -104,7 +104,7 @@ public class InfoLogEventMatcher extends BaseMatcher<Logger> {
 	}
 
 	private boolean logEventMatches(LogEvent logEvent) {
-		if (!logEvent.getMessageAsString().equals(message.getMessageAsString())) {
+		if (notEqual(message, logEvent.getMessage())) {
 			return false;
 		}
 		if (notEqual(throwable, logEvent.getThrowable())) {

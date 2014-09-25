@@ -25,6 +25,10 @@ public class LogEvent {
 		this.message = new StringMessage(message);
 		this.throwable = throwable;
 	}
+	
+	public Message getMessage() {
+		return message;
+	}
 
 	public String getMessageAsString() {
 		return message.getMessageAsString();
