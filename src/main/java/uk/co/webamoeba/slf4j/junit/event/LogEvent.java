@@ -13,18 +13,22 @@ public class LogEvent implements SelfDescribing {
 
 	private final Message message;
 	
-	private Throwable throwable;
+	private final Throwable throwable;
 
 	public LogEvent(String message) {
-		this.message = new StringMessage(message);
+		this(new StringMessage(message), null);
 	}
 
 	public LogEvent(String format, Object[] arguments) {
-		this.message = new FormattedMessage(format, arguments);
+		this(new FormattedMessage(format, arguments), null);
 	}
 
 	public LogEvent(String message, Throwable throwable) {
-		this.message = new StringMessage(message);
+		this(new StringMessage(message), throwable);
+	}
+	
+	private LogEvent(Message message, Throwable throwable) {
+		this.message = message;
 		this.throwable = throwable;
 	}
 	
