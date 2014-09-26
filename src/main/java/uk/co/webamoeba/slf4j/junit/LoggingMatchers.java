@@ -19,7 +19,7 @@ public class LoggingMatchers {
 	}
 	
 	public static Matcher<Logger> loggedInfo(String message, Throwable throwable) {
-		return null;
+		return new InfoLogEventMatcher(message, throwable);
 	}
 	
 }

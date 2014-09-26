@@ -5,7 +5,6 @@ import static org.junit.Assert.assertThat;
 import static uk.co.webamoeba.slf4j.junit.LoggingMatchers.loggedInfo;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,7 +51,6 @@ public class LogInfoAcceptanceTest {
 	}
 	
 	@Test
-	@Ignore("Not yet ready")
 	public void shouldMatchGivenInfoLoggedWithThrowable() {
 		// Given
 		Logger logger = LoggerFactory.getLogger(LogInfoAcceptanceTest.class);
