@@ -5,9 +5,12 @@ import static org.junit.Assert.assertThat;
 import static uk.co.webamoeba.slf4j.junit.LoggingMatchers.loggedInfo;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.Marker;
+import org.slf4j.helpers.BasicMarkerFactory;
 
 import uk.co.webamoeba.slf4j.junit.event.LogEventRegistry;
 
@@ -65,6 +68,22 @@ public class LogInfoAcceptanceTest {
 		assertThat(matches, is(true));
 	}
 	
+	@Test
+	@Ignore("Not ready")
+	public void shouldMatchGivenInfoLoggedWithMarker() {
+		// Given
+		Logger logger = LoggerFactory.getLogger(LogInfoAcceptanceTest.class);
+		String message = "Some Message";
+		Marker marker = new BasicMarkerFactory().getMarker("Some Marker");
+		logger.info(marker, message);
+		
+		// When
+		boolean matches = loggedInfo(marker, message).matches(logger);
+		
+		// Then
+		assertThat(matches, is(true));
+	}
+
 	@Test
 	public void shouldNotMatchGivenInfoLoggedWithDifferentMessage() {
 		// Given
