@@ -27,6 +27,10 @@ public class LoggingMatchers {
 		return new InfoLogEventMatcher(marker, message);
 	}
 	
+	public static Matcher<Logger> loggedInfo(Marker marker, String format, Object... arguments) {
+		return new InfoLogEventMatcher(marker, format, arguments);
+	}
+	
 	public static Matcher<Logger> loggedInfo(Marker marker, String message, Throwable throwable) {
 		return new InfoLogEventMatcher(marker, message, throwable);
 	}

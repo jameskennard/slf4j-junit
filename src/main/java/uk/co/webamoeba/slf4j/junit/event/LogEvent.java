@@ -38,6 +38,10 @@ public class LogEvent implements SelfDescribing {
 		this(marker, new StringMessage(message), throwable);
 	}
 	
+	public LogEvent(Marker marker, String format, Object[] arguments) {
+		this(marker, new FormattedMessage(format, arguments), null);
+	}
+	
 	private LogEvent(Marker marker, Message message, Throwable throwable) {
 		this.marker = marker;
 		this.message = message;

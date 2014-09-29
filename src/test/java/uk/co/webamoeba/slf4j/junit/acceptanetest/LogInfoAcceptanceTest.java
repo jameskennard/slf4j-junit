@@ -97,6 +97,22 @@ public class LogInfoAcceptanceTest {
 		// Then
 		assertThat(matches, is(true));
 	}
+	
+	@Test
+	public void shouldMatchGivenInfoLoggedWithMarkerAndFormat() {
+		// Given
+		Marker marker = new BasicMarkerFactory().getMarker("Some Marker");
+		Logger logger = LoggerFactory.getLogger(LogInfoAcceptanceTest.class);
+		String format = "Format {}";
+		Object argument = "Argument";
+		logger.info(marker, format, argument);
+		
+		// When
+		boolean matches = loggedInfo(marker, format, argument).matches(logger);
+		
+		// Then
+		assertThat(matches, is(true));
+	}
 
 	@Test
 	public void shouldNotMatchGivenInfoLoggedWithDifferentMessage() {

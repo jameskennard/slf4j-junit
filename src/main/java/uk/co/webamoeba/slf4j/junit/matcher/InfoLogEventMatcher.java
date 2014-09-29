@@ -72,10 +72,14 @@ public class InfoLogEventMatcher extends BaseMatcher<Logger> {
 		this(marker, new StringMessage(message), throwable);
 	}
 	
+	public InfoLogEventMatcher(Marker marker, String format, Object... arguments) {
+		this(marker, new FormattedMessage(format, arguments), null);
+	}
+	
 	private InfoLogEventMatcher(Marker marker, Message message, Throwable throwable) {
+		this.marker = marker;
 		this.message = message;
 		this.throwable = throwable;
-		this.marker = marker;
 	}
 
 	public boolean matches(Object item) {

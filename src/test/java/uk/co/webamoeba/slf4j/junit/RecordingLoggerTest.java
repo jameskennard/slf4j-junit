@@ -3,7 +3,6 @@ package uk.co.webamoeba.slf4j.junit;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.sameInstance;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
 
 import java.util.List;
 
@@ -280,63 +279,60 @@ public class RecordingLoggerTest {
 	}
 
 	@Test
-	public void shouldFailToLogInfoGivenMarkerFormatAndArgument() {
+	public void shouldLogInfoGivenMarkerFormatAndArgument() {
 		// Given
 		Marker marker = new BasicMarkerFactory().getMarker("Some marker");
-		String format = "Format";
+		String format = "Format {}";
 		Object arg = "Argument";
 		String name = "a recording logger";
 		RecordingLogger recordingLogger = new RecordingLogger(name);
 
-		try {
-			// When
-			recordingLogger.info(marker, format, arg);
+		// When
+		recordingLogger.info(marker, format, arg);
 
-			// Then
-			fail("Should throw UnsupportedOperationException");
-		} catch (UnsupportedOperationException e) {
-		}
+		// Then
+		assertThat(logEvents(name).size(), is(1));
+		assertThat(logEvents(name).get(0).getMessageAsString(), is("Format Argument"));
+		assertThat(logEvents(name).get(0).getMarker(), is(sameInstance(marker)));
 	}
 
 	@Test
 	public void shouldFailToLogInfoGivenMarkerFormatAndTwoArguments() {
 		// Given
 		Marker marker = new BasicMarkerFactory().getMarker("Some marker");
-		String format = "Format";
+		String format = "Format {} {}";
 		Object arg1 = "Argument";
 		Object arg2 = "Argument";
 		String name = "a recording logger";
 		RecordingLogger recordingLogger = new RecordingLogger(name);
 
-		try {
-			// When
-			recordingLogger.info(marker, format, arg1, arg2);
+		// When
+		recordingLogger.info(marker, format, arg1, arg2);
 
-			// Then
-			fail("Should throw UnsupportedOperationException");
-		} catch (UnsupportedOperationException e) {
-		}
+		// Then
+		assertThat(logEvents(name).size(), is(1));
+		assertThat(logEvents(name).get(0).getMessageAsString(), is("Format Argument Argument"));
+		assertThat(logEvents(name).get(0).getMarker(), is(sameInstance(marker)));
 	}
 
 	@Test
 	public void shouldFailToLogInfoGivenMarkerFormatAndVarArgs() {
 		// Given
 		Marker marker = new BasicMarkerFactory().getMarker("Some marker");
-		String format = "Format";
+		String format = "Format {} {} {}";
 		Object arg1 = "Argument";
 		Object arg2 = "Argument";
 		Object arg3 = "Argument";
 		String name = "a recording logger";
 		RecordingLogger recordingLogger = new RecordingLogger(name);
 
-		try {
-			// When
-			recordingLogger.info(marker, format, arg1, arg2, arg3);
+		// When
+		recordingLogger.info(marker, format, arg1, arg2, arg3);
 
-			// Then
-			fail("Should throw UnsupportedOperationException");
-		} catch (UnsupportedOperationException e) {
-		}
+		// Then
+		assertThat(logEvents(name).size(), is(1));
+		assertThat(logEvents(name).get(0).getMessageAsString(), is("Format Argument Argument Argument"));
+		assertThat(logEvents(name).get(0).getMarker(), is(sameInstance(marker)));
 	}
 
 	@Test
@@ -350,7 +346,7 @@ public class RecordingLoggerTest {
 
 		// When
 		recordingLogger.info(marker, message, throwable);
-		
+
 		// Then
 		assertThat(logEvents(name).size(), is(1));
 		assertThat(logEvents(name).get(0).getMessageAsString(), is(message));

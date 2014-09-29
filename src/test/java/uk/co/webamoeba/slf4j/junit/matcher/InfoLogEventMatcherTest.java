@@ -92,6 +92,23 @@ public class InfoLogEventMatcherTest {
 	}
 	
 	@Test
+	public void shouldMatchGivenLoggerHasMarkerAndFormattedMessage() {
+		// Given
+		Marker marker = new BasicMarkerFactory().getMarker("Some Marker");
+		String format = "Format {}";
+		String argument = "argument";
+		InfoLogEventMatcher matcher = new InfoLogEventMatcher(marker, format, argument);
+		Logger logger = new RecordingLogger("A recording logger");
+		logger.info(marker, format, argument);
+
+		// When
+		boolean matches = matcher.matches(logger);
+
+		// Then
+		assertThat(matches, is(true));
+	}
+	
+	@Test
 	public void shouldMatchGivenLoggerHasMessageAndThrowable() {
 		// Given
 		String message = "Some Message";

@@ -4,9 +4,13 @@ import org.slf4j.Logger;
 import org.slf4j.Marker;
 
 import uk.co.webamoeba.slf4j.junit.event.LogEvent;
+import uk.co.webamoeba.slf4j.junit.event.LogEventRegister;
 import uk.co.webamoeba.slf4j.junit.event.LogEventRegistry;
 
 /**
+ * Records calls made to the {@link Logger} against the related singleton {@link LogEventRegister}. This allows
+ * assertion to be made regarding the what has and has not been logged.
+ * 
  * @author James Kennard
  */
 public class RecordingLogger implements Logger {
@@ -122,43 +126,43 @@ public class RecordingLogger implements Logger {
 	}
 
 	public void info(String message) {
-		logEvent(new LogEvent(message));
+		log(new LogEvent(message));
 	}
 
 	public void info(String format, Object arg) {
-		logEvent(new LogEvent(format, new Object[]{arg}));
+		log(new LogEvent(format, new Object[] { arg }));
 	}
 
 	public void info(String format, Object arg1, Object arg2) {
-		logEvent(new LogEvent(format, new Object[] {arg1, arg2}));
+		log(new LogEvent(format, new Object[] { arg1, arg2 }));
 	}
 
 	public void info(String format, Object... arguments) {
-		logEvent(new LogEvent(format, arguments));
+		log(new LogEvent(format, arguments));
 	}
 
 	public void info(String message, Throwable thowable) {
-		logEvent(new LogEvent(message, thowable));
+		log(new LogEvent(message, thowable));
 	}
 
 	public void info(Marker marker, String message) {
-		logEvent(new LogEvent(marker, message));
+		log(new LogEvent(marker, message));
 	}
 
-	public void info(Marker marker, String format, Object arg) {
-		throw new UnsupportedOperationException();
+	public void info(Marker marker, String format, Object argument) {
+		log(new LogEvent(marker, format, new Object[] { argument }));
 	}
 
 	public void info(Marker marker, String format, Object arg1, Object arg2) {
-		throw new UnsupportedOperationException();
+		info(marker, format, new Object[] { arg1, arg2 });
 	}
 
 	public void info(Marker marker, String format, Object... arguments) {
-		throw new UnsupportedOperationException();
+		log(new LogEvent(marker, format, arguments));
 	}
 
 	public void info(Marker marker, String message, Throwable throwable) {
-		logEvent(new LogEvent(marker, message, throwable));
+		log(new LogEvent(marker, message, throwable));
 	}
 
 	public void warn(String message) {
@@ -220,8 +224,8 @@ public class RecordingLogger implements Logger {
 
 	public void error(Marker marker, String message, Throwable thowable) {
 	}
-	
-	private void logEvent(LogEvent logEvent) {
+
+	private void log(LogEvent logEvent) {
 		LogEventRegistry.getSingleton().getRegister(name).register(logEvent);
 	}
 
