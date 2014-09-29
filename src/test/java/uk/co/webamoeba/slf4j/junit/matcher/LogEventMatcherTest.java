@@ -57,7 +57,8 @@ public abstract class LogEventMatcherTest {
 		matcher.describeMismatch(logger, description);
 
 		// Then
-		assertThat(description.toString(), is("the item is not a test logger, it looks like you are not using the matcher correctly "));
+		assertThat(description.toString(),
+				is("the item is not a test logger, it looks like you are not using the matcher correctly "));
 	}
 
 	@Test
@@ -156,7 +157,7 @@ public abstract class LogEventMatcherTest {
 		// Then
 		assertThat(matches, is(false));
 	}
-	
+
 	@Test
 	public void shouldNotMatchGivenLoggerHasMarkerAndMessageButNoThrowable() {
 		// Given
@@ -173,7 +174,7 @@ public abstract class LogEventMatcherTest {
 		// Then
 		assertThat(matches, is(false));
 	}
-	
+
 	@Test
 	public void shouldNotMatchGivenLoggerHasMessageButNoThrowable() {
 		// Given
@@ -189,7 +190,7 @@ public abstract class LogEventMatcherTest {
 		// Then
 		assertThat(matches, is(false));
 	}
-	
+
 	@Test
 	public void shouldNotMatchGivenLoggerHasMessageAndUnexpectedThrowable() {
 		// Given
@@ -279,10 +280,10 @@ public abstract class LogEventMatcherTest {
 		matcher.describeMismatch(logger, description);
 
 		// Then
-		assertThat(description.toString(), is("info to \"" + loggerName + "\" with message \"" + message
-				+ "\" was not logged "));
+		assertThat(description.toString(), is(expectedDescribeLevel() + " to \"" + loggerName + "\" with message \""
+				+ message + "\" was not logged "));
 	}
-	
+
 	@Test
 	public void shouldDescribeMismatchGivenMessageAndThrowable() {
 		// Given
@@ -297,10 +298,10 @@ public abstract class LogEventMatcherTest {
 		matcher.describeMismatch(logger, description);
 
 		// Then
-		assertThat(description.toString(), is("info to \"" + loggerName + "\" with message \"" + message
-				+ "\" and throwable <" + throwable + "> was not logged "));
+		assertThat(description.toString(), is(expectedDescribeLevel() + " to \"" + loggerName + "\" with message \""
+				+ message + "\" and throwable <" + throwable + "> was not logged "));
 	}
-	
+
 	@Test
 	public void shouldDescribeMismatchGivenSomethingElseWasLogged() {
 		// Given
@@ -316,10 +317,11 @@ public abstract class LogEventMatcherTest {
 		matcher.describeMismatch(logger, description);
 
 		// Then
-		assertThat(description.toString(), is("info to \"" + loggerName + "\" with message \"" + message
-				+ "\" was not logged; But these were logged info(\"" + somethingElse + "\") "));
+		assertThat(description.toString(), is(expectedDescribeLevel() + " to \"" + loggerName + "\" with message \""
+				+ message + "\" was not logged; But these were logged " + expectedDescribeLevel() + "(\""
+				+ somethingElse + "\") "));
 	}
-	
+
 	@Test
 	public void shouldDescribeMismatchGivenOtherThingsWasLogged() {
 		// Given
@@ -337,8 +339,9 @@ public abstract class LogEventMatcherTest {
 		matcher.describeMismatch(logger, description);
 
 		// Then
-		assertThat(description.toString(), is("info to \"" + loggerName + "\" with message \"" + message
-				+ "\" was not logged; But these were logged info(\"" + anotherThing + "\") info(\"" + yetAnotherThing + "\") "));
+		assertThat(description.toString(), is(expectedDescribeLevel() + " to \"" + loggerName + "\" with message \""
+				+ message + "\" was not logged; But these were logged " + expectedDescribeLevel() + "(\""
+				+ anotherThing + "\") " + expectedDescribeLevel() + "(\"" + yetAnotherThing + "\") "));
 	}
 
 	@Test
@@ -351,9 +354,9 @@ public abstract class LogEventMatcherTest {
 		matcher.describeTo(description);
 
 		// Then
-		assertThat(description.toString(), is("loggedInfo(\"Some Message\")"));
+		assertThat(description.toString(), is(expectedDescribeFunction() + "(\"Some Message\")"));
 	}
-	
+
 	@Test
 	public void shouldDescribeToGivenStringMessageAndThrowable() {
 		// Given
@@ -366,9 +369,9 @@ public abstract class LogEventMatcherTest {
 		matcher.describeTo(description);
 
 		// Then
-		assertThat(description.toString(), is("loggedInfo(\"Some Message\", <" + throwable + ">)"));
+		assertThat(description.toString(), is(expectedDescribeFunction() + "(\"Some Message\", <" + throwable + ">)"));
 	}
-	
+
 	@Test
 	public void shouldDescribeToGivenFormattedMessage() {
 		// Given
@@ -379,35 +382,38 @@ public abstract class LogEventMatcherTest {
 		matcher.describeTo(description);
 
 		// Then
-		assertThat(description.toString(), is("loggedInfo(\"format\", \"argument\")"));
+		assertThat(description.toString(), is(expectedDescribeFunction() + "(\"format\", \"argument\")"));
 	}
-	
+
 	protected abstract LogEventMatcher matcher();
-	
+
 	protected abstract LogEventMatcher matcher(String message);
-	
+
 	protected abstract LogEventMatcher matcher(String format, String argument);
-	
+
 	protected abstract LogEventMatcher matcher(Marker marker, String message);
-	
+
 	protected abstract LogEventMatcher matcher(String message, Throwable throwable);
-	
+
 	protected abstract LogEventMatcher matcher(Marker marker, String message, Throwable throwable);
-	
+
 	protected abstract LogEventMatcher matcher(Marker marker, String format, String argument);
-	
+
 	protected abstract void log(String message, Logger logger);
-	
+
 	protected abstract void log(String format, String argument, Logger logger);
-	
+
 	protected abstract void log(Marker marker, String message, Logger logger);
-	
+
 	protected abstract LogEventMatcher log(String format, String argument);
-	
+
 	protected abstract void log(String message, Throwable throwable, Logger logger);
-	
+
 	protected abstract void log(Marker marker, String message, Throwable throwable, Logger logger);
-	
+
 	protected abstract void log(Marker marker, String format, String argument, Logger logger);
+
+	protected abstract String expectedDescribeLevel();
 	
+	protected abstract String expectedDescribeFunction();
 }

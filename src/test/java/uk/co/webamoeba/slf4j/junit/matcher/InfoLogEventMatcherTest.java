@@ -78,5 +78,15 @@ public class InfoLogEventMatcherTest extends LogEventMatcherTest {
 	protected void log(Marker marker, String format, String argument, Logger logger) {
 		logger.info(marker, format, argument);
 	}
+	
+	@Override
+	protected String expectedDescribeLevel() {
+		return "info";
+	}
+	
+	@Override
+	protected String expectedDescribeFunction() {
+		return "loggedInfo";
+	}
 
 }
