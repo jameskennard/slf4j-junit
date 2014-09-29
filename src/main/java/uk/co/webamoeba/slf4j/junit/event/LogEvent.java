@@ -57,7 +57,11 @@ public class LogEvent implements SelfDescribing {
 	}
 	
 	public void describeTo(Description description) {
-		description.appendText("info(").appendValue(message.getMessageAsString());
+		description.appendText("info(");
+		if (marker != null) {
+			description.appendValue(marker).appendText(", ");
+		}
+		description.appendValue(message.getMessageAsString());
 		if (throwable != null) {
 			description.appendText(", ").appendValue(throwable);
 		}

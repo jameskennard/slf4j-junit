@@ -9,10 +9,15 @@ import org.hamcrest.Description;
 import org.hamcrest.SelfDescribing;
 import org.hamcrest.StringDescription;
 import org.junit.Test;
+import org.slf4j.Marker;
+import org.slf4j.helpers.BasicMarkerFactory;
 
 import uk.co.webamoeba.slf4j.junit.event.LogEvent.FormattedMessage;
 import uk.co.webamoeba.slf4j.junit.event.LogEvent.StringMessage;
 
+/**
+ * @author James Kennard
+ */
 public class LogEventTest {
 
 	@Test
@@ -165,6 +170,20 @@ public class LogEventTest {
 		
 		// Then
 		assertThat(description.toString(), is("info(\"Some Message\")"));
+	}
+	
+	@Test
+	public void shouldDescribeGivenMarkerAndMessage() {
+		// Given
+		Marker marker = new BasicMarkerFactory().getMarker("Some Marker");
+		LogEvent logEvent = new LogEvent(marker, "Some Message");
+		Description description = new StringDescription();
+		
+		// When
+		logEvent.describeTo(description);
+		
+		// Then
+		assertThat(description.toString(), is("info(<Some Marker>, \"Some Message\")"));
 	}
 	
 	@Test
