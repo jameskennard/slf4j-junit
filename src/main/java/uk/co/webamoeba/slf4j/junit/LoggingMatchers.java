@@ -2,6 +2,7 @@ package uk.co.webamoeba.slf4j.junit;
 
 import org.hamcrest.Matcher;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.slf4j.Marker;
 
 import uk.co.webamoeba.slf4j.junit.matcher.InfoLogEventMatcher;
@@ -11,6 +12,10 @@ import uk.co.webamoeba.slf4j.junit.matcher.InfoLogEventMatcher;
  */
 public class LoggingMatchers {
 
+	public static Logger logger(Class<?> clazz) {
+		return LoggerFactory.getLogger(clazz);
+	}
+	
 	public static Matcher<Logger> loggedInfo(String message) {
 		return new InfoLogEventMatcher(message);
 	}
