@@ -75,7 +75,7 @@ public abstract class LogEventMatcher extends BaseMatcher<Logger> {
 	}
 
 	public void describeTo(Description description) {
-		description.appendText("loggedInfo" + "(");
+		description.appendText(describeFunction() + "(");
 		if (message.getClass() == FormattedMessage.class) {
 			FormattedMessage formattedMessage = (FormattedMessage) message;
 			description.appendValue(formattedMessage.getFormat());
@@ -136,7 +136,7 @@ public abstract class LogEventMatcher extends BaseMatcher<Logger> {
 	 * @param mismatchDescription The description in which we want to describe the mismatch 
 	 */
 	private void describeMismatch(RecordingLogger logger, Description mismatchDescription) {
-		mismatchDescription.appendText("info to ").appendValue(logger.getName()).appendText(" with message ")
+		mismatchDescription.appendText(describeLevel() + " to ").appendValue(logger.getName()).appendText(" with message ")
 				.appendValue(message.getMessageAsString());
 		if (throwable != null) {
 			mismatchDescription.appendText(" and throwable ").appendValue(throwable);
@@ -153,7 +153,7 @@ public abstract class LogEventMatcher extends BaseMatcher<Logger> {
 			}
 		}
 	}
-	
+
 	/**
 	 * <code>null</code> safe method used to determine if two {@link Object Objects} are not equal. This method relies
 	 * on the {@link Object Objects} equals() method to determine equality for non <code>null</code> values.
@@ -165,5 +165,15 @@ public abstract class LogEventMatcher extends BaseMatcher<Logger> {
 	private static boolean notEqual(Object object1, Object object2) {
 		return object1 == null && object2 != null || (object1 != null && !object1.equals(object2));
 	}
+	
+	/**
+	 * @return The name of the function to use when describing the matcher, for example "loggedInfo"
+	 */
+	protected abstract String describeFunction();
+
+	/**
+	 * @return The name of the level to use when describing a mismatch, for example "info"
+	 */
+	protected abstract String describeLevel();
 	
 }

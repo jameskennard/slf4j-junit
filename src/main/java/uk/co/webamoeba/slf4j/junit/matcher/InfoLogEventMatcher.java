@@ -61,5 +61,15 @@ public class InfoLogEventMatcher extends LogEventMatcher {
 	public InfoLogEventMatcher(Marker marker, String format, Object... arguments) {
 		super(marker, new FormattedMessage(format, arguments), null);
 	}
+	
+	@Override
+	protected String describeFunction() {
+		return "loggedInfo";
+	}
+	
+	@Override
+	protected String describeLevel() {
+		return "info";
+	}
 
 }
