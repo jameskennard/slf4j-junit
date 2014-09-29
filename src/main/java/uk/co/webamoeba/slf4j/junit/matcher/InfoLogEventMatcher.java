@@ -36,26 +36,34 @@ public class InfoLogEventMatcher extends BaseMatcher<Logger> {
 
 	private final Message message;
 
-	private Throwable throwable;
+	private final Throwable throwable;
 
 	/**
-	 * @param message The message we want the {@link LogEvent} to have.
+	 * @param message The message we want the {@link LogEvent} to have
 	 */
 	public InfoLogEventMatcher(String message) {
-		this.message = new StringMessage(message);
+		this(new StringMessage(message), null);
 	}
 
 	/**
-	 * @param format The format of the message we want the {@link LogEvent} to have.
+	 * @param format The format of the message we want the {@link LogEvent} to have
 	 * @param arguments The arguments we want to use to describe the parts of the message from the format
 	 */
 	public InfoLogEventMatcher(String format, Object... arguments) {
-		this.message = new FormattedMessage(format, arguments);
+		this(new FormattedMessage(format, arguments), null);
 	}
 
+	/**
+	 * @param message The message we want the {@link LogEvent} to have
+	 * @param throwable The {@link Throwable} we are logging
+	 */
 	public InfoLogEventMatcher(String message, Throwable throwable) {
+		this(new StringMessage(message), throwable);
+	}
+	
+	private InfoLogEventMatcher(Message message, Throwable throwable) {
+		this.message = message;
 		this.throwable = throwable;
-		this.message = new StringMessage(message);
 	}
 
 	public boolean matches(Object item) {
