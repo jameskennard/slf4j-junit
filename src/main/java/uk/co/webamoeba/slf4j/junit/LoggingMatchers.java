@@ -24,7 +24,7 @@ public class LoggingMatchers {
 	}
 	
 	public static Matcher<Logger> loggedInfo(Marker marker, String message) {
-		return null;
+		return new InfoLogEventMatcher(marker, message);
 	}
 	
 }

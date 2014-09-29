@@ -69,7 +69,6 @@ public class LogInfoAcceptanceTest {
 	}
 	
 	@Test
-	@Ignore("Not ready")
 	public void shouldMatchGivenInfoLoggedWithMarker() {
 		// Given
 		Logger logger = LoggerFactory.getLogger(LogInfoAcceptanceTest.class);
