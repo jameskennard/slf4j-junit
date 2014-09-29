@@ -1,4 +1,4 @@
-package uk.co.webamoeba.slf4j.junit.acceptanetest;
+package uk.co.webamoeba.slf4j.junit;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -16,7 +16,7 @@ import uk.co.webamoeba.slf4j.junit.event.LogEventRegistry;
 /**
  * @author James Kennard
  */
-public class LogInfoAcceptanceTest {
+public class LoggingMatchersLoggedInfoIntegrationTest {
 	
 	@Before
 	public void clearLogs() {
@@ -26,7 +26,7 @@ public class LogInfoAcceptanceTest {
 	@Test
 	public void shouldMatchGivenInfoLogged() {
 		// Given
-		Logger logger = LoggerFactory.getLogger(LogInfoAcceptanceTest.class);
+		Logger logger = LoggerFactory.getLogger(LoggingMatchersLoggedInfoIntegrationTest.class);
 		String message = "Some Message";
 		logger.info(message);
 		
@@ -40,7 +40,7 @@ public class LogInfoAcceptanceTest {
 	@Test
 	public void shouldMatchGivenInfoLoggedWithFormat() {
 		// Given
-		Logger logger = LoggerFactory.getLogger(LogInfoAcceptanceTest.class);
+		Logger logger = LoggerFactory.getLogger(LoggingMatchersLoggedInfoIntegrationTest.class);
 		String format = "Format {}";
 		Object argument = "Argument";
 		logger.info(format, argument);
@@ -55,7 +55,7 @@ public class LogInfoAcceptanceTest {
 	@Test
 	public void shouldMatchGivenInfoLoggedWithThrowable() {
 		// Given
-		Logger logger = LoggerFactory.getLogger(LogInfoAcceptanceTest.class);
+		Logger logger = LoggerFactory.getLogger(LoggingMatchersLoggedInfoIntegrationTest.class);
 		String message = "Some Message";
 		Throwable throwable = new Throwable();
 		logger.info(message, throwable);
@@ -70,7 +70,7 @@ public class LogInfoAcceptanceTest {
 	@Test
 	public void shouldMatchGivenInfoLoggedWithMarker() {
 		// Given
-		Logger logger = LoggerFactory.getLogger(LogInfoAcceptanceTest.class);
+		Logger logger = LoggerFactory.getLogger(LoggingMatchersLoggedInfoIntegrationTest.class);
 		String message = "Some Message";
 		Marker marker = new BasicMarkerFactory().getMarker("Some Marker");
 		logger.info(marker, message);
@@ -85,7 +85,7 @@ public class LogInfoAcceptanceTest {
 	@Test
 	public void shouldMatchGivenInfoLoggedWithMarkerAndThrowable() {
 		// Given
-		Logger logger = LoggerFactory.getLogger(LogInfoAcceptanceTest.class);
+		Logger logger = LoggerFactory.getLogger(LoggingMatchersLoggedInfoIntegrationTest.class);
 		String message = "Some Message";
 		Marker marker = new BasicMarkerFactory().getMarker("Some Marker");
 		Throwable throwable = new Throwable();
@@ -102,7 +102,7 @@ public class LogInfoAcceptanceTest {
 	public void shouldMatchGivenInfoLoggedWithMarkerAndFormat() {
 		// Given
 		Marker marker = new BasicMarkerFactory().getMarker("Some Marker");
-		Logger logger = LoggerFactory.getLogger(LogInfoAcceptanceTest.class);
+		Logger logger = LoggerFactory.getLogger(LoggingMatchersLoggedInfoIntegrationTest.class);
 		String format = "Format {}";
 		Object argument = "Argument";
 		logger.info(marker, format, argument);
@@ -117,7 +117,7 @@ public class LogInfoAcceptanceTest {
 	@Test
 	public void shouldNotMatchGivenInfoLoggedWithDifferentMessage() {
 		// Given
-		Logger logger = LoggerFactory.getLogger(LogInfoAcceptanceTest.class);
+		Logger logger = LoggerFactory.getLogger(LoggingMatchersLoggedInfoIntegrationTest.class);
 		String message = "Some Message";
 		logger.info("Some Different Message");
 		
@@ -131,7 +131,7 @@ public class LogInfoAcceptanceTest {
 	@Test
 	public void shouldNotMatchGivenNoInfoLogged() {
 		// Given
-		Logger logger = LoggerFactory.getLogger(LogInfoAcceptanceTest.class);
+		Logger logger = LoggerFactory.getLogger(LoggingMatchersLoggedInfoIntegrationTest.class);
 		String message = "Some Message";
 		
 		// When
@@ -144,7 +144,7 @@ public class LogInfoAcceptanceTest {
 	@Test
 	public void shouldNotMatchGivenLoggedAtDifferentLevel() {
 		// Given
-		Logger logger = LoggerFactory.getLogger(LogInfoAcceptanceTest.class);
+		Logger logger = LoggerFactory.getLogger(LoggingMatchersLoggedInfoIntegrationTest.class);
 		String message = "Some Message";
 		logger.warn(message);
 		

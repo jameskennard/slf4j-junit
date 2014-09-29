@@ -15,8 +15,8 @@ import org.slf4j.Logger;
 import org.slf4j.Marker;
 import org.slf4j.helpers.BasicMarkerFactory;
 
-import uk.co.webamoeba.slf4j.junit.RecordingLogger;
 import uk.co.webamoeba.slf4j.junit.event.LogEventRegistry;
+import uk.co.webamoeba.slf4j.junit.logger.RecordingLogger;
 
 /**
  * @author James Kennard

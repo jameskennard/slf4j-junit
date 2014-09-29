@@ -1,4 +1,4 @@
-package uk.co.webamoeba.slf4j.junit;
+package uk.co.webamoeba.slf4j.junit.logger;
 
 import static org.junit.Assert.fail;
 import static org.hamcrest.CoreMatchers.is;
@@ -7,6 +7,8 @@ import static org.junit.Assert.assertThat;
 import org.junit.Test;
 import org.slf4j.ILoggerFactory;
 import org.slf4j.Logger;
+
+import uk.co.webamoeba.slf4j.junit.logger.LoggerFactory;
 
 /**
  * @author James Kennard

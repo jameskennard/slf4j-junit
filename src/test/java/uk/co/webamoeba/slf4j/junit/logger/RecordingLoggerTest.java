@@ -1,4 +1,4 @@
-package uk.co.webamoeba.slf4j.junit;
+package uk.co.webamoeba.slf4j.junit.logger;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.sameInstance;
@@ -14,6 +14,7 @@ import org.slf4j.helpers.BasicMarkerFactory;
 
 import uk.co.webamoeba.slf4j.junit.event.LogEvent;
 import uk.co.webamoeba.slf4j.junit.event.LogEventRegistry;
+import uk.co.webamoeba.slf4j.junit.logger.RecordingLogger;
 
 /**
  * @author James Kennard

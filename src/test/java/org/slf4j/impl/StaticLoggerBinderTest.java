@@ -56,7 +56,7 @@ public class StaticLoggerBinderTest {
 	public void shouldGetLoggerFactoryClassStr() {
 		// Given
 		StaticLoggerBinder binder = StaticLoggerBinder.getSingleton();
-		String expectedClassString = "uk.co.webamoeba.slf4j.junit.LoggerFactory";
+		String expectedClassString = "uk.co.webamoeba.slf4j.junit.logger.LoggerFactory";
 
 		// When
 		String classString = binder.getLoggerFactoryClassStr();

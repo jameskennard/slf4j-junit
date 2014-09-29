@@ -8,13 +8,13 @@ import org.hamcrest.Description;
 import org.slf4j.Logger;
 import org.slf4j.Marker;
 
-import uk.co.webamoeba.slf4j.junit.RecordingLogger;
 import uk.co.webamoeba.slf4j.junit.event.LogEvent;
 import uk.co.webamoeba.slf4j.junit.event.LogEvent.FormattedMessage;
 import uk.co.webamoeba.slf4j.junit.event.LogEvent.Message;
 import uk.co.webamoeba.slf4j.junit.event.LogEvent.StringMessage;
 import uk.co.webamoeba.slf4j.junit.event.LogEventRegister;
 import uk.co.webamoeba.slf4j.junit.event.LogEventRegistry;
+import uk.co.webamoeba.slf4j.junit.logger.RecordingLogger;
 
 /**
  * Matcher capable of matching {@link Level#INFO} logging events with a specific message.

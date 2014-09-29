@@ -3,7 +3,7 @@ package org.slf4j.impl;
 import org.slf4j.ILoggerFactory;
 import org.slf4j.spi.LoggerFactoryBinder;
 
-import uk.co.webamoeba.slf4j.junit.LoggerFactory;
+import uk.co.webamoeba.slf4j.junit.logger.LoggerFactory;
 
 /**
  * @author James Kennard

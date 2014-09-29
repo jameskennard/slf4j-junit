@@ -1,4 +1,4 @@
-package uk.co.webamoeba.slf4j.junit;
+package uk.co.webamoeba.slf4j.junit.logger;
 
 import org.slf4j.Logger;
 import org.slf4j.Marker;
