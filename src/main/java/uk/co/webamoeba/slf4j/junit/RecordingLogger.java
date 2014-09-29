@@ -122,33 +122,27 @@ public class RecordingLogger implements Logger {
 	}
 
 	public void info(String message) {
-		LogEvent logEvent = new LogEvent(message);
-		LogEventRegistry.getSingleton().getRegister(name).register(logEvent);
+		logEvent(new LogEvent(message));
 	}
 
 	public void info(String format, Object arg) {
-		LogEvent logEvent = new LogEvent(format, new Object[]{arg});
-		LogEventRegistry.getSingleton().getRegister(name).register(logEvent);
+		logEvent(new LogEvent(format, new Object[]{arg}));
 	}
 
 	public void info(String format, Object arg1, Object arg2) {
-		LogEvent logEvent = new LogEvent(format, new Object[] {arg1, arg2});
-		LogEventRegistry.getSingleton().getRegister(name).register(logEvent);
+		logEvent(new LogEvent(format, new Object[] {arg1, arg2}));
 	}
 
 	public void info(String format, Object... arguments) {
-		LogEvent logEvent = new LogEvent(format, arguments);
-		LogEventRegistry.getSingleton().getRegister(name).register(logEvent);
+		logEvent(new LogEvent(format, arguments));
 	}
 
 	public void info(String message, Throwable thowable) {
-		LogEvent logEvent = new LogEvent(message, thowable);
-		LogEventRegistry.getSingleton().getRegister(name).register(logEvent);
+		logEvent(new LogEvent(message, thowable));
 	}
 
 	public void info(Marker marker, String message) {
-		LogEvent logEvent = new LogEvent(marker, message);
-		LogEventRegistry.getSingleton().getRegister(name).register(logEvent);
+		logEvent(new LogEvent(marker, message));
 	}
 
 	public void info(Marker marker, String format, Object arg) {
@@ -163,8 +157,8 @@ public class RecordingLogger implements Logger {
 		throw new UnsupportedOperationException();
 	}
 
-	public void info(Marker marker, String message, Throwable thowable) {
-		throw new UnsupportedOperationException();
+	public void info(Marker marker, String message, Throwable throwable) {
+		logEvent(new LogEvent(marker, message, throwable));
 	}
 
 	public void warn(String message) {
@@ -225,6 +219,10 @@ public class RecordingLogger implements Logger {
 	}
 
 	public void error(Marker marker, String message, Throwable thowable) {
+	}
+	
+	private void logEvent(LogEvent logEvent) {
+		LogEventRegistry.getSingleton().getRegister(name).register(logEvent);
 	}
 
 }

@@ -344,18 +344,19 @@ public class RecordingLoggerTest {
 		// Given
 		Marker marker = new BasicMarkerFactory().getMarker("Some marker");
 		String message = "Message";
-		Throwable thowable = new RuntimeException();
+		Throwable throwable = new RuntimeException();
 		String name = "a recording logger";
 		RecordingLogger recordingLogger = new RecordingLogger(name);
 
-		try {
-			// When
-			recordingLogger.info(marker, message, thowable);
+		// When
+		recordingLogger.info(marker, message, throwable);
+		
+		// Then
+		assertThat(logEvents(name).size(), is(1));
+		assertThat(logEvents(name).get(0).getMessageAsString(), is(message));
+		assertThat(logEvents(name).get(0).getMarker(), is(sameInstance(marker)));
+		assertThat(logEvents(name).get(0).getThrowable(), is(sameInstance(throwable)));
 
-			// Then
-			fail("Should throw UnsupportedOperationException");
-		} catch (UnsupportedOperationException e) {
-		}
 	}
 
 	private List<LogEvent> logEvents(String name) {

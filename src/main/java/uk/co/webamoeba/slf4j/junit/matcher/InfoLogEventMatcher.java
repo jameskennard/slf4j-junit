@@ -68,6 +68,10 @@ public class InfoLogEventMatcher extends BaseMatcher<Logger> {
 		this(marker, new StringMessage(message), null);
 	}
 	
+	public InfoLogEventMatcher(Marker marker, String message, Throwable throwable) {
+		this(marker, new StringMessage(message), throwable);
+	}
+	
 	private InfoLogEventMatcher(Marker marker, Message message, Throwable throwable) {
 		this.message = message;
 		this.throwable = throwable;

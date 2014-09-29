@@ -108,6 +108,23 @@ public class InfoLogEventMatcherTest {
 	}
 	
 	@Test
+	public void shouldMatchGivenLoggerHasMarkerAndMessageAndThrowable() {
+		// Given
+		Marker marker = new BasicMarkerFactory().getMarker("Some Marker");
+		String message = "Some Message";
+		Throwable throwable = new Throwable();
+		InfoLogEventMatcher matcher = new InfoLogEventMatcher(marker, message, throwable);
+		Logger logger = new RecordingLogger("A recording logger");
+		logger.info(marker, message, throwable);
+
+		// When
+		boolean matches = matcher.matches(logger);
+
+		// Then
+		assertThat(matches, is(true));
+	}
+	
+	@Test
 	public void shouldNotMatchGivenLoggerHasMessageButNoMarker() {
 		// Given
 		Marker marker = new BasicMarkerFactory().getMarker("Some Marker");
@@ -115,6 +132,23 @@ public class InfoLogEventMatcherTest {
 		InfoLogEventMatcher matcher = new InfoLogEventMatcher(marker, message);
 		Logger logger = new RecordingLogger("A recording logger");
 		logger.info(message);
+
+		// When
+		boolean matches = matcher.matches(logger);
+
+		// Then
+		assertThat(matches, is(false));
+	}
+	
+	@Test
+	public void shouldNotMatchGivenLoggerHasMarkerAndMessageButNoThrowable() {
+		// Given
+		Marker marker = new BasicMarkerFactory().getMarker("Some Marker");
+		String message = "Some Message";
+		Throwable throwable = new Throwable();
+		InfoLogEventMatcher matcher = new InfoLogEventMatcher(marker, message, throwable);
+		Logger logger = new RecordingLogger("A recording logger");
+		logger.info(marker, message);
 
 		// When
 		boolean matches = matcher.matches(logger);
