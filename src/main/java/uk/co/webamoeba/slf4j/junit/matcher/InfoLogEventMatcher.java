@@ -6,6 +6,7 @@ import java.util.logging.Level;
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
 import org.slf4j.Logger;
+import org.slf4j.Marker;
 
 import uk.co.webamoeba.slf4j.junit.RecordingLogger;
 import uk.co.webamoeba.slf4j.junit.event.LogEvent;
@@ -34,6 +35,8 @@ import uk.co.webamoeba.slf4j.junit.event.LogEventRegistry;
  */
 public class InfoLogEventMatcher extends BaseMatcher<Logger> {
 
+	private final Marker marker;
+	
 	private final Message message;
 
 	private final Throwable throwable;
@@ -42,7 +45,7 @@ public class InfoLogEventMatcher extends BaseMatcher<Logger> {
 	 * @param message The message we want the {@link LogEvent} to have
 	 */
 	public InfoLogEventMatcher(String message) {
-		this(new StringMessage(message), null);
+		this(null, new StringMessage(message), null);
 	}
 
 	/**
@@ -50,7 +53,7 @@ public class InfoLogEventMatcher extends BaseMatcher<Logger> {
 	 * @param arguments The arguments we want to use to describe the parts of the message from the format
 	 */
 	public InfoLogEventMatcher(String format, Object... arguments) {
-		this(new FormattedMessage(format, arguments), null);
+		this(null, new FormattedMessage(format, arguments), null);
 	}
 
 	/**
@@ -58,12 +61,17 @@ public class InfoLogEventMatcher extends BaseMatcher<Logger> {
 	 * @param throwable The {@link Throwable} we are logging
 	 */
 	public InfoLogEventMatcher(String message, Throwable throwable) {
-		this(new StringMessage(message), throwable);
+		this(null, new StringMessage(message), throwable);
+	}
+
+	public InfoLogEventMatcher(Marker marker, String message) {
+		this(marker, new StringMessage(message), null);
 	}
 	
-	private InfoLogEventMatcher(Message message, Throwable throwable) {
+	private InfoLogEventMatcher(Marker marker, Message message, Throwable throwable) {
 		this.message = message;
 		this.throwable = throwable;
+		this.marker = marker;
 	}
 
 	public boolean matches(Object item) {
@@ -120,6 +128,9 @@ public class InfoLogEventMatcher extends BaseMatcher<Logger> {
 			return false;
 		}
 		if (notEqual(throwable, logEvent.getThrowable())) {
+			return false;
+		}
+		if (notEqual(marker, logEvent.getMarker())) {
 			return false;
 		}
 		return true;

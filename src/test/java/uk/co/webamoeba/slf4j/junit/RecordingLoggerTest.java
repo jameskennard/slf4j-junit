@@ -263,21 +263,20 @@ public class RecordingLoggerTest {
 	}
 
 	@Test
-	public void shouldFailToLogInfoGivenMarkerAndMessage() {
+	public void shouldLogInfoGivenMarkerAndMessage() {
 		// Given
 		Marker marker = new BasicMarkerFactory().getMarker("Some marker");
 		String message = "Some Message";
 		String name = "a recording logger";
 		RecordingLogger recordingLogger = new RecordingLogger(name);
 
-		try {
-			// When
-			recordingLogger.info(marker, message);
+		// When
+		recordingLogger.info(marker, message);
 
-			// Then
-			fail("Should throw UnsupportedOperationException");
-		} catch (UnsupportedOperationException e) {
-		}
+		// Then
+		assertThat(logEvents(name).size(), is(1));
+		assertThat(logEvents(name).get(0).getMessageAsString(), is(message));
+		assertThat(logEvents(name).get(0).getMarker(), is(sameInstance(marker)));
 	}
 
 	@Test

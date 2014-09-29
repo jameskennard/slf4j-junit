@@ -2,6 +2,7 @@ package uk.co.webamoeba.slf4j.junit.event;
 
 import org.hamcrest.Description;
 import org.hamcrest.SelfDescribing;
+import org.slf4j.Marker;
 import org.slf4j.helpers.MessageFormatter;
 
 /**
@@ -15,23 +16,30 @@ public class LogEvent implements SelfDescribing {
 	
 	private final Throwable throwable;
 
+	private final Marker marker;
+
 	public LogEvent(String message) {
-		this(new StringMessage(message), null);
+		this(null, new StringMessage(message), null);
 	}
 
 	public LogEvent(String format, Object[] arguments) {
-		this(new FormattedMessage(format, arguments), null);
+		this(null, new FormattedMessage(format, arguments), null);
 	}
 
 	public LogEvent(String message, Throwable throwable) {
-		this(new StringMessage(message), throwable);
+		this(null, new StringMessage(message), throwable);
 	}
 	
-	private LogEvent(Message message, Throwable throwable) {
+	public LogEvent(Marker marker, String message) {
+		this(marker, new StringMessage(message), null);
+	}
+	
+	private LogEvent(Marker marker, Message message, Throwable throwable) {
+		this.marker = marker;
 		this.message = message;
 		this.throwable = throwable;
 	}
-	
+
 	public Message getMessage() {
 		return message;
 	}
@@ -42,6 +50,10 @@ public class LogEvent implements SelfDescribing {
 	
 	public Throwable getThrowable() {
 		return throwable;
+	}
+	
+	public Marker getMarker() {
+		return marker;
 	}
 	
 	public void describeTo(Description description) {

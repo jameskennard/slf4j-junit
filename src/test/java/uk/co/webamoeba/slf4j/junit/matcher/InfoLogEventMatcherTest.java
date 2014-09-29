@@ -12,6 +12,8 @@ import org.hamcrest.StringDescription;
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
+import org.slf4j.Marker;
+import org.slf4j.helpers.BasicMarkerFactory;
 
 import uk.co.webamoeba.slf4j.junit.RecordingLogger;
 import uk.co.webamoeba.slf4j.junit.event.LogEventRegistry;
@@ -74,6 +76,22 @@ public class InfoLogEventMatcherTest {
 	}
 	
 	@Test
+	public void shouldMatchGivenLoggerHasMarkerAndMessage() {
+		// Given
+		Marker marker = new BasicMarkerFactory().getMarker("Some Marker");
+		String message = "Some Message";
+		InfoLogEventMatcher matcher = new InfoLogEventMatcher(marker, message);
+		Logger logger = new RecordingLogger("A recording logger");
+		logger.info(marker, message);
+
+		// When
+		boolean matches = matcher.matches(logger);
+
+		// Then
+		assertThat(matches, is(true));
+	}
+	
+	@Test
 	public void shouldMatchGivenLoggerHasMessageAndThrowable() {
 		// Given
 		String message = "Some Message";
@@ -87,6 +105,22 @@ public class InfoLogEventMatcherTest {
 
 		// Then
 		assertThat(matches, is(true));
+	}
+	
+	@Test
+	public void shouldNotMatchGivenLoggerHasMessageButNoMarker() {
+		// Given
+		Marker marker = new BasicMarkerFactory().getMarker("Some Marker");
+		String message = "Some Message";
+		InfoLogEventMatcher matcher = new InfoLogEventMatcher(marker, message);
+		Logger logger = new RecordingLogger("A recording logger");
+		logger.info(message);
+
+		// When
+		boolean matches = matcher.matches(logger);
+
+		// Then
+		assertThat(matches, is(false));
 	}
 	
 	@Test

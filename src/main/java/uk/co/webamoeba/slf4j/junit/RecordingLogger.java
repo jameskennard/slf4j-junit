@@ -147,7 +147,8 @@ public class RecordingLogger implements Logger {
 	}
 
 	public void info(Marker marker, String message) {
-		throw new UnsupportedOperationException();
+		LogEvent logEvent = new LogEvent(marker, message);
+		LogEventRegistry.getSingleton().getRegister(name).register(logEvent);
 	}
 
 	public void info(Marker marker, String format, Object arg) {
