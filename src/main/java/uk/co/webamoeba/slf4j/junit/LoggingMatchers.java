@@ -40,4 +40,28 @@ public class LoggingMatchers {
 		return new InfoLogEventMatcher(marker, message, throwable);
 	}
 	
+	public static Matcher<Logger> loggedError(String message) {
+		return null;
+	}
+	
+	public static Matcher<Logger> loggedError(String format, Object... arguments) {
+		return null;
+	}
+	
+	public static Matcher<Logger> loggedError(String message, Throwable throwable) {
+		return null;
+	}
+	
+	public static Matcher<Logger> loggedError(Marker marker, String message) {
+		return null;
+	}
+	
+	public static Matcher<Logger> loggedError(Marker marker, String format, Object... arguments) {
+		return null;
+	}
+	
+	public static Matcher<Logger> loggedError(Marker marker, String message, Throwable throwable) {
+		return null;
+	}
+	
 }
