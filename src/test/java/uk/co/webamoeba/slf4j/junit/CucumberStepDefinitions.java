@@ -8,6 +8,8 @@ import static uk.co.webamoeba.slf4j.junit.LoggingMatchers.logger;
 import org.hamcrest.Matcher;
 import org.slf4j.Logger;
 
+import uk.co.webamoeba.slf4j.junit.event.LogEventRegistry;
+import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -18,7 +20,12 @@ public class CucumberStepDefinitions {
 	
 	private Matcher<Logger> matcher;
 
-	private boolean matches;
+	private Boolean matches;
+	
+	@Before
+	public void clearLogs() {
+		LogEventRegistry.getSingleton().clearAll();
+	}
 	
 	@Given("^a logger$")
 	public void aLogger() {
@@ -30,9 +37,19 @@ public class CucumberStepDefinitions {
 		logger.info(messageAsString);
 	}
 	
+	@Given("^a Formatted message \"(.*?)\" with argument \"(.*?)\" logged at info level$")
+	public void aFormattedMessageWithArgumentLoggedAtInfoLevel(String format, String argument) {
+		logger.info(format, argument);
+	}
+	
 	@Given("^a loggedInfo matcher with the String message \"(.*?)\"$")
 	public void aLoggedInfoMatcherWithTheStringMessage(String messageAsString) {
 		matcher = loggedInfo(messageAsString);
+	}
+	
+	@Given("^a loggedInfo matcher with the Formatted message \"(.*?)\" with argument \"(.*?)\"$")
+	public void a_loggedInfo_matcher_with_the_Formatted_message_with_argument(String format, String argument) {
+	    matcher = loggedInfo(format, argument);
 	}
 	
 	@When("^I match the logger$")
@@ -43,6 +60,11 @@ public class CucumberStepDefinitions {
 	@Then("^it will match$")
 	public void itWillMatch() {
 		assertThat(matches, is(true));
+	}
+	
+	@Then("^it will not match$")
+	public void itWillNotMatch() {
+		assertThat(matches, is(false));
 	}
 	
 }
