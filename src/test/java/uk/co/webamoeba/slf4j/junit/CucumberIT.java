@@ -6,7 +6,7 @@ import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(format = {"pretty", "html:target/cucumber"}, tags = "~@notReady")
+@CucumberOptions(format = {"pretty", "html:target/cucumber"}, tags = "~@NotReady")
 public class CucumberIT {
 
 }

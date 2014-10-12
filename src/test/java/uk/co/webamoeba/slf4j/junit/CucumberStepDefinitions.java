@@ -9,6 +9,7 @@ import org.hamcrest.Matcher;
 import org.slf4j.Logger;
 
 import uk.co.webamoeba.slf4j.junit.event.LogEventRegistry;
+import cucumber.api.PendingException;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -34,6 +35,14 @@ public class CucumberStepDefinitions {
 	
 	@Given("^a String message \"(.*?)\" logged at info level$")
 	public void aStringMessageLoggedAtInfoLevel(String messageAsString) {
+		logger.info(messageAsString);
+	}
+	
+	@Given("^a String message \"(.*?)\" logged at \"(.*?)\" level$")
+	public void aStringMessageLoggedAtLevel(String messageAsString, String level) {
+		if (!"info".equals(level)) {
+			throw new PendingException();
+		}
 		logger.info(messageAsString);
 	}
 	

@@ -1,0 +1,1 @@
+Feature: Assert throwable logged
