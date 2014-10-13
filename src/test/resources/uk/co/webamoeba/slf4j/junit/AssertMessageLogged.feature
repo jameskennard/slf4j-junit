@@ -34,13 +34,18 @@ And a loggedInfo matcher with the Formatted message "Format {}" with argument "A
 When I match the logger
 Then it will match
 
-@NotReady
-Scenario: Message not logged
-Given a logger
-And a loggedInfo matcher with the String message "Some Message"
+Scenario Outline: Message not logged
+Given a logger named "<loggerName>"
+And a loggedInfo matcher with the String message "<logMessage>"
 When I match the logger
 Then it will not match
-And the mismatch description is "Some mismatch"
+And the mismatch description is:
+	"""
+	info to "<loggerName>" with message "<logMessage>" was not logged 
+	"""
+Examples:
+| loggerName | logMessage   |
+| SomeLogger | Some Message |
 
 @NotReady
 Scenario: Message logged at different level

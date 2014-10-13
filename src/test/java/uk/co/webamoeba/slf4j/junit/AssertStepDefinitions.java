@@ -5,7 +5,9 @@ import static org.junit.Assert.assertThat;
 import static uk.co.webamoeba.slf4j.junit.LoggingMatchers.loggedInfo;
 import static uk.co.webamoeba.slf4j.junit.LoggingMatchers.logger;
 
+import org.hamcrest.Description;
 import org.hamcrest.Matcher;
+import org.hamcrest.StringDescription;
 import org.slf4j.Logger;
 
 import uk.co.webamoeba.slf4j.junit.event.LogEventRegistry;
@@ -15,8 +17,8 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
-public class CucumberStepDefinitions {
-
+public class AssertStepDefinitions {
+	
 	private Logger logger;
 	
 	private Matcher<Logger> matcher;
@@ -30,7 +32,12 @@ public class CucumberStepDefinitions {
 	
 	@Given("^a logger$")
 	public void aLogger() {
-		logger = logger(CucumberStepDefinitions.class);
+		logger = logger(AssertStepDefinitions.class);
+	}
+	
+	@Given("^a logger named \"(.*?)\"$")
+	public void aLoggerNamed(String loggerName) throws Throwable {
+	    logger = logger(loggerName);
 	}
 	
 	@Given("^a String message \"(.*?)\" logged at info level$")
@@ -74,6 +81,13 @@ public class CucumberStepDefinitions {
 	@Then("^it will not match$")
 	public void itWillNotMatch() {
 		assertThat(matches, is(false));
+	}
+	
+	@Then("^the mismatch description is:$")
+	public void theMismatchDescriptionIs(String mismatchDescription) throws Throwable {
+		Description description = new StringDescription();
+		matcher.describeMismatch(logger, description);
+		assertThat(description.toString(), is(mismatchDescription));
 	}
 	
 }
