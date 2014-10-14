@@ -40,11 +40,6 @@ public class AssertStepDefinitions {
 	    logger = logger(loggerName);
 	}
 	
-	@Given("^a String message \"(.*?)\" logged at info level$")
-	public void aStringMessageLoggedAtInfoLevel(String messageAsString) {
-		logger.info(messageAsString);
-	}
-	
 	@Given("^a String message \"(.*?)\" logged at \"(.*?)\" level$")
 	public void aStringMessageLoggedAtLevel(String messageAsString, String level) {
 		if (!"info".equals(level)) {
@@ -53,19 +48,31 @@ public class AssertStepDefinitions {
 		logger.info(messageAsString);
 	}
 	
-	@Given("^a Formatted message \"(.*?)\" with argument \"(.*?)\" logged at info level$")
-	public void aFormattedMessageWithArgumentLoggedAtInfoLevel(String format, String argument) {
-		logger.info(format, argument);
+	@Given("^a Formatted message \"(.*?)\" with argument \"(.*?)\" logged at \"(.*?)\" level$")
+	public void aFormattedMessageWithArgumentLoggedAtLevel(String format, String argument, String level) throws Throwable {
+		if ("info".equals(level)) {
+	    	logger.info(format, argument);
+	    } else {
+	    	throw new PendingException("matcher for level " + level + " is not yet available");
+	    }
 	}
 	
-	@Given("^a loggedInfo matcher with the String message \"(.*?)\"$")
-	public void aLoggedInfoMatcherWithTheStringMessage(String messageAsString) {
-		matcher = loggedInfo(messageAsString);
+	@Given("^a log matcher at \"(.*?)\" level with the Formatted message \"(.*?)\" with argument \"(.*?)\"$")
+	public void aLogMatcherAtLevelWithFormattedMessage(String level, String format, String argument) throws Throwable {
+	    if ("info".equals(level)) {
+	    	matcher = loggedInfo(format, argument);
+	    } else {
+	    	throw new PendingException("matcher for level " + level + " is not yet available");
+	    }
 	}
 	
-	@Given("^a loggedInfo matcher with the Formatted message \"(.*?)\" with argument \"(.*?)\"$")
-	public void a_loggedInfo_matcher_with_the_Formatted_message_with_argument(String format, String argument) {
-	    matcher = loggedInfo(format, argument);
+	@Given("^a log matcher at \"(.*?)\" level with the String message \"(.*?)\"$")
+	public void aLogMatcherAtLevelWithStringMessage(String level, String message) throws Throwable {
+		if ("info".equals(level)) {
+	    	matcher = loggedInfo(message);
+	    } else {
+	    	throw new PendingException("matcher for level " + level + " is not yet available");
+	    }
 	}
 	
 	@When("^I match the logger$")
