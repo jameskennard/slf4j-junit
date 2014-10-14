@@ -58,9 +58,16 @@ Scenario Outline: Message logged at different level
 Given a logger named "<loggerName>"
 And a log matcher at "<level>" level with the String message "Some Message"
 And a String message "Some Message" logged at "<differentLevel>" level
+When I match the logger
+Then it will not match
 | loggerName | level | differentLevel |
 | SomeLogger | info  | warn           |
 
-@NotReady
-Scenario: Message logged against different logger
+Scenario Outline: Message logged against different logger
 Given a logger named "<loggerName>"
+And a String message "Some Message" logged with "<differentLoggerName>" at "<level>" level
+And a log matcher at "<level>" level with the String message "Some Message"
+When I match the logger
+Then it will not match
+| loggerName | differentLoggerName | level |
+| Some Logger| Some Other Logger   | info  |

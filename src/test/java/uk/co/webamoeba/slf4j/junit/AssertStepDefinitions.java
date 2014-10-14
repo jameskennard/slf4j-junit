@@ -48,6 +48,15 @@ public class AssertStepDefinitions {
 		logger.info(messageAsString);
 	}
 	
+	@Given("^a String message \"(.*?)\" logged with \"(.*?)\" at \"(.*?)\" level$")
+	public void aStringMessageLoggedWithLoggerAtLevel(String message, String loggerName, String level) throws Throwable {
+		if ("info".equals(level)) {
+	    	logger(loggerName).info(message);
+	    } else {
+	    	throw new PendingException("matcher for level " + level + " is not yet available");
+	    }
+	}
+	
 	@Given("^a Formatted message \"(.*?)\" with argument \"(.*?)\" logged at \"(.*?)\" level$")
 	public void aFormattedMessageWithArgumentLoggedAtLevel(String format, String argument, String level) throws Throwable {
 		if ("info".equals(level)) {
