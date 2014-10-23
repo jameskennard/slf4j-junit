@@ -39,7 +39,7 @@ public class ClearLogsTestRule implements TestRule {
 		};
 	}
 
-	protected void clearLogs() {
+	private void clearLogs() {
 		LogEventRegistry registry = LogEventRegistry.getSingleton();
 		if (clearAll()) {
 			registry.clearAll();
