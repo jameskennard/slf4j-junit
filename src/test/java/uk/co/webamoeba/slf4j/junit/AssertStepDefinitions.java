@@ -94,6 +94,22 @@ public class AssertStepDefinitions {
 	    throwable = new Throwable("a throwable");
 	}
 	
+	@Given("^the throwable is logged at \"(.*?)\" level with the String message \"(.*?)\"$")
+	public void theThrowableIsLoggedAtLevelWithTheStringMessage(Level level, String message) throws Throwable {
+		if (INFO != level) {
+			throw new PendingException("level " + level + " is not yet available");
+		}
+		logger.info(message, throwable);
+	}
+	
+	@Given("^a log matcher at \"(.*?)\" level with the throwable and the String message \"(.*?)\"$")
+	public void aLogMatcherAtLevelWithTheThrowableAndTheStringMessage(Level level, String message) throws Throwable {
+		if (INFO != level) {
+			throw new PendingException("level " + level + " is not yet available");
+		}
+    	matcher = loggedInfo(message, throwable);
+	}
+	
 	@When("^I match the logger$")
 	public void iMatchTheLogger() {
 	    matches = matcher.matches(logger);

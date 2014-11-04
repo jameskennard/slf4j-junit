@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import static uk.co.webamoeba.slf4j.junit.LoggingMatchers.loggedInfo;
 
 /**
  * Cucumber step definitions for Logger features.
@@ -33,8 +34,8 @@ public class LoggerStepDefinitions {
 	    clazz = Class.forName(className);
 	}
 
-	@When("^I call logger with the logger name$")
-	public void iCallLoggerWithTheLoggerName() throws Throwable {
+	@When("^I call logger with the name$")
+	public void iCallLoggerWithTheName() throws Throwable {
 		logger = logger(loggerName);
 	}
 	
@@ -46,6 +47,13 @@ public class LoggerStepDefinitions {
 	@Then("^the logger is named \"(.*?)\"$")
 	public void theLoggerIsNamed(String loggerName) throws Throwable {
 		assertThat(logger.getName(), is(loggerName));
+	}
+	
+	@Then("^I can match logging events against the logger$")
+	public void iCanMatchLoggingEventsAgainstTheLogger() throws Throwable {
+		String message = "Some Message";
+	    logger.info(message);
+		assertThat(logger, loggedInfo(message));
 	}
 	
 }
