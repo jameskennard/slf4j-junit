@@ -158,9 +158,9 @@ public abstract class LogEventMatcher extends BaseMatcher<Logger> {
 	 * <code>null</code> safe method used to determine if two {@link Object Objects} are not equal. This method relies
 	 * on the {@link Object Objects} equals() method to determine equality for non <code>null</code> values.
 	 * 
-	 * @param object1
-	 * @param object2
-	 * @return
+	 * @param object1 object to check for non equality
+	 * @param object2 object to check for non equality
+	 * @return Returns <code>false</code> if the objects are equal
 	 */
 	private static boolean notEqual(Object object1, Object object2) {
 		return object1 == null && object2 != null || (object1 != null && !object1.equals(object2));
