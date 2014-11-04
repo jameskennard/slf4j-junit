@@ -29,6 +29,8 @@ public class AssertStepDefinitions {
 	private Matcher<Logger> matcher;
 
 	private Boolean matches;
+
+	private Throwable throwable;
 	
 	@Before
 	public void clearLogs() {
@@ -87,6 +89,11 @@ public class AssertStepDefinitions {
 	    } else {
 	    	throw new PendingException("matcher for level " + level + " is not yet available");
 	    }
+	}
+	
+	@Given("^a throwable$")
+	public void aThrowable() {
+	    throwable = new Throwable("a throwable");
 	}
 	
 	@When("^I match the logger$")
