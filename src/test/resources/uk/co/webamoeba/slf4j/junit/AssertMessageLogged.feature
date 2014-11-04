@@ -1,8 +1,10 @@
 Feature: Assert logged with message
 
-Scenario Outline: String message
+Background:
 Given a logger
-And a String message "Some Message" logged at "<level>" level
+
+Scenario Outline: String message
+Given a String message "Some Message" logged at "<level>" level
 And a log matcher at "<level>" level with the String message "Some Message"
 When I match the logger
 Then it will match
@@ -11,8 +13,7 @@ Examples:
 | info  |
 
 Scenario Outline: Formatted message
-Given a logger
-And a Formatted message "Format {}" with argument "Argument" logged at "<level>" level
+Given a Formatted message "Format {}" with argument "Argument" logged at "<level>" level
 And a log matcher at "<level>" level with the Formatted message "Format {}" with argument "Argument"
 When I match the logger
 Then it will match
@@ -21,8 +22,7 @@ Examples:
 | info  |
 
 Scenario Outline: Formatted message logged, String message matched
-Given a logger
-And a Formatted message "Format {}" with argument "Argument" logged at "<level>" level
+Given a Formatted message "Format {}" with argument "Argument" logged at "<level>" level
 And a log matcher at "<level>" level with the String message "Format Argument"
 When I match the logger
 Then it will match
@@ -31,8 +31,7 @@ Examples:
 | info  |
 
 Scenario Outline: String message logged, Formatted message matched
-Given a logger
-And a String message "Format Argument" logged at "<level>" level
+Given a String message "Format Argument" logged at "<level>" level
 And a log matcher at "<level>" level with the Formatted message "Format {}" with argument "Argument"
 When I match the logger
 Then it will match
