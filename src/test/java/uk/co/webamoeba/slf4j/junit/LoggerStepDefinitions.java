@@ -10,6 +10,11 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
+/**
+ * Cucumber step definitions for Logger features.
+ * 
+ * @author James Kennard
+ */
 public class LoggerStepDefinitions {
 
 	private String loggerName;
