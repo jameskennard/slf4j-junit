@@ -1,5 +1,6 @@
 package uk.co.webamoeba.slf4j.junit;
 
+import static uk.co.webamoeba.slf4j.junit.event.Level.*;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static uk.co.webamoeba.slf4j.junit.LoggingMatchers.loggedInfo;
@@ -10,6 +11,7 @@ import org.hamcrest.Matcher;
 import org.hamcrest.StringDescription;
 import org.slf4j.Logger;
 
+import uk.co.webamoeba.slf4j.junit.event.Level;
 import uk.co.webamoeba.slf4j.junit.event.LogEventRegistry;
 import cucumber.api.PendingException;
 import cucumber.api.java.Before;
@@ -48,47 +50,43 @@ public class AssertStepDefinitions {
 	}
 	
 	@Given("^a String message \"(.*?)\" logged at \"(.*?)\" level$")
-	public void aStringMessageLoggedAtLevel(String messageAsString, String level) {
-		if (!"info".equals(level)) {
-			throw new PendingException();
+	public void aStringMessageLoggedAtLevel(String messageAsString, Level level) {		
+		if (INFO != level) {
+			throw new PendingException("level " + level + " is not yet available");
 		}
 		logger.info(messageAsString);
 	}
 	
 	@Given("^a String message \"(.*?)\" logged with \"(.*?)\" at \"(.*?)\" level$")
-	public void aStringMessageLoggedWithLoggerAtLevel(String message, String loggerName, String level) throws Throwable {
-		if ("info".equals(level)) {
-	    	logger(loggerName).info(message);
-	    } else {
-	    	throw new PendingException("matcher for level " + level + " is not yet available");
-	    }
+	public void aStringMessageLoggedWithLoggerAtLevel(String message, String loggerName, Level level) throws Throwable {
+		if (INFO != level) {
+			throw new PendingException("level " + level + " is not yet available");
+		}
+    	logger(loggerName).info(message);
 	}
 	
 	@Given("^a Formatted message \"(.*?)\" with argument \"(.*?)\" logged at \"(.*?)\" level$")
-	public void aFormattedMessageWithArgumentLoggedAtLevel(String format, String argument, String level) throws Throwable {
-		if ("info".equals(level)) {
-	    	logger.info(format, argument);
-	    } else {
-	    	throw new PendingException("matcher for level " + level + " is not yet available");
-	    }
+	public void aFormattedMessageWithArgumentLoggedAtLevel(String format, String argument, Level level) throws Throwable {
+		if (INFO != level) {
+			throw new PendingException("level " + level + " is not yet available");
+		}
+	    logger.info(format, argument);
 	}
 	
 	@Given("^a log matcher at \"(.*?)\" level with the Formatted message \"(.*?)\" with argument \"(.*?)\"$")
-	public void aLogMatcherAtLevelWithFormattedMessage(String level, String format, String argument) throws Throwable {
-	    if ("info".equals(level)) {
-	    	matcher = loggedInfo(format, argument);
-	    } else {
-	    	throw new PendingException("matcher for level " + level + " is not yet available");
-	    }
+	public void aLogMatcherAtLevelWithFormattedMessage(Level level, String format, String argument) throws Throwable {
+		if (INFO != level) {
+			throw new PendingException("level " + level + " is not yet available");
+		}
+	    matcher = loggedInfo(format, argument);
 	}
 	
 	@Given("^a log matcher at \"(.*?)\" level with the String message \"(.*?)\"$")
-	public void aLogMatcherAtLevelWithStringMessage(String level, String message) throws Throwable {
-		if ("info".equals(level)) {
-	    	matcher = loggedInfo(message);
-	    } else {
-	    	throw new PendingException("matcher for level " + level + " is not yet available");
-	    }
+	public void aLogMatcherAtLevelWithStringMessage(Level level, String message) throws Throwable {
+		if (INFO != level) {
+			throw new PendingException("level " + level + " is not yet available");
+		}
+    	matcher = loggedInfo(message);
 	}
 	
 	@Given("^a throwable$")
