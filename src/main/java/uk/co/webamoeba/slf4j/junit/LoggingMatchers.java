@@ -17,6 +17,10 @@ public class LoggingMatchers {
 		return LoggerFactory.getLogger(clazz);
 	}
 	
+	public static Logger logger(String loggerName) {
+		return LoggerFactory.getLogger(loggerName);
+	}
+	
 	public static TestRule clearLogs() {
 		return new ClearLogsTestRule();
 	}
