@@ -12,6 +12,7 @@ Feature: Assert logged with message
     Examples: 
       | level |
       | info  |
+      | warn  |
 
   Scenario Outline: Formatted message
     Given a Formatted message "Format {}" with argument "Argument" logged at "<level>" level

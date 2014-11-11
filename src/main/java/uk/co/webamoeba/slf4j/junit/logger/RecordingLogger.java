@@ -1,8 +1,11 @@
 package uk.co.webamoeba.slf4j.junit.logger;
 
+import static uk.co.webamoeba.slf4j.junit.event.Level.INFO;
+
 import org.slf4j.Logger;
 import org.slf4j.Marker;
 
+import uk.co.webamoeba.slf4j.junit.event.Level;
 import uk.co.webamoeba.slf4j.junit.event.LogEvent;
 import uk.co.webamoeba.slf4j.junit.event.LogEventRegister;
 import uk.co.webamoeba.slf4j.junit.event.LogEventRegistry;
@@ -50,11 +53,11 @@ public class RecordingLogger implements Logger {
 	}
 
 	public boolean isWarnEnabled() {
-		return false;
+		return true;
 	}
 
 	public boolean isWarnEnabled(Marker marker) {
-		return false;
+		return true;
 	}
 
 	public boolean isErrorEnabled() {
@@ -126,31 +129,31 @@ public class RecordingLogger implements Logger {
 	}
 
 	public void info(String message) {
-		log(new LogEvent(message));
+		log(new LogEvent(INFO, message));
 	}
 
 	public void info(String format, Object arg) {
-		log(new LogEvent(format, new Object[] { arg }));
+		log(new LogEvent(INFO, format, new Object[] { arg }));
 	}
 
 	public void info(String format, Object arg1, Object arg2) {
-		log(new LogEvent(format, new Object[] { arg1, arg2 }));
+		log(new LogEvent(INFO, format, new Object[] { arg1, arg2 }));
 	}
 
 	public void info(String format, Object... arguments) {
-		log(new LogEvent(format, arguments));
+		log(new LogEvent(INFO, format, arguments));
 	}
 
 	public void info(String message, Throwable thowable) {
-		log(new LogEvent(message, thowable));
+		log(new LogEvent(INFO, message, thowable));
 	}
 
 	public void info(Marker marker, String message) {
-		log(new LogEvent(marker, message));
+		log(new LogEvent(INFO, marker, message));
 	}
 
 	public void info(Marker marker, String format, Object argument) {
-		log(new LogEvent(marker, format, new Object[] { argument }));
+		log(new LogEvent(INFO, marker, format, new Object[] { argument }));
 	}
 
 	public void info(Marker marker, String format, Object arg1, Object arg2) {
@@ -158,41 +161,51 @@ public class RecordingLogger implements Logger {
 	}
 
 	public void info(Marker marker, String format, Object... arguments) {
-		log(new LogEvent(marker, format, arguments));
+		log(new LogEvent(INFO, marker, format, arguments));
 	}
 
 	public void info(Marker marker, String message, Throwable throwable) {
-		log(new LogEvent(marker, message, throwable));
+		log(new LogEvent(INFO, marker, message, throwable));
 	}
 
 	public void warn(String message) {
+		log(new LogEvent(Level.WARN, message));
 	}
 
-	public void warn(String format, Object arg) {
+	public void warn(String format, Object argument) {
+		log(new LogEvent(Level.WARN, format, new Object[] { argument }));
+	}
+	
+	public void warn(String format, Object arg1, Object arg2) {
+		log(new LogEvent(Level.WARN, format, new Object[] { arg1, arg2 }));
 	}
 
 	public void warn(String format, Object... arguments) {
+		log(new LogEvent(Level.WARN, format, arguments));
 	}
 
-	public void warn(String format, Object arg1, Object arg2) {
-	}
-
-	public void warn(String message, Throwable thowable) {
+	public void warn(String message, Throwable throwable) {
+		log(new LogEvent(Level.WARN, message, throwable));
 	}
 
 	public void warn(Marker marker, String message) {
+		log(new LogEvent(Level.WARN, marker, message));
 	}
 
-	public void warn(Marker marker, String format, Object arg) {
+	public void warn(Marker marker, String format, Object argument) {
+		log(new LogEvent(Level.WARN, marker, format, new Object[] { argument }));
 	}
 
 	public void warn(Marker marker, String format, Object arg1, Object arg2) {
+		log(new LogEvent(Level.WARN, marker, format, new Object[] { arg1, arg2 }));
 	}
 
 	public void warn(Marker marker, String format, Object... arguments) {
+		log(new LogEvent(Level.WARN, marker, format, arguments));
 	}
 
-	public void warn(Marker marker, String message, Throwable thowable) {
+	public void warn(Marker marker, String message, Throwable throwable) {
+		log(new LogEvent(Level.WARN, marker, message, throwable));
 	}
 
 	public void error(String message) {

@@ -1,5 +1,7 @@
 package uk.co.webamoeba.slf4j.junit.event;
 
+import static uk.co.webamoeba.slf4j.junit.event.Level.INFO;
+
 import java.util.Collections;
 
 import static org.junit.Assert.assertNotNull;
@@ -73,7 +75,7 @@ public class LogEventRegistryTest {
 		// Given
 		LogEventRegistry registry = LogEventRegistry.getSingleton();
 		LogEventRegister register = registry.getRegister("Some Register");
-		register.register(new LogEvent("Some Log Event"));
+		register.register(new LogEvent(INFO, "Some Log Event"));
 		
 		// When
 		registry.clearAll();

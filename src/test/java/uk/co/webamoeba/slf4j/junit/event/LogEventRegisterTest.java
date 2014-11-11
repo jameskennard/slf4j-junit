@@ -1,5 +1,6 @@
 package uk.co.webamoeba.slf4j.junit.event;
 
+import static uk.co.webamoeba.slf4j.junit.event.Level.INFO;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
@@ -22,7 +23,7 @@ public class LogEventRegisterTest {
 	public void shouldRegister() {
 		// Given
 		LogEventRegister logEventRegister = new LogEventRegister();
-		LogEvent logEvent = new LogEvent("A Log Event");
+		LogEvent logEvent = new LogEvent(INFO, "A Log Event");
 
 		// When
 		logEventRegister.register(logEvent);
@@ -52,7 +53,7 @@ public class LogEventRegisterTest {
 	public void shouldClear() {
 		// Given
 		LogEventRegister logEventRegister = new LogEventRegister();
-		logEventRegister.register(new LogEvent("A Log Event"));
+		logEventRegister.register(new LogEvent(INFO, "A Log Event"));
 		
 		// When
 		logEventRegister.clear();

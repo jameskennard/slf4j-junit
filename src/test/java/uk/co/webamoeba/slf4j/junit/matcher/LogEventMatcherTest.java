@@ -141,6 +141,21 @@ public abstract class LogEventMatcherTest {
 		// Then
 		assertThat(matches, is(true));
 	}
+	
+	@Test
+	public void shouldNotMatchGivenDifferentLevel() {
+		// Given
+		String message = "Some Message";
+		LogEventMatcher matcher = matcher(message);
+		Logger logger = new RecordingLogger("A recording logger");
+		logDifferentLevel(message, logger);
+
+		// When
+		boolean matches = matcher.matches(logger);
+
+		// Then
+		assertThat(matches, is(false));
+	}
 
 	@Test
 	public void shouldNotMatchGivenLoggerHasMessageButNoMarker() {
@@ -412,6 +427,8 @@ public abstract class LogEventMatcherTest {
 	protected abstract void log(Marker marker, String message, Throwable throwable, Logger logger);
 
 	protected abstract void log(Marker marker, String format, String argument, Logger logger);
+	
+	protected abstract void logDifferentLevel(String message, Logger logger);
 
 	protected abstract String expectedDescribeLevel();
 	

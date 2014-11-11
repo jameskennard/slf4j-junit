@@ -7,6 +7,7 @@ import org.hamcrest.Description;
 import org.slf4j.Logger;
 import org.slf4j.Marker;
 
+import uk.co.webamoeba.slf4j.junit.event.Level;
 import uk.co.webamoeba.slf4j.junit.event.LogEvent;
 import uk.co.webamoeba.slf4j.junit.event.LogEventRegister;
 import uk.co.webamoeba.slf4j.junit.event.LogEventRegistry;
@@ -20,6 +21,8 @@ import uk.co.webamoeba.slf4j.junit.logger.RecordingLogger;
  */
 public abstract class LogEventMatcher extends BaseMatcher<Logger> {
 
+	private final Level level;
+	
 	private final Marker marker;
 	
 	private final Message message;
@@ -29,39 +32,40 @@ public abstract class LogEventMatcher extends BaseMatcher<Logger> {
 	/**
 	 * @param message The message we want the {@link LogEvent} to have
 	 */
-	public LogEventMatcher(String message) {
-		this(null, new StringMessage(message), null);
+	protected LogEventMatcher(Level level, String message) {
+		this(level, null, new StringMessage(message), null);
 	}
 
 	/**
 	 * @param format The format of the message we want the {@link LogEvent} to have
 	 * @param arguments The arguments we want to use to describe the parts of the message from the format
 	 */
-	public LogEventMatcher(String format, Object... arguments) {
-		this(null, new FormattedMessage(format, arguments), null);
+	protected LogEventMatcher(Level level, String format, Object... arguments) {
+		this(level, null, new FormattedMessage(format, arguments), null);
 	}
 
 	/**
 	 * @param message The message we want the {@link LogEvent} to have
 	 * @param throwable The {@link Throwable} we are logging
 	 */
-	public LogEventMatcher(String message, Throwable throwable) {
-		this(null, new StringMessage(message), throwable);
+	protected LogEventMatcher(Level level, String message, Throwable throwable) {
+		this(level, null, new StringMessage(message), throwable);
 	}
 
-	public LogEventMatcher(Marker marker, String message) {
-		this(marker, new StringMessage(message), null);
+	protected LogEventMatcher(Level level, Marker marker, String message) {
+		this(level, marker, new StringMessage(message), null);
 	}
 	
-	public LogEventMatcher(Marker marker, String message, Throwable throwable) {
-		this(marker, new StringMessage(message), throwable);
+	protected LogEventMatcher(Level level, Marker marker, String message, Throwable throwable) {
+		this(level, marker, new StringMessage(message), throwable);
 	}
 	
-	public LogEventMatcher(Marker marker, String format, Object... arguments) {
-		this(marker, new FormattedMessage(format, arguments), null);
+	protected LogEventMatcher(Level level, Marker marker, String format, Object... arguments) {
+		this(level, marker, new FormattedMessage(format, arguments), null);
 	}
 	
-	protected LogEventMatcher(Marker marker, Message message, Throwable throwable) {
+	protected LogEventMatcher(Level level, Marker marker, Message message, Throwable throwable) {
+		this.level = level;
 		this.marker = marker;
 		this.message = message;
 		this.throwable = throwable;
@@ -117,6 +121,9 @@ public abstract class LogEventMatcher extends BaseMatcher<Logger> {
 	}
 
 	private boolean logEventMatches(LogEvent logEvent) {
+		if (notEqual(level, logEvent.getLevel())) {
+			return false;
+		}
 		if (notEqual(message, logEvent.getMessage())) {
 			return false;
 		}

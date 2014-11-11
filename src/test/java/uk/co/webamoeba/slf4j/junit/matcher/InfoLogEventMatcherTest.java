@@ -3,7 +3,6 @@ package uk.co.webamoeba.slf4j.junit.matcher;
 import org.slf4j.Logger;
 import org.slf4j.Marker;
 
-
 /**
  * @author James Kennard
  */
@@ -87,6 +86,11 @@ public class InfoLogEventMatcherTest extends LogEventMatcherTest {
 	@Override
 	protected String expectedDescribeFunction() {
 		return "loggedInfo";
+	}
+
+	@Override
+	protected void logDifferentLevel(String message, Logger logger) {
+		logger.warn(message);
 	}
 
 }

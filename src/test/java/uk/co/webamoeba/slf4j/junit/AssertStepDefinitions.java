@@ -51,10 +51,16 @@ public class AssertStepDefinitions {
 	
 	@Given("^a String message \"(.*?)\" logged at \"(.*?)\" level$")
 	public void aStringMessageLoggedAtLevel(String messageAsString, Level level) {		
-		if (INFO != level) {
+		switch (level) {
+		case INFO:
+			logger.info(messageAsString);
+			break;
+		case WARN:
+			logger.warn(messageAsString);
+			break;
+		default:
 			throw new PendingException("level " + level + " is not yet available");
 		}
-		logger.info(messageAsString);
 	}
 	
 	@Given("^a String message \"(.*?)\" logged with \"(.*?)\" at \"(.*?)\" level$")

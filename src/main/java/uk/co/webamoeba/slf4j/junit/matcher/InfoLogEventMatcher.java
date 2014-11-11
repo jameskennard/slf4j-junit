@@ -1,5 +1,6 @@
 package uk.co.webamoeba.slf4j.junit.matcher;
 
+import static uk.co.webamoeba.slf4j.junit.event.Level.INFO;
 import java.util.logging.Level;
 
 import org.slf4j.Marker;
@@ -31,7 +32,7 @@ public class InfoLogEventMatcher extends LogEventMatcher {
 	 * @param message The message we want the {@link LogEvent} to have
 	 */
 	public InfoLogEventMatcher(String message) {
-		super(null, new StringMessage(message), null);
+		super(INFO, null, new StringMessage(message), null);
 	}
 
 	/**
@@ -39,7 +40,7 @@ public class InfoLogEventMatcher extends LogEventMatcher {
 	 * @param arguments The arguments we want to use to describe the parts of the message from the format
 	 */
 	public InfoLogEventMatcher(String format, Object... arguments) {
-		super(null, new FormattedMessage(format, arguments), null);
+		super(INFO, null, new FormattedMessage(format, arguments), null);
 	}
 
 	/**
@@ -47,19 +48,19 @@ public class InfoLogEventMatcher extends LogEventMatcher {
 	 * @param throwable The {@link Throwable} we are logging
 	 */
 	public InfoLogEventMatcher(String message, Throwable throwable) {
-		super(null, new StringMessage(message), throwable);
+		super(INFO, null, new StringMessage(message), throwable);
 	}
 
 	public InfoLogEventMatcher(Marker marker, String message) {
-		super(marker, new StringMessage(message), null);
+		super(INFO, marker, new StringMessage(message), null);
 	}
 	
 	public InfoLogEventMatcher(Marker marker, String message, Throwable throwable) {
-		super(marker, new StringMessage(message), throwable);
+		super(INFO, marker, new StringMessage(message), throwable);
 	}
 	
 	public InfoLogEventMatcher(Marker marker, String format, Object... arguments) {
-		super(marker, new FormattedMessage(format, arguments), null);
+		super(INFO, marker, new FormattedMessage(format, arguments), null);
 	}
 	
 	@Override

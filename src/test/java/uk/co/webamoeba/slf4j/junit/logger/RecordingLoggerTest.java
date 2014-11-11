@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.Marker;
 import org.slf4j.helpers.BasicMarkerFactory;
 
+import uk.co.webamoeba.slf4j.junit.event.Level;
 import uk.co.webamoeba.slf4j.junit.event.LogEvent;
 import uk.co.webamoeba.slf4j.junit.event.LogEventRegistry;
 import uk.co.webamoeba.slf4j.junit.logger.RecordingLogger;
@@ -135,7 +136,7 @@ public class RecordingLoggerTest {
 		boolean isTraceEnabled = recordingLogger.isWarnEnabled();
 
 		// Then
-		assertThat(isTraceEnabled, is(false));
+		assertThat(isTraceEnabled, is(true));
 	}
 
 	@Test
@@ -148,7 +149,7 @@ public class RecordingLoggerTest {
 		boolean isTraceEnabled = recordingLogger.isWarnEnabled(marker);
 
 		// Then
-		assertThat(isTraceEnabled, is(false));
+		assertThat(isTraceEnabled, is(true));
 	}
 
 	@Test
@@ -189,6 +190,7 @@ public class RecordingLoggerTest {
 		// Then
 		assertThat(logEvents(name).size(), is(1));
 		assertThat(logEvents(name).get(0).getMessageAsString(), is(message));
+		assertThat(logEvents(name).get(0).getLevel(), is(Level.INFO));
 	}
 
 	@Test
@@ -206,6 +208,7 @@ public class RecordingLoggerTest {
 		// Then
 		assertThat(logEvents(name).size(), is(1));
 		assertThat(logEvents(name).get(0).getMessageAsString(), is(expectedMessage));
+		assertThat(logEvents(name).get(0).getLevel(), is(Level.INFO));
 	}
 
 	@Test
@@ -224,6 +227,7 @@ public class RecordingLoggerTest {
 		// Then
 		assertThat(logEvents(name).size(), is(1));
 		assertThat(logEvents(name).get(0).getMessageAsString(), is(expectedMessage));
+		assertThat(logEvents(name).get(0).getLevel(), is(Level.INFO));
 	}
 
 	@Test
@@ -243,6 +247,7 @@ public class RecordingLoggerTest {
 		// Then
 		assertThat(logEvents(name).size(), is(1));
 		assertThat(logEvents(name).get(0).getMessageAsString(), is(expectedMessage));
+		assertThat(logEvents(name).get(0).getLevel(), is(Level.INFO));
 	}
 
 	@Test
@@ -260,6 +265,7 @@ public class RecordingLoggerTest {
 		assertThat(logEvents(name).size(), is(1));
 		assertThat(logEvents(name).get(0).getMessageAsString(), is(message));
 		assertThat(logEvents(name).get(0).getThrowable(), is(sameInstance(throwable)));
+		assertThat(logEvents(name).get(0).getLevel(), is(Level.INFO));
 	}
 
 	@Test
@@ -277,6 +283,7 @@ public class RecordingLoggerTest {
 		assertThat(logEvents(name).size(), is(1));
 		assertThat(logEvents(name).get(0).getMessageAsString(), is(message));
 		assertThat(logEvents(name).get(0).getMarker(), is(sameInstance(marker)));
+		assertThat(logEvents(name).get(0).getLevel(), is(Level.INFO));
 	}
 
 	@Test
@@ -295,6 +302,7 @@ public class RecordingLoggerTest {
 		assertThat(logEvents(name).size(), is(1));
 		assertThat(logEvents(name).get(0).getMessageAsString(), is("Format Argument"));
 		assertThat(logEvents(name).get(0).getMarker(), is(sameInstance(marker)));
+		assertThat(logEvents(name).get(0).getLevel(), is(Level.INFO));
 	}
 
 	@Test
@@ -314,6 +322,7 @@ public class RecordingLoggerTest {
 		assertThat(logEvents(name).size(), is(1));
 		assertThat(logEvents(name).get(0).getMessageAsString(), is("Format Argument Argument"));
 		assertThat(logEvents(name).get(0).getMarker(), is(sameInstance(marker)));
+		assertThat(logEvents(name).get(0).getLevel(), is(Level.INFO));
 	}
 
 	@Test
@@ -334,6 +343,7 @@ public class RecordingLoggerTest {
 		assertThat(logEvents(name).size(), is(1));
 		assertThat(logEvents(name).get(0).getMessageAsString(), is("Format Argument Argument Argument"));
 		assertThat(logEvents(name).get(0).getMarker(), is(sameInstance(marker)));
+		assertThat(logEvents(name).get(0).getLevel(), is(Level.INFO));
 	}
 
 	@Test
@@ -353,7 +363,196 @@ public class RecordingLoggerTest {
 		assertThat(logEvents(name).get(0).getMessageAsString(), is(message));
 		assertThat(logEvents(name).get(0).getMarker(), is(sameInstance(marker)));
 		assertThat(logEvents(name).get(0).getThrowable(), is(sameInstance(throwable)));
+		assertThat(logEvents(name).get(0).getLevel(), is(Level.INFO));
+	}
+	
+	@Test
+	public void shouldLogWarningGivenMessage() {
+		// Given
+		String name = "a recording logger";
+		RecordingLogger recordingLogger = new RecordingLogger(name);
+		String message = "expected message";
 
+		// When
+		recordingLogger.warn(message);
+
+		// Then
+		assertThat(logEvents(name).size(), is(1));
+		assertThat(logEvents(name).get(0).getMessageAsString(), is(message));
+		assertThat(logEvents(name).get(0).getLevel(), is(Level.WARN));
+	}
+
+	@Test
+	public void shouldLogWarningGivenFormatAndArgument() {
+		// Given
+		String format = "Format {}";
+		Object arg = "Argument";
+		String expectedMessage = "Format Argument";
+		String name = "a recording logger";
+		RecordingLogger recordingLogger = new RecordingLogger(name);
+
+		// When
+		recordingLogger.warn(format, arg);
+
+		// Then
+		assertThat(logEvents(name).size(), is(1));
+		assertThat(logEvents(name).get(0).getMessageAsString(), is(expectedMessage));
+		assertThat(logEvents(name).get(0).getLevel(), is(Level.WARN));
+	}
+
+	@Test
+	public void shouldLogWarningGivenFormatAndTwoArguments() {
+		// Given
+		String format = "Format {} {}";
+		Object arg1 = "Argument One";
+		Object arg2 = "Argument Two";
+		String expectedMessage = "Format Argument One Argument Two";
+		String name = "a recording logger";
+		RecordingLogger recordingLogger = new RecordingLogger(name);
+
+		// When
+		recordingLogger.warn(format, arg1, arg2);
+
+		// Then
+		assertThat(logEvents(name).size(), is(1));
+		assertThat(logEvents(name).get(0).getMessageAsString(), is(expectedMessage));
+		assertThat(logEvents(name).get(0).getLevel(), is(Level.WARN));
+	}
+
+	@Test
+	public void shouldLogWarningGivenFormatAndVarArgs() {
+		// Given
+		String format = "Format {} {} {}";
+		Object arg1 = "Argument One";
+		Object arg2 = "Argument Two";
+		Object arg3 = "Argument Three";
+		String expectedMessage = "Format Argument One Argument Two Argument Three";
+		String name = "a recording logger";
+		RecordingLogger recordingLogger = new RecordingLogger(name);
+
+		// When
+		recordingLogger.warn(format, arg1, arg2, arg3);
+
+		// Then
+		assertThat(logEvents(name).size(), is(1));
+		assertThat(logEvents(name).get(0).getMessageAsString(), is(expectedMessage));
+		assertThat(logEvents(name).get(0).getLevel(), is(Level.WARN));
+	}
+
+	@Test
+	public void shouldLogWarningGivenMessageAndThrowable() {
+		// Given
+		String message = "Some Message";
+		Throwable throwable = new RuntimeException();
+		String name = "a recording logger";
+		RecordingLogger recordingLogger = new RecordingLogger(name);
+
+		// When
+		recordingLogger.warn(message, throwable);
+
+		// Then
+		assertThat(logEvents(name).size(), is(1));
+		assertThat(logEvents(name).get(0).getMessageAsString(), is(message));
+		assertThat(logEvents(name).get(0).getThrowable(), is(sameInstance(throwable)));
+		assertThat(logEvents(name).get(0).getLevel(), is(Level.WARN));
+	}
+
+	@Test
+	public void shouldLogWarningGivenMarkerAndMessage() {
+		// Given
+		Marker marker = new BasicMarkerFactory().getMarker("Some marker");
+		String message = "Some Message";
+		String name = "a recording logger";
+		RecordingLogger recordingLogger = new RecordingLogger(name);
+
+		// When
+		recordingLogger.warn(marker, message);
+
+		// Then
+		assertThat(logEvents(name).size(), is(1));
+		assertThat(logEvents(name).get(0).getMessageAsString(), is(message));
+		assertThat(logEvents(name).get(0).getMarker(), is(sameInstance(marker)));
+		assertThat(logEvents(name).get(0).getLevel(), is(Level.WARN));
+	}
+
+	@Test
+	public void shouldLogWarningGivenMarkerFormatAndArgument() {
+		// Given
+		Marker marker = new BasicMarkerFactory().getMarker("Some marker");
+		String format = "Format {}";
+		Object arg = "Argument";
+		String name = "a recording logger";
+		RecordingLogger recordingLogger = new RecordingLogger(name);
+
+		// When
+		recordingLogger.warn(marker, format, arg);
+
+		// Then
+		assertThat(logEvents(name).size(), is(1));
+		assertThat(logEvents(name).get(0).getMessageAsString(), is("Format Argument"));
+		assertThat(logEvents(name).get(0).getMarker(), is(sameInstance(marker)));
+		assertThat(logEvents(name).get(0).getLevel(), is(Level.WARN));
+	}
+
+	@Test
+	public void shouldFailToLogWarningGivenMarkerFormatAndTwoArguments() {
+		// Given
+		Marker marker = new BasicMarkerFactory().getMarker("Some marker");
+		String format = "Format {} {}";
+		Object arg1 = "Argument";
+		Object arg2 = "Argument";
+		String name = "a recording logger";
+		RecordingLogger recordingLogger = new RecordingLogger(name);
+
+		// When
+		recordingLogger.warn(marker, format, arg1, arg2);
+
+		// Then
+		assertThat(logEvents(name).size(), is(1));
+		assertThat(logEvents(name).get(0).getMessageAsString(), is("Format Argument Argument"));
+		assertThat(logEvents(name).get(0).getMarker(), is(sameInstance(marker)));
+		assertThat(logEvents(name).get(0).getLevel(), is(Level.WARN));
+	}
+
+	@Test
+	public void shouldFailToLogWarningGivenMarkerFormatAndVarArgs() {
+		// Given
+		Marker marker = new BasicMarkerFactory().getMarker("Some marker");
+		String format = "Format {} {} {}";
+		Object arg1 = "Argument";
+		Object arg2 = "Argument";
+		Object arg3 = "Argument";
+		String name = "a recording logger";
+		RecordingLogger recordingLogger = new RecordingLogger(name);
+
+		// When
+		recordingLogger.warn(marker, format, arg1, arg2, arg3);
+
+		// Then
+		assertThat(logEvents(name).size(), is(1));
+		assertThat(logEvents(name).get(0).getMessageAsString(), is("Format Argument Argument Argument"));
+		assertThat(logEvents(name).get(0).getMarker(), is(sameInstance(marker)));
+		assertThat(logEvents(name).get(0).getLevel(), is(Level.WARN));
+	}
+
+	@Test
+	public void shouldFailToLogWarningGivenMarkerMessageAndThrowable() {
+		// Given
+		Marker marker = new BasicMarkerFactory().getMarker("Some marker");
+		String message = "Message";
+		Throwable throwable = new RuntimeException();
+		String name = "a recording logger";
+		RecordingLogger recordingLogger = new RecordingLogger(name);
+
+		// When
+		recordingLogger.warn(marker, message, throwable);
+
+		// Then
+		assertThat(logEvents(name).size(), is(1));
+		assertThat(logEvents(name).get(0).getMessageAsString(), is(message));
+		assertThat(logEvents(name).get(0).getMarker(), is(sameInstance(marker)));
+		assertThat(logEvents(name).get(0).getThrowable(), is(sameInstance(throwable)));
+		assertThat(logEvents(name).get(0).getLevel(), is(Level.WARN));
 	}
 
 	private List<LogEvent> logEvents(String name) {

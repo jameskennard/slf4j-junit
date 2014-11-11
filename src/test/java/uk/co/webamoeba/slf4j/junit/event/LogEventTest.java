@@ -1,5 +1,8 @@
 package uk.co.webamoeba.slf4j.junit.event;
 
+import static uk.co.webamoeba.slf4j.junit.event.Level.INFO;
+import static uk.co.webamoeba.slf4j.junit.event.Level.WARN;
+
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
@@ -23,8 +26,9 @@ public class LogEventTest {
 	@Test
 	public void shouldGetMessageGivenStringMessage() {
 		// Given
+		Level level = validLevel();
 		String expectedMessage = "some message";
-		LogEvent logEvent = new LogEvent(expectedMessage);
+		LogEvent logEvent = new LogEvent(level, expectedMessage);
 		
 		// When
 		String message = logEvent.getMessageAsString();
@@ -32,14 +36,15 @@ public class LogEventTest {
 		// Then
 		assertThat(message, is(expectedMessage));
 	}
-	
+
 	@Test
 	public void shouldGetMessageGivenFormattedMessage() {
 		// Given
+		Level level = validLevel();
 		String format = "some {}";
 		Object[] arguments = new Object[] {"message"};
 		String expectedMessage = "some message";
-		LogEvent logEvent = new LogEvent(format, arguments);
+		LogEvent logEvent = new LogEvent(level, format, arguments);
 		
 		// When
 		String message = logEvent.getMessageAsString();
@@ -156,13 +161,14 @@ public class LogEventTest {
 	
 	@Test
 	public void shouldBeSelfDescribing() {
-		assertThat(new LogEvent("Message"), is(instanceOf(SelfDescribing.class)));
+		assertThat(new LogEvent(validLevel(), "Message"), is(instanceOf(SelfDescribing.class)));
 	}
 	
 	@Test
 	public void shouldDescribeGivenMessage() {
 		// Given
-		LogEvent logEvent = new LogEvent("Some Message");
+		Level level = validLevel();
+		LogEvent logEvent = new LogEvent(level, "Some Message");
 		Description description = new StringDescription();
 		
 		// When
@@ -175,8 +181,9 @@ public class LogEventTest {
 	@Test
 	public void shouldDescribeGivenMarkerAndMessage() {
 		// Given
+		Level level = INFO;
 		Marker marker = new BasicMarkerFactory().getMarker("Some Marker");
-		LogEvent logEvent = new LogEvent(marker, "Some Message");
+		LogEvent logEvent = new LogEvent(level, marker, "Some Message");
 		Description description = new StringDescription();
 		
 		// When
@@ -189,16 +196,20 @@ public class LogEventTest {
 	@Test
 	public void shouldDescribeGivenMessageAndThrowable() {
 		// Given
+		Level level = WARN;
 		String message = "Some Message";
 		Throwable throwable = new Throwable();
-		LogEvent logEvent = new LogEvent(message, throwable);
+		LogEvent logEvent = new LogEvent(level, message, throwable);
 		Description description = new StringDescription();
 		
 		// When
 		logEvent.describeTo(description);
 		
 		// Then
-		assertThat(description.toString(), is("info(\"Some Message\", <" + throwable + ">)"));
+		assertThat(description.toString(), is("warn(\"Some Message\", <" + throwable + ">)"));
 	}
-	
+
+	private Level validLevel() {
+		return INFO;
+	}
 }
