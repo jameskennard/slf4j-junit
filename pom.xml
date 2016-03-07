@@ -36,6 +36,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<cucumber.version>1.2.4</cucumber.version>
 	</properties>
 
 	<dependencies>
@@ -50,20 +51,20 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.11</version>
+			<version>4.12</version>
 		</dependency>
 		
 		<!-- Cucumber -->
 		<dependency>
 			<groupId>info.cukes</groupId>
 			<artifactId>cucumber-junit</artifactId>
-			<version>1.1.8</version>
+			<version>${cucumber.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>info.cukes</groupId>
 			<artifactId>cucumber-java</artifactId>
-			<version>1.1.8</version>
+			<version>${cucumber.version}</version>
 			<scope>test</scope>
 		</dependency>
 		
@@ -71,7 +72,7 @@
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-core</artifactId>
-			<version>1.9.5</version>
+			<version>1.10.19</version>
 		</dependency>
 	</dependencies>
 
@@ -120,7 +121,7 @@
 			</plugin>
 
 			<!-- Cucumber -->
-			<plugin>
+			<!-- <plugin>
 				<artifactId>maven-failsafe-plugin</artifactId>
 				<version>2.16</version>
 				<executions>
@@ -131,6 +132,22 @@
 						</goals>
 					</execution>
 				</executions>
+			</plugin> -->
+			
+			<!-- JGitFlow -->
+			<plugin>
+				<groupId>external.atlassian.jgitflow</groupId>
+				<artifactId>jgitflow-maven-plugin</artifactId>
+				<configuration>
+					<flowInitContext>
+						<masterBranchName>master</masterBranchName>
+						<developBranchName>develop</developBranchName>
+						<featureBranchPrefix>feature-</featureBranchPrefix>
+						<releaseBranchPrefix>release-</releaseBranchPrefix>
+						<hotfixBranchPrefix>hotfix-</hotfixBranchPrefix>
+						<versionTagPrefix></versionTagPrefix>
+					</flowInitContext>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
