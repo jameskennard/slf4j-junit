@@ -1,4 +1,4 @@
-package uk.co.webamoeba.slf4j.junit;
+package uk.co.webamoeba.slf4j.junit.acceptancetest;
 
 import static cucumber.api.SnippetType.CAMELCASE;
 
@@ -13,7 +13,11 @@ import cucumber.api.junit.Cucumber;
  * @author James Kennard
  */
 @RunWith(Cucumber.class)
-@CucumberOptions(format = { "pretty", "html:target/cucumber" }, tags = "~@NotReady", snippets = CAMELCASE)
-public class CucumberIT {
+@CucumberOptions(
+		plugin = { "html:target/cucumber" },
+		tags = "~@NotReady",
+		snippets = CAMELCASE,
+		features = "src/main/features")
+public class RunAcceptanceTestsIT {
 
 }

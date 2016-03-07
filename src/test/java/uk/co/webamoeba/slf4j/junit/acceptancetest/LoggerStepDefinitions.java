@@ -1,4 +1,4 @@
-package uk.co.webamoeba.slf4j.junit;
+package uk.co.webamoeba.slf4j.junit.acceptancetest;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;

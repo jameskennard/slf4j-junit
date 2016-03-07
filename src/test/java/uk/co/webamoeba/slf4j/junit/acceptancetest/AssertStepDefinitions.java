@@ -1,4 +1,4 @@
-package uk.co.webamoeba.slf4j.junit;
+package uk.co.webamoeba.slf4j.junit.acceptancetest;
 
 import static uk.co.webamoeba.slf4j.junit.event.Level.*;
 import static org.hamcrest.CoreMatchers.is;
