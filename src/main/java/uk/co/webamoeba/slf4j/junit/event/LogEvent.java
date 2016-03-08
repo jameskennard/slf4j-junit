@@ -10,16 +10,16 @@ import org.slf4j.helpers.MessageFormatter;
  * 
  * @author James Kennard
  */
+// FIXME Rename to LogEntry 
 public class LogEvent implements SelfDescribing {
 
 	private final Level level;
-	
+
 	private final Message message;
-	
+
 	private final Throwable throwable;
 
 	private final Marker marker;
-
 
 	public LogEvent(Level level, String message) {
 		this(level, null, new StringMessage(message), null);
@@ -32,26 +32,26 @@ public class LogEvent implements SelfDescribing {
 	public LogEvent(Level level, String message, Throwable throwable) {
 		this(level, null, new StringMessage(message), throwable);
 	}
-	
+
 	public LogEvent(Level level, Marker marker, String message) {
 		this(level, marker, new StringMessage(message), null);
 	}
-	
+
 	public LogEvent(Level level, Marker marker, String message, Throwable throwable) {
 		this(level, marker, new StringMessage(message), throwable);
 	}
-	
+
 	public LogEvent(Level level, Marker marker, String format, Object[] arguments) {
 		this(level, marker, new FormattedMessage(format, arguments), null);
 	}
-	
+
 	private LogEvent(Level level, Marker marker, Message message, Throwable throwable) {
 		this.level = level;
 		this.marker = marker;
 		this.message = message;
 		this.throwable = throwable;
 	}
-	
+
 	public Level getLevel() {
 		return level;
 	}
@@ -63,15 +63,15 @@ public class LogEvent implements SelfDescribing {
 	public String getMessageAsString() {
 		return message.getMessageAsString();
 	}
-	
+
 	public Throwable getThrowable() {
 		return throwable;
 	}
-	
+
 	public Marker getMarker() {
 		return marker;
 	}
-	
+
 	public void describeTo(Description description) {
 		description.appendText(level.name().toLowerCase()).appendText("(");
 		if (marker != null) {
@@ -81,7 +81,7 @@ public class LogEvent implements SelfDescribing {
 		if (throwable != null) {
 			description.appendText(", ").appendValue(throwable);
 		}
-		description.appendText(")");		
+		description.appendText(")");
 	}
 
 	/**
@@ -125,7 +125,7 @@ public class LogEvent implements SelfDescribing {
 		public String getMessageAsString() {
 			return message;
 		}
-		
+
 		@Override
 		public String toString() {
 			return getMessageAsString();
@@ -152,16 +152,16 @@ public class LogEvent implements SelfDescribing {
 		public String getFormat() {
 			return format;
 		}
-		
+
 		public Object[] getArguments() {
 			return arguments;
 		}
-		
+
 		@Override
 		public String getMessageAsString() {
 			return MessageFormatter.arrayFormat(format, arguments).getMessage();
 		}
-		
+
 		@Override
 		public String toString() {
 			return getMessageAsString();
