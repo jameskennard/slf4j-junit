@@ -50,8 +50,6 @@ public class LogEventMessageMatcherTest {
 		assertThat(matches, is(false));
 	}
 
-	
-
 	@Test
 	public void shouldDescribeMismatch() {
 		// Given
@@ -69,7 +67,7 @@ public class LogEventMessageMatcherTest {
 		// Then
 		assertThat(mismatchDescription, describes("wanted \"" + message.getMessageAsString() + "\" but was \"" + differentMessage.getMessageAsString() + "\""));
 	}
-	
+
 	@Test
 	public void shouldDescribe() {
 		// Given
@@ -91,7 +89,7 @@ public class LogEventMessageMatcherTest {
 	private static Message aMessage() {
 		return new StringMessage("Some Message");
 	}
-	
+
 	private Message aDifferentMessage(Message message) {
 		return new StringMessage("Different to: " + message.getMessageAsString());
 	}
