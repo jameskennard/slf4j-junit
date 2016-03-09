@@ -1,8 +1,8 @@
 package uk.co.webamoeba.slf4j.junit.testsupport;
 
-import uk.co.webamoeba.slf4j.junit.event.Level;
+import uk.co.webamoeba.slf4j.junit.log.Level;
 
-import static uk.co.webamoeba.slf4j.junit.event.Level.INFO;
+import static uk.co.webamoeba.slf4j.junit.log.Level.INFO;
 
 /**
  * Factory which creates {@link Level Levels} 

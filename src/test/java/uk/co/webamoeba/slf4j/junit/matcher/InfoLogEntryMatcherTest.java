@@ -4,43 +4,45 @@ import org.slf4j.Logger;
 import org.slf4j.Marker;
 
 /**
+ * Test for {@link InfoLogEntryMatcher}
+ * 
  * @author James Kennard
  */
-public class InfoLogEventMatcherTest extends LogEventMatcherTest {
+public class InfoLogEntryMatcherTest extends LogEntryMatcherTest {
 
 	@Override
-	protected InfoLogEventMatcher matcher() {
-		return new InfoLogEventMatcher("Message");
+	protected InfoLogEntryMatcher matcher() {
+		return new InfoLogEntryMatcher("Message");
 	}
 	
 	@Override
-	protected InfoLogEventMatcher matcher(String message) {
-		return new InfoLogEventMatcher(message);
+	protected InfoLogEntryMatcher matcher(String message) {
+		return new InfoLogEntryMatcher(message);
 	}
 	
 	@Override
-	protected LogEventMatcher matcher(String format, String argument) {
-		return new InfoLogEventMatcher(format, argument);
+	protected LogEntryMatcher matcher(String format, String argument) {
+		return new InfoLogEntryMatcher(format, argument);
 	}
 	
 	@Override
-	protected InfoLogEventMatcher matcher(Marker marker, String message) {
-		return new InfoLogEventMatcher(marker, message);
+	protected InfoLogEntryMatcher matcher(Marker marker, String message) {
+		return new InfoLogEntryMatcher(marker, message);
 	}
 	
 	@Override
-	protected InfoLogEventMatcher matcher(String message, Throwable throwable) {
-		return new InfoLogEventMatcher(message, throwable);
+	protected InfoLogEntryMatcher matcher(String message, Throwable throwable) {
+		return new InfoLogEntryMatcher(message, throwable);
 	}
 	
 	@Override
-	protected InfoLogEventMatcher matcher(Marker marker, String message, Throwable throwable) {
-		return new InfoLogEventMatcher(marker, message, throwable);
+	protected InfoLogEntryMatcher matcher(Marker marker, String message, Throwable throwable) {
+		return new InfoLogEntryMatcher(marker, message, throwable);
 	}
 	
 	@Override
-	protected InfoLogEventMatcher matcher(Marker marker, String format, String argument) {
-		return new InfoLogEventMatcher(marker, format, argument);
+	protected InfoLogEntryMatcher matcher(Marker marker, String format, String argument) {
+		return new InfoLogEntryMatcher(marker, format, argument);
 	}
 	
 	@Override
@@ -54,8 +56,8 @@ public class InfoLogEventMatcherTest extends LogEventMatcherTest {
 	}
 	
 	@Override
-	protected InfoLogEventMatcher log(String format, String argument) {
-		return new InfoLogEventMatcher(format, argument);
+	protected InfoLogEntryMatcher log(String format, String argument) {
+		return new InfoLogEntryMatcher(format, argument);
 	}
 	
 	@Override

@@ -6,7 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Marker;
 
-import uk.co.webamoeba.slf4j.junit.matcher.InfoLogEventMatcher;
+import uk.co.webamoeba.slf4j.junit.matcher.InfoLogEntryMatcher;
 
 /**
  * @author James Kennard
@@ -30,27 +30,27 @@ public class LoggingMatchers {
 	}
 	
 	public static Matcher<Logger> loggedInfo(String message) {
-		return new InfoLogEventMatcher(message);
+		return new InfoLogEntryMatcher(message);
 	}
 	
 	public static Matcher<Logger> loggedInfo(String format, Object... arguments) {
-		return new InfoLogEventMatcher(format, arguments);
+		return new InfoLogEntryMatcher(format, arguments);
 	}
 	
 	public static Matcher<Logger> loggedInfo(String message, Throwable throwable) {
-		return new InfoLogEventMatcher(message, throwable);
+		return new InfoLogEntryMatcher(message, throwable);
 	}
 	
 	public static Matcher<Logger> loggedInfo(Marker marker, String message) {
-		return new InfoLogEventMatcher(marker, message);
+		return new InfoLogEntryMatcher(marker, message);
 	}
 	
 	public static Matcher<Logger> loggedInfo(Marker marker, String format, Object... arguments) {
-		return new InfoLogEventMatcher(marker, format, arguments);
+		return new InfoLogEntryMatcher(marker, format, arguments);
 	}
 	
 	public static Matcher<Logger> loggedInfo(Marker marker, String message, Throwable throwable) {
-		return new InfoLogEventMatcher(marker, message, throwable);
+		return new InfoLogEntryMatcher(marker, message, throwable);
 	}
 	
 	public static Matcher<Logger> loggedError(String message) {

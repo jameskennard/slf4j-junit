@@ -6,41 +6,41 @@ import org.slf4j.Marker;
 /**
  * @author James Kennard
  */
-public class WarningLogEventMatcherTest extends LogEventMatcherTest {
+public class WarningLogEntryMatcherTest extends LogEntryMatcherTest {
 
 	@Override
-	protected LogEventMatcher matcher() {
-		return new WarningLogEventMatcher("Message");
+	protected LogEntryMatcher matcher() {
+		return new WarningLogEntryMatcher("Message");
 	}
 
 	@Override
-	protected LogEventMatcher matcher(String message) {
-		return new WarningLogEventMatcher(message);
+	protected LogEntryMatcher matcher(String message) {
+		return new WarningLogEntryMatcher(message);
 	}
 
 	@Override
-	protected LogEventMatcher matcher(String format, String argument) {
-		return new WarningLogEventMatcher(format, argument);
+	protected LogEntryMatcher matcher(String format, String argument) {
+		return new WarningLogEntryMatcher(format, argument);
 	}
 
 	@Override
-	protected LogEventMatcher matcher(Marker marker, String message) {
-		return new WarningLogEventMatcher(marker, message);
+	protected LogEntryMatcher matcher(Marker marker, String message) {
+		return new WarningLogEntryMatcher(marker, message);
 	}
 
 	@Override
-	protected LogEventMatcher matcher(String message, Throwable throwable) {
-		return new WarningLogEventMatcher(message, throwable);
+	protected LogEntryMatcher matcher(String message, Throwable throwable) {
+		return new WarningLogEntryMatcher(message, throwable);
 	}
 
 	@Override
-	protected LogEventMatcher matcher(Marker marker, String message, Throwable throwable) {
-		return new WarningLogEventMatcher(marker, message, throwable);
+	protected LogEntryMatcher matcher(Marker marker, String message, Throwable throwable) {
+		return new WarningLogEntryMatcher(marker, message, throwable);
 	}
 
 	@Override
-	protected LogEventMatcher matcher(Marker marker, String format, String argument) {
-		return new WarningLogEventMatcher(marker, format, argument);
+	protected LogEntryMatcher matcher(Marker marker, String format, String argument) {
+		return new WarningLogEntryMatcher(marker, format, argument);
 	}
 
 	@Override
@@ -59,8 +59,8 @@ public class WarningLogEventMatcherTest extends LogEventMatcherTest {
 	}
 
 	@Override
-	protected LogEventMatcher log(String format, String argument) {
-		return new WarningLogEventMatcher(format, argument);
+	protected LogEntryMatcher log(String format, String argument) {
+		return new WarningLogEntryMatcher(format, argument);
 	}
 
 	@Override

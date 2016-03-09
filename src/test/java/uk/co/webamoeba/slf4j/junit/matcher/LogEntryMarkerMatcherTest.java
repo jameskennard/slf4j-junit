@@ -5,19 +5,19 @@ import org.hamcrest.StringDescription;
 import org.junit.Test;
 import org.slf4j.Marker;
 import org.slf4j.helpers.BasicMarkerFactory;
-import uk.co.webamoeba.slf4j.junit.event.LogEvent;
+import uk.co.webamoeba.slf4j.junit.log.LogEntry;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static uk.co.webamoeba.slf4j.junit.testsupport.DescriptionMatcher.describes;
-import static uk.co.webamoeba.slf4j.junit.testsupport.LogEventTestFactory.logEventWithMarker;
+import static uk.co.webamoeba.slf4j.junit.testsupport.LogEntryTestFactory.logEntryWithMarker;
 
 /**
- * Test for {@link LogEventMarkerMatcher}
+ * Test for {@link LogEntryMarkerMatcher}
  * 
  * @author James Kennard
  */
-public class LogEventMarkerMatcherTest {
+public class LogEntryMarkerMatcherTest {
 
 	private static final BasicMarkerFactory MARKER_FACTORY = new BasicMarkerFactory();
 
@@ -25,12 +25,12 @@ public class LogEventMarkerMatcherTest {
 	public void shouldMatch() {
 		// Given
 		Marker marker = aMarker();
-		LogEvent logEvent = logEventWithMarker(marker);
+		LogEntry logEntry = logEntryWithMarker(marker);
 
-		LogEventMarkerMatcher matcher = new LogEventMarkerMatcher(marker);
+		LogEntryMarkerMatcher matcher = new LogEntryMarkerMatcher(marker);
 
 		// When
-		boolean matches = matcher.matches(logEvent);
+		boolean matches = matcher.matches(logEntry);
 
 		// Then
 		assertThat(matches, is(true));
@@ -40,13 +40,13 @@ public class LogEventMarkerMatcherTest {
 	public void shouldNotMatch() {
 		// Given
 		Marker marker = aMarker();
-		LogEventMarkerMatcher matcher = new LogEventMarkerMatcher(marker);
+		LogEntryMarkerMatcher matcher = new LogEntryMarkerMatcher(marker);
 
 		Marker differentMarker = aDifferentMarker(marker);
-		LogEvent logEvent = logEventWithMarker(differentMarker);
+		LogEntry logEntry = logEntryWithMarker(differentMarker);
 
 		// When
-		boolean matches = matcher.matches(logEvent);
+		boolean matches = matcher.matches(logEntry);
 
 		// Then
 		assertThat(matches, is(false));
@@ -56,15 +56,15 @@ public class LogEventMarkerMatcherTest {
 	public void shouldDescribeMismatch() {
 		// Given
 		Marker marker = aMarker();
-		LogEventMarkerMatcher matcher = new LogEventMarkerMatcher(marker);
+		LogEntryMarkerMatcher matcher = new LogEntryMarkerMatcher(marker);
 
 		Marker differentMarker = aDifferentMarker(marker);
-		LogEvent logEvent = logEventWithMarker(differentMarker);
+		LogEntry logEntry = logEntryWithMarker(differentMarker);
 
 		Description mismatchDescription = new StringDescription();
 
 		// When
-		matcher.describeMismatch(logEvent, mismatchDescription);
+		matcher.describeMismatch(logEntry, mismatchDescription);
 
 		// Then
 		assertThat(mismatchDescription, describes("wanted <" + marker + "> but was <" + differentMarker + ">"));
@@ -74,14 +74,14 @@ public class LogEventMarkerMatcherTest {
 	public void shouldDescribe() {
 		// Given
 		Marker marker = aMarker();
-		LogEventMarkerMatcher matcher = new LogEventMarkerMatcher(marker);
+		LogEntryMarkerMatcher matcher = new LogEntryMarkerMatcher(marker);
 		Description description = new StringDescription();
 
 		// When
 		matcher.describeTo(description);
 
 		// Then
-		assertThat(description, describes("LogEvent with marker <" + marker + ">"));
+		assertThat(description, describes("LogEntry with marker <" + marker + ">"));
 	}
 
 	private static Marker aMarker() {

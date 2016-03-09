@@ -11,10 +11,9 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.Marker;
 import org.slf4j.helpers.BasicMarkerFactory;
-
-import uk.co.webamoeba.slf4j.junit.event.Level;
-import uk.co.webamoeba.slf4j.junit.event.LogEvent;
-import uk.co.webamoeba.slf4j.junit.event.LogEventRegistry;
+import uk.co.webamoeba.slf4j.junit.log.Level;
+import uk.co.webamoeba.slf4j.junit.log.LogEntry;
+import uk.co.webamoeba.slf4j.junit.log.LogRegistry;
 import uk.co.webamoeba.slf4j.junit.logger.RecordingLogger;
 
 /**
@@ -24,7 +23,7 @@ public class RecordingLoggerTest {
 
 	@Before
 	public void clearLogs() {
-		LogEventRegistry.getSingleton().clearAll();
+		LogRegistry.getSingleton().clearAll();
 	}
 
 	@Test
@@ -188,9 +187,9 @@ public class RecordingLoggerTest {
 		recordingLogger.info(message);
 
 		// Then
-		assertThat(logEvents(name).size(), is(1));
-		assertThat(logEvents(name).get(0).getMessageAsString(), is(message));
-		assertThat(logEvents(name).get(0).getLevel(), is(Level.INFO));
+		assertThat(logEntries(name).size(), is(1));
+		assertThat(logEntries(name).get(0).getMessageAsString(), is(message));
+		assertThat(logEntries(name).get(0).getLevel(), is(Level.INFO));
 	}
 
 	@Test
@@ -206,9 +205,9 @@ public class RecordingLoggerTest {
 		recordingLogger.info(format, arg);
 
 		// Then
-		assertThat(logEvents(name).size(), is(1));
-		assertThat(logEvents(name).get(0).getMessageAsString(), is(expectedMessage));
-		assertThat(logEvents(name).get(0).getLevel(), is(Level.INFO));
+		assertThat(logEntries(name).size(), is(1));
+		assertThat(logEntries(name).get(0).getMessageAsString(), is(expectedMessage));
+		assertThat(logEntries(name).get(0).getLevel(), is(Level.INFO));
 	}
 
 	@Test
@@ -225,9 +224,9 @@ public class RecordingLoggerTest {
 		recordingLogger.info(format, arg1, arg2);
 
 		// Then
-		assertThat(logEvents(name).size(), is(1));
-		assertThat(logEvents(name).get(0).getMessageAsString(), is(expectedMessage));
-		assertThat(logEvents(name).get(0).getLevel(), is(Level.INFO));
+		assertThat(logEntries(name).size(), is(1));
+		assertThat(logEntries(name).get(0).getMessageAsString(), is(expectedMessage));
+		assertThat(logEntries(name).get(0).getLevel(), is(Level.INFO));
 	}
 
 	@Test
@@ -245,9 +244,9 @@ public class RecordingLoggerTest {
 		recordingLogger.info(format, arg1, arg2, arg3);
 
 		// Then
-		assertThat(logEvents(name).size(), is(1));
-		assertThat(logEvents(name).get(0).getMessageAsString(), is(expectedMessage));
-		assertThat(logEvents(name).get(0).getLevel(), is(Level.INFO));
+		assertThat(logEntries(name).size(), is(1));
+		assertThat(logEntries(name).get(0).getMessageAsString(), is(expectedMessage));
+		assertThat(logEntries(name).get(0).getLevel(), is(Level.INFO));
 	}
 
 	@Test
@@ -262,10 +261,10 @@ public class RecordingLoggerTest {
 		recordingLogger.info(message, throwable);
 
 		// Then
-		assertThat(logEvents(name).size(), is(1));
-		assertThat(logEvents(name).get(0).getMessageAsString(), is(message));
-		assertThat(logEvents(name).get(0).getThrowable(), is(sameInstance(throwable)));
-		assertThat(logEvents(name).get(0).getLevel(), is(Level.INFO));
+		assertThat(logEntries(name).size(), is(1));
+		assertThat(logEntries(name).get(0).getMessageAsString(), is(message));
+		assertThat(logEntries(name).get(0).getThrowable(), is(sameInstance(throwable)));
+		assertThat(logEntries(name).get(0).getLevel(), is(Level.INFO));
 	}
 
 	@Test
@@ -280,10 +279,10 @@ public class RecordingLoggerTest {
 		recordingLogger.info(marker, message);
 
 		// Then
-		assertThat(logEvents(name).size(), is(1));
-		assertThat(logEvents(name).get(0).getMessageAsString(), is(message));
-		assertThat(logEvents(name).get(0).getMarker(), is(sameInstance(marker)));
-		assertThat(logEvents(name).get(0).getLevel(), is(Level.INFO));
+		assertThat(logEntries(name).size(), is(1));
+		assertThat(logEntries(name).get(0).getMessageAsString(), is(message));
+		assertThat(logEntries(name).get(0).getMarker(), is(sameInstance(marker)));
+		assertThat(logEntries(name).get(0).getLevel(), is(Level.INFO));
 	}
 
 	@Test
@@ -299,10 +298,10 @@ public class RecordingLoggerTest {
 		recordingLogger.info(marker, format, arg);
 
 		// Then
-		assertThat(logEvents(name).size(), is(1));
-		assertThat(logEvents(name).get(0).getMessageAsString(), is("Format Argument"));
-		assertThat(logEvents(name).get(0).getMarker(), is(sameInstance(marker)));
-		assertThat(logEvents(name).get(0).getLevel(), is(Level.INFO));
+		assertThat(logEntries(name).size(), is(1));
+		assertThat(logEntries(name).get(0).getMessageAsString(), is("Format Argument"));
+		assertThat(logEntries(name).get(0).getMarker(), is(sameInstance(marker)));
+		assertThat(logEntries(name).get(0).getLevel(), is(Level.INFO));
 	}
 
 	@Test
@@ -319,10 +318,10 @@ public class RecordingLoggerTest {
 		recordingLogger.info(marker, format, arg1, arg2);
 
 		// Then
-		assertThat(logEvents(name).size(), is(1));
-		assertThat(logEvents(name).get(0).getMessageAsString(), is("Format Argument Argument"));
-		assertThat(logEvents(name).get(0).getMarker(), is(sameInstance(marker)));
-		assertThat(logEvents(name).get(0).getLevel(), is(Level.INFO));
+		assertThat(logEntries(name).size(), is(1));
+		assertThat(logEntries(name).get(0).getMessageAsString(), is("Format Argument Argument"));
+		assertThat(logEntries(name).get(0).getMarker(), is(sameInstance(marker)));
+		assertThat(logEntries(name).get(0).getLevel(), is(Level.INFO));
 	}
 
 	@Test
@@ -340,10 +339,10 @@ public class RecordingLoggerTest {
 		recordingLogger.info(marker, format, arg1, arg2, arg3);
 
 		// Then
-		assertThat(logEvents(name).size(), is(1));
-		assertThat(logEvents(name).get(0).getMessageAsString(), is("Format Argument Argument Argument"));
-		assertThat(logEvents(name).get(0).getMarker(), is(sameInstance(marker)));
-		assertThat(logEvents(name).get(0).getLevel(), is(Level.INFO));
+		assertThat(logEntries(name).size(), is(1));
+		assertThat(logEntries(name).get(0).getMessageAsString(), is("Format Argument Argument Argument"));
+		assertThat(logEntries(name).get(0).getMarker(), is(sameInstance(marker)));
+		assertThat(logEntries(name).get(0).getLevel(), is(Level.INFO));
 	}
 
 	@Test
@@ -359,11 +358,11 @@ public class RecordingLoggerTest {
 		recordingLogger.info(marker, message, throwable);
 
 		// Then
-		assertThat(logEvents(name).size(), is(1));
-		assertThat(logEvents(name).get(0).getMessageAsString(), is(message));
-		assertThat(logEvents(name).get(0).getMarker(), is(sameInstance(marker)));
-		assertThat(logEvents(name).get(0).getThrowable(), is(sameInstance(throwable)));
-		assertThat(logEvents(name).get(0).getLevel(), is(Level.INFO));
+		assertThat(logEntries(name).size(), is(1));
+		assertThat(logEntries(name).get(0).getMessageAsString(), is(message));
+		assertThat(logEntries(name).get(0).getMarker(), is(sameInstance(marker)));
+		assertThat(logEntries(name).get(0).getThrowable(), is(sameInstance(throwable)));
+		assertThat(logEntries(name).get(0).getLevel(), is(Level.INFO));
 	}
 	
 	@Test
@@ -377,9 +376,9 @@ public class RecordingLoggerTest {
 		recordingLogger.warn(message);
 
 		// Then
-		assertThat(logEvents(name).size(), is(1));
-		assertThat(logEvents(name).get(0).getMessageAsString(), is(message));
-		assertThat(logEvents(name).get(0).getLevel(), is(Level.WARN));
+		assertThat(logEntries(name).size(), is(1));
+		assertThat(logEntries(name).get(0).getMessageAsString(), is(message));
+		assertThat(logEntries(name).get(0).getLevel(), is(Level.WARN));
 	}
 
 	@Test
@@ -395,9 +394,9 @@ public class RecordingLoggerTest {
 		recordingLogger.warn(format, arg);
 
 		// Then
-		assertThat(logEvents(name).size(), is(1));
-		assertThat(logEvents(name).get(0).getMessageAsString(), is(expectedMessage));
-		assertThat(logEvents(name).get(0).getLevel(), is(Level.WARN));
+		assertThat(logEntries(name).size(), is(1));
+		assertThat(logEntries(name).get(0).getMessageAsString(), is(expectedMessage));
+		assertThat(logEntries(name).get(0).getLevel(), is(Level.WARN));
 	}
 
 	@Test
@@ -414,9 +413,9 @@ public class RecordingLoggerTest {
 		recordingLogger.warn(format, arg1, arg2);
 
 		// Then
-		assertThat(logEvents(name).size(), is(1));
-		assertThat(logEvents(name).get(0).getMessageAsString(), is(expectedMessage));
-		assertThat(logEvents(name).get(0).getLevel(), is(Level.WARN));
+		assertThat(logEntries(name).size(), is(1));
+		assertThat(logEntries(name).get(0).getMessageAsString(), is(expectedMessage));
+		assertThat(logEntries(name).get(0).getLevel(), is(Level.WARN));
 	}
 
 	@Test
@@ -434,9 +433,9 @@ public class RecordingLoggerTest {
 		recordingLogger.warn(format, arg1, arg2, arg3);
 
 		// Then
-		assertThat(logEvents(name).size(), is(1));
-		assertThat(logEvents(name).get(0).getMessageAsString(), is(expectedMessage));
-		assertThat(logEvents(name).get(0).getLevel(), is(Level.WARN));
+		assertThat(logEntries(name).size(), is(1));
+		assertThat(logEntries(name).get(0).getMessageAsString(), is(expectedMessage));
+		assertThat(logEntries(name).get(0).getLevel(), is(Level.WARN));
 	}
 
 	@Test
@@ -451,10 +450,10 @@ public class RecordingLoggerTest {
 		recordingLogger.warn(message, throwable);
 
 		// Then
-		assertThat(logEvents(name).size(), is(1));
-		assertThat(logEvents(name).get(0).getMessageAsString(), is(message));
-		assertThat(logEvents(name).get(0).getThrowable(), is(sameInstance(throwable)));
-		assertThat(logEvents(name).get(0).getLevel(), is(Level.WARN));
+		assertThat(logEntries(name).size(), is(1));
+		assertThat(logEntries(name).get(0).getMessageAsString(), is(message));
+		assertThat(logEntries(name).get(0).getThrowable(), is(sameInstance(throwable)));
+		assertThat(logEntries(name).get(0).getLevel(), is(Level.WARN));
 	}
 
 	@Test
@@ -469,10 +468,10 @@ public class RecordingLoggerTest {
 		recordingLogger.warn(marker, message);
 
 		// Then
-		assertThat(logEvents(name).size(), is(1));
-		assertThat(logEvents(name).get(0).getMessageAsString(), is(message));
-		assertThat(logEvents(name).get(0).getMarker(), is(sameInstance(marker)));
-		assertThat(logEvents(name).get(0).getLevel(), is(Level.WARN));
+		assertThat(logEntries(name).size(), is(1));
+		assertThat(logEntries(name).get(0).getMessageAsString(), is(message));
+		assertThat(logEntries(name).get(0).getMarker(), is(sameInstance(marker)));
+		assertThat(logEntries(name).get(0).getLevel(), is(Level.WARN));
 	}
 
 	@Test
@@ -488,10 +487,10 @@ public class RecordingLoggerTest {
 		recordingLogger.warn(marker, format, arg);
 
 		// Then
-		assertThat(logEvents(name).size(), is(1));
-		assertThat(logEvents(name).get(0).getMessageAsString(), is("Format Argument"));
-		assertThat(logEvents(name).get(0).getMarker(), is(sameInstance(marker)));
-		assertThat(logEvents(name).get(0).getLevel(), is(Level.WARN));
+		assertThat(logEntries(name).size(), is(1));
+		assertThat(logEntries(name).get(0).getMessageAsString(), is("Format Argument"));
+		assertThat(logEntries(name).get(0).getMarker(), is(sameInstance(marker)));
+		assertThat(logEntries(name).get(0).getLevel(), is(Level.WARN));
 	}
 
 	@Test
@@ -508,10 +507,10 @@ public class RecordingLoggerTest {
 		recordingLogger.warn(marker, format, arg1, arg2);
 
 		// Then
-		assertThat(logEvents(name).size(), is(1));
-		assertThat(logEvents(name).get(0).getMessageAsString(), is("Format Argument Argument"));
-		assertThat(logEvents(name).get(0).getMarker(), is(sameInstance(marker)));
-		assertThat(logEvents(name).get(0).getLevel(), is(Level.WARN));
+		assertThat(logEntries(name).size(), is(1));
+		assertThat(logEntries(name).get(0).getMessageAsString(), is("Format Argument Argument"));
+		assertThat(logEntries(name).get(0).getMarker(), is(sameInstance(marker)));
+		assertThat(logEntries(name).get(0).getLevel(), is(Level.WARN));
 	}
 
 	@Test
@@ -529,10 +528,10 @@ public class RecordingLoggerTest {
 		recordingLogger.warn(marker, format, arg1, arg2, arg3);
 
 		// Then
-		assertThat(logEvents(name).size(), is(1));
-		assertThat(logEvents(name).get(0).getMessageAsString(), is("Format Argument Argument Argument"));
-		assertThat(logEvents(name).get(0).getMarker(), is(sameInstance(marker)));
-		assertThat(logEvents(name).get(0).getLevel(), is(Level.WARN));
+		assertThat(logEntries(name).size(), is(1));
+		assertThat(logEntries(name).get(0).getMessageAsString(), is("Format Argument Argument Argument"));
+		assertThat(logEntries(name).get(0).getMarker(), is(sameInstance(marker)));
+		assertThat(logEntries(name).get(0).getLevel(), is(Level.WARN));
 	}
 
 	@Test
@@ -548,15 +547,15 @@ public class RecordingLoggerTest {
 		recordingLogger.warn(marker, message, throwable);
 
 		// Then
-		assertThat(logEvents(name).size(), is(1));
-		assertThat(logEvents(name).get(0).getMessageAsString(), is(message));
-		assertThat(logEvents(name).get(0).getMarker(), is(sameInstance(marker)));
-		assertThat(logEvents(name).get(0).getThrowable(), is(sameInstance(throwable)));
-		assertThat(logEvents(name).get(0).getLevel(), is(Level.WARN));
+		assertThat(logEntries(name).size(), is(1));
+		assertThat(logEntries(name).get(0).getMessageAsString(), is(message));
+		assertThat(logEntries(name).get(0).getMarker(), is(sameInstance(marker)));
+		assertThat(logEntries(name).get(0).getThrowable(), is(sameInstance(throwable)));
+		assertThat(logEntries(name).get(0).getLevel(), is(Level.WARN));
 	}
 
-	private List<LogEvent> logEvents(String name) {
-		return LogEventRegistry.getSingleton().getRegister(name).getLogEvents();
+	private List<LogEntry> logEntries(String name) {
+		return LogRegistry.getSingleton().getRegister(name).getEntries();
 	}
 
 }

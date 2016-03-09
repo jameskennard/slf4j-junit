@@ -3,12 +3,11 @@ package uk.co.webamoeba.slf4j.junit;
 import org.junit.rules.TestRule;
 import org.junit.runner.Description;
 import org.junit.runners.model.Statement;
-
-import uk.co.webamoeba.slf4j.junit.event.LogEvent;
-import uk.co.webamoeba.slf4j.junit.event.LogEventRegistry;
+import uk.co.webamoeba.slf4j.junit.log.LogEntry;
+import uk.co.webamoeba.slf4j.junit.log.LogRegistry;
 
 /**
- * JUnit {@link TestRule} that will clear any recorded {@link LogEvent LogEvents}. This may be used in one of two forms,
+ * JUnit {@link TestRule} that will clear any recorded {@link LogEntry LogEntries}. This may be used in one of two forms,
  * you can either clear all of the logs by constructing the rule with the default constructor. Or you can clear a
  * specified log by providing the class for the logger.
  * 
@@ -40,7 +39,7 @@ public class ClearLogsTestRule implements TestRule {
 	}
 
 	private void clearLogs() {
-		LogEventRegistry registry = LogEventRegistry.getSingleton();
+		LogRegistry registry = LogRegistry.getSingleton();
 		if (clearAll()) {
 			registry.clearAll();
 		} else {

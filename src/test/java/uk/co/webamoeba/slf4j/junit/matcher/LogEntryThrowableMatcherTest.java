@@ -3,30 +3,30 @@ package uk.co.webamoeba.slf4j.junit.matcher;
 import org.hamcrest.Description;
 import org.hamcrest.StringDescription;
 import org.junit.Test;
-import uk.co.webamoeba.slf4j.junit.event.LogEvent;
+import uk.co.webamoeba.slf4j.junit.log.LogEntry;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static uk.co.webamoeba.slf4j.junit.testsupport.DescriptionMatcher.describes;
-import static uk.co.webamoeba.slf4j.junit.testsupport.LogEventTestFactory.logEventWithThrowable;
+import static uk.co.webamoeba.slf4j.junit.testsupport.LogEntryTestFactory.logEntryWithThrowable;
 
 /**
- * Test for {@link LogEventThrowableMatcher}
+ * Test for {@link LogEntryThrowableMatcher}
  * 
  * @author James Kennard
  */
-public class LogEventThrowableMatcherTest {
+public class LogEntryThrowableMatcherTest {
 
 	@Test
 	public void shouldMatch() {
 		// Given
 		Throwable throwable = aThrowable();
-		LogEvent logEvent = logEventWithThrowable(throwable);
+		LogEntry logEntry = logEntryWithThrowable(throwable);
 
-		LogEventThrowableMatcher matcher = new LogEventThrowableMatcher(throwable);
+		LogEntryThrowableMatcher matcher = new LogEntryThrowableMatcher(throwable);
 
 		// When
-		boolean matches = matcher.matches(logEvent);
+		boolean matches = matcher.matches(logEntry);
 
 		// Then
 		assertThat(matches, is(true));
@@ -36,13 +36,13 @@ public class LogEventThrowableMatcherTest {
 	public void shouldNotMatch() {
 		// Given
 		Throwable throwable = aThrowable();
-		LogEventThrowableMatcher matcher = new LogEventThrowableMatcher(throwable);
+		LogEntryThrowableMatcher matcher = new LogEntryThrowableMatcher(throwable);
 
 		Throwable differentThrowable = aDifferentThrowable(throwable);
-		LogEvent logEvent = logEventWithThrowable(differentThrowable);
+		LogEntry logEntry = logEntryWithThrowable(differentThrowable);
 
 		// When
-		boolean matches = matcher.matches(logEvent);
+		boolean matches = matcher.matches(logEntry);
 
 		// Then
 		assertThat(matches, is(false));
@@ -52,15 +52,15 @@ public class LogEventThrowableMatcherTest {
 	public void shouldDescribeMismatch() {
 		// Given
 		Throwable throwable = aThrowable();
-		LogEventThrowableMatcher matcher = new LogEventThrowableMatcher(throwable);
+		LogEntryThrowableMatcher matcher = new LogEntryThrowableMatcher(throwable);
 
 		Throwable differentThrowable = aDifferentThrowable(throwable);
-		LogEvent logEvent = logEventWithThrowable(differentThrowable);
+		LogEntry logEntry = logEntryWithThrowable(differentThrowable);
 
 		Description mismatchDescription = new StringDescription();
 
 		// When
-		matcher.describeMismatch(logEvent, mismatchDescription);
+		matcher.describeMismatch(logEntry, mismatchDescription);
 
 		// Then
 		assertThat(mismatchDescription, describes("wanted <" + throwable + "> but was <" + differentThrowable + ">"));
@@ -70,14 +70,14 @@ public class LogEventThrowableMatcherTest {
 	public void shouldDescribe() {
 		// Given
 		Throwable throwable = aThrowable();
-		LogEventThrowableMatcher matcher = new LogEventThrowableMatcher(throwable);
+		LogEntryThrowableMatcher matcher = new LogEntryThrowableMatcher(throwable);
 		Description description = new StringDescription();
 
 		// When
 		matcher.describeTo(description);
 
 		// Then
-		assertThat(description, describes("LogEvent with Throwable <" + throwable + ">"));
+		assertThat(description, describes("LogEntry with Throwable <" + throwable + ">"));
 	}
 
 	private static Throwable aThrowable() {

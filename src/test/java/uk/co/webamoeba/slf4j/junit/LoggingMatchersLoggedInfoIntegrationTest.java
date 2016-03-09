@@ -10,8 +10,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.Marker;
 import org.slf4j.helpers.BasicMarkerFactory;
-
-import uk.co.webamoeba.slf4j.junit.event.LogEventRegistry;
+import uk.co.webamoeba.slf4j.junit.log.LogRegistry;
 
 /**
  * @author James Kennard
@@ -20,7 +19,7 @@ public class LoggingMatchersLoggedInfoIntegrationTest {
 
 	@Before
 	public void clearLogs() {
-		LogEventRegistry.getSingleton().clearAll();
+		LogRegistry.getSingleton().clearAll();
 	}
 
 	@Test

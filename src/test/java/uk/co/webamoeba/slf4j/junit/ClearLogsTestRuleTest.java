@@ -12,9 +12,8 @@ import java.util.List;
 import org.junit.Test;
 import org.junit.runner.Description;
 import org.junit.runners.model.Statement;
-
-import uk.co.webamoeba.slf4j.junit.event.LogEvent;
-import uk.co.webamoeba.slf4j.junit.event.LogEventRegistry;
+import uk.co.webamoeba.slf4j.junit.log.LogEntry;
+import uk.co.webamoeba.slf4j.junit.log.LogRegistry;
 
 /**
  * @author James Kennard
@@ -34,7 +33,7 @@ public class ClearLogsTestRuleTest {
 		
 		// Then
 		verify(base).evaluate();
-		assertThat(loggingEvents(loggerClass).size(), is(0));
+		assertThat(logEntries(loggerClass).size(), is(0));
 	}
 	
 	@Test
@@ -52,12 +51,12 @@ public class ClearLogsTestRuleTest {
 		
 		// Then
 		verify(base).evaluate();
-		assertThat(loggingEvents(loggerClass).size(), is(0));
-		assertThat(loggingEvents(anotherLoggerClass).size(), is(1));
+		assertThat(logEntries(loggerClass).size(), is(0));
+		assertThat(logEntries(anotherLoggerClass).size(), is(1));
 	}
 
-	private List<LogEvent> loggingEvents(Class<?> loggerClass) {
-		return LogEventRegistry.getSingleton().getRegister(loggerClass.getName()).getLogEvents();
+	private List<LogEntry> logEntries(Class<?> loggerClass) {
+		return LogRegistry.getSingleton().getRegister(loggerClass.getName()).getEntries();
 	}
 	
 }

@@ -1,4 +1,4 @@
-package uk.co.webamoeba.slf4j.junit.event;
+package uk.co.webamoeba.slf4j.junit.log;
 
 import org.hamcrest.Description;
 import org.hamcrest.SelfDescribing;
@@ -6,12 +6,11 @@ import org.slf4j.Marker;
 import org.slf4j.helpers.MessageFormatter;
 
 /**
- * Describes a Log in terms of an event that has occurred.
+ * Describes a Log in terms of {@link LogEntry LogEntries} that have been made.
  * 
  * @author James Kennard
  */
-// FIXME Rename to LogEntry 
-public class LogEvent implements SelfDescribing {
+public class LogEntry implements SelfDescribing {
 
 	private final Level level;
 
@@ -21,31 +20,31 @@ public class LogEvent implements SelfDescribing {
 
 	private final Marker marker;
 
-	public LogEvent(Level level, String message) {
+	public LogEntry(Level level, String message) {
 		this(level, null, new StringMessage(message), null);
 	}
 
-	public LogEvent(Level level, String format, Object[] arguments) {
+	public LogEntry(Level level, String format, Object[] arguments) {
 		this(level, null, new FormattedMessage(format, arguments), null);
 	}
 
-	public LogEvent(Level level, String message, Throwable throwable) {
+	public LogEntry(Level level, String message, Throwable throwable) {
 		this(level, null, new StringMessage(message), throwable);
 	}
 
-	public LogEvent(Level level, Marker marker, String message) {
+	public LogEntry(Level level, Marker marker, String message) {
 		this(level, marker, new StringMessage(message), null);
 	}
 
-	public LogEvent(Level level, Marker marker, String message, Throwable throwable) {
+	public LogEntry(Level level, Marker marker, String message, Throwable throwable) {
 		this(level, marker, new StringMessage(message), throwable);
 	}
 
-	public LogEvent(Level level, Marker marker, String format, Object[] arguments) {
+	public LogEntry(Level level, Marker marker, String format, Object[] arguments) {
 		this(level, marker, new FormattedMessage(format, arguments), null);
 	}
 
-	private LogEvent(Level level, Marker marker, Message message, Throwable throwable) {
+	private LogEntry(Level level, Marker marker, Message message, Throwable throwable) {
 		this.level = level;
 		this.marker = marker;
 		this.message = message;
@@ -85,7 +84,7 @@ public class LogEvent implements SelfDescribing {
 	}
 
 	/**
-	 * Describes a message for a {@link LogEvent}
+	 * Describes a message for a {@link LogEntry}
 	 * 
 	 * @author James Kennard
 	 */
@@ -109,7 +108,7 @@ public class LogEvent implements SelfDescribing {
 	}
 
 	/**
-	 * Describes a message for a {@link LogEvent} in terms of a {@link String}.
+	 * Describes a message for a {@link LogEntry} in terms of a {@link String}.
 	 * 
 	 * @author James Kennard
 	 */
@@ -134,7 +133,7 @@ public class LogEvent implements SelfDescribing {
 	}
 
 	/**
-	 * Describes a message for a {@link LogEvent} in terms of a format {@link String} and an array of {@link Object Objects}.
+	 * Describes a message for a {@link LogEntry} in terms of a format {@link String} and an array of {@link Object Objects}.
 	 * 
 	 * @author James Kennard
 	 */

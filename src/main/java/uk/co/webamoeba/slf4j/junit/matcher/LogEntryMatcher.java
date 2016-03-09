@@ -6,20 +6,19 @@ import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
 import org.slf4j.Logger;
 import org.slf4j.Marker;
-
-import uk.co.webamoeba.slf4j.junit.event.Level;
-import uk.co.webamoeba.slf4j.junit.event.LogEvent;
-import uk.co.webamoeba.slf4j.junit.event.LogEventRegister;
-import uk.co.webamoeba.slf4j.junit.event.LogEventRegistry;
-import uk.co.webamoeba.slf4j.junit.event.LogEvent.FormattedMessage;
-import uk.co.webamoeba.slf4j.junit.event.LogEvent.Message;
-import uk.co.webamoeba.slf4j.junit.event.LogEvent.StringMessage;
+import uk.co.webamoeba.slf4j.junit.log.Level;
+import uk.co.webamoeba.slf4j.junit.log.Log;
+import uk.co.webamoeba.slf4j.junit.log.LogEntry;
+import uk.co.webamoeba.slf4j.junit.log.LogRegistry;
+import uk.co.webamoeba.slf4j.junit.log.LogEntry.FormattedMessage;
+import uk.co.webamoeba.slf4j.junit.log.LogEntry.Message;
+import uk.co.webamoeba.slf4j.junit.log.LogEntry.StringMessage;
 import uk.co.webamoeba.slf4j.junit.logger.RecordingLogger;
 
 /**
  * @author James Kennard
  */
-public abstract class LogEventMatcher extends BaseMatcher<Logger> {
+public abstract class LogEntryMatcher extends BaseMatcher<Logger> {
 
 	private final Level level;
 	
@@ -30,41 +29,41 @@ public abstract class LogEventMatcher extends BaseMatcher<Logger> {
 	private final Throwable throwable;
 
 	/**
-	 * @param message The message we want the {@link LogEvent} to have
+	 * @param message The message we want the {@link LogEntry} to have
 	 */
-	protected LogEventMatcher(Level level, String message) {
+	protected LogEntryMatcher(Level level, String message) {
 		this(level, null, new StringMessage(message), null);
 	}
 
 	/**
-	 * @param format The format of the message we want the {@link LogEvent} to have
+	 * @param format The format of the message we want the {@link LogEntry} to have
 	 * @param arguments The arguments we want to use to describe the parts of the message from the format
 	 */
-	protected LogEventMatcher(Level level, String format, Object... arguments) {
+	protected LogEntryMatcher(Level level, String format, Object... arguments) {
 		this(level, null, new FormattedMessage(format, arguments), null);
 	}
 
 	/**
-	 * @param message The message we want the {@link LogEvent} to have
+	 * @param message The message we want the {@link LogEntry} to have
 	 * @param throwable The {@link Throwable} we are logging
 	 */
-	protected LogEventMatcher(Level level, String message, Throwable throwable) {
+	protected LogEntryMatcher(Level level, String message, Throwable throwable) {
 		this(level, null, new StringMessage(message), throwable);
 	}
 
-	protected LogEventMatcher(Level level, Marker marker, String message) {
+	protected LogEntryMatcher(Level level, Marker marker, String message) {
 		this(level, marker, new StringMessage(message), null);
 	}
 	
-	protected LogEventMatcher(Level level, Marker marker, String message, Throwable throwable) {
+	protected LogEntryMatcher(Level level, Marker marker, String message, Throwable throwable) {
 		this(level, marker, new StringMessage(message), throwable);
 	}
 	
-	protected LogEventMatcher(Level level, Marker marker, String format, Object... arguments) {
+	protected LogEntryMatcher(Level level, Marker marker, String format, Object... arguments) {
 		this(level, marker, new FormattedMessage(format, arguments), null);
 	}
 	
-	protected LogEventMatcher(Level level, Marker marker, Message message, Throwable throwable) {
+	protected LogEntryMatcher(Level level, Marker marker, Message message, Throwable throwable) {
 		this.level = level;
 		this.marker = marker;
 		this.message = message;
@@ -110,9 +109,9 @@ public abstract class LogEventMatcher extends BaseMatcher<Logger> {
 	}
 
 	private boolean matches(RecordingLogger logger, Description mismatchDescription) {
-		LogEventRegister register = LogEventRegistry.getSingleton().getRegister(logger.getName());
-		for (LogEvent logEvent : register.getLogEvents()) {
-			if (logEventMatches(logEvent)) {
+		Log register = LogRegistry.getSingleton().getRegister(logger.getName());
+		for (LogEntry logEntry : register.getEntries()) {
+			if (logEntryMatches(logEntry)) {
 				return true;
 			}
 		}
@@ -120,17 +119,17 @@ public abstract class LogEventMatcher extends BaseMatcher<Logger> {
 		return false;
 	}
 
-	private boolean logEventMatches(LogEvent logEvent) {
-		if (notEqual(level, logEvent.getLevel())) {
+	private boolean logEntryMatches(LogEntry logEntry) {
+		if (notEqual(level, logEntry.getLevel())) {
 			return false;
 		}
-		if (notEqual(message, logEvent.getMessage())) {
+		if (notEqual(message, logEntry.getMessage())) {
 			return false;
 		}
-		if (notEqual(throwable, logEvent.getThrowable())) {
+		if (notEqual(throwable, logEntry.getThrowable())) {
 			return false;
 		}
-		if (notEqual(marker, logEvent.getMarker())) {
+		if (notEqual(marker, logEntry.getMarker())) {
 			return false;
 		}
 		return true;
@@ -139,7 +138,7 @@ public abstract class LogEventMatcher extends BaseMatcher<Logger> {
 	/**
 	 * Describes why the matcher did not match by appending the description to the provided mismatchDescription.
 	 * 
-	 * @param logger The {@link RecordingLogger} that did not contain a matching {@link LogEvent}
+	 * @param logger The {@link RecordingLogger} that did not contain a matching {@link LogEntry}
 	 * @param mismatchDescription The description in which we want to describe the mismatch 
 	 */
 	private void describeMismatch(RecordingLogger logger, Description mismatchDescription) {
@@ -149,14 +148,14 @@ public abstract class LogEventMatcher extends BaseMatcher<Logger> {
 			mismatchDescription.appendText(" and throwable ").appendValue(throwable);
 		}
 		mismatchDescription.appendText(" was not logged");
-		LogEventRegister register = LogEventRegistry.getSingleton().getRegister(logger.getName());
-		List<LogEvent> logEvents = register.getLogEvents();
-		if (logEvents.isEmpty()) {
+		Log register = LogRegistry.getSingleton().getRegister(logger.getName());
+		List<LogEntry> logEntries = register.getEntries();
+		if (logEntries.isEmpty()) {
 			mismatchDescription.appendText(" ");
 		} else {
 			mismatchDescription.appendText("; But these were logged ");
-			for (LogEvent logEvent : logEvents) {
-				mismatchDescription.appendDescriptionOf(logEvent).appendText(" ");
+			for (LogEntry logEntry : logEntries) {
+				mismatchDescription.appendDescriptionOf(logEntry).appendText(" ");
 			}
 		}
 	}
