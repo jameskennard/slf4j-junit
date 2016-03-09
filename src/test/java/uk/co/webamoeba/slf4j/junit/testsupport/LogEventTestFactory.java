@@ -1,5 +1,6 @@
 package uk.co.webamoeba.slf4j.junit.testsupport;
 
+import org.slf4j.Marker;
 import uk.co.webamoeba.slf4j.junit.event.Level;
 import uk.co.webamoeba.slf4j.junit.event.LogEvent;
 import uk.co.webamoeba.slf4j.junit.event.LogEvent.Message;
@@ -23,6 +24,10 @@ public class LogEventTestFactory {
 
 	public static LogEvent logEventWithMessage(Message message) {
 		return new LogEvent(aLevel(), message.getMessageAsString());
+	}
+	
+	public static LogEvent logEventWithMarker(Marker marker) {
+		return new LogEvent(aLevel(), marker, "Some Message");
 	}
 	
 }
