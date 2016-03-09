@@ -2,6 +2,7 @@ package uk.co.webamoeba.slf4j.junit.testsupport;
 
 import uk.co.webamoeba.slf4j.junit.event.Level;
 import uk.co.webamoeba.slf4j.junit.event.LogEvent;
+import uk.co.webamoeba.slf4j.junit.event.LogEvent.Message;
 
 import static uk.co.webamoeba.slf4j.junit.testsupport.LevelTestFactory.aLevel;
 
@@ -18,6 +19,10 @@ public class LogEventTestFactory {
 	
 	public static LogEvent logEventWithThrowable(Throwable throwable) {
 		return new LogEvent(aLevel(), "Some Message", throwable);
+	}
+
+	public static LogEvent logEventWithMessage(Message message) {
+		return new LogEvent(aLevel(), message.getMessageAsString());
 	}
 	
 }

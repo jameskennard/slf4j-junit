@@ -32,7 +32,6 @@ public class LogEventThrowableMatcherTest {
 		assertThat(matches, is(true));
 	}
 
-
 	@Test
 	public void shouldNotMatch() {
 		// Given
@@ -66,7 +65,7 @@ public class LogEventThrowableMatcherTest {
 		// Then
 		assertThat(mismatchDescription, describes("wanted <" + throwable + "> but was <" + differentThrowable + ">"));
 	}
-	
+
 	@Test
 	public void shouldDescribe() {
 		// Given
@@ -84,7 +83,7 @@ public class LogEventThrowableMatcherTest {
 	private static Throwable aThrowable() {
 		return new Throwable("A Throwable");
 	}
-	
+
 	private static Throwable aDifferentThrowable(Throwable throwable) {
 		return new Throwable("Different to: " + throwable.getMessage());
 	}

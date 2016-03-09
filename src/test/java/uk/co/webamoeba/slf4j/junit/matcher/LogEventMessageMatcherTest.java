@@ -10,7 +10,7 @@ import uk.co.webamoeba.slf4j.junit.event.LogEvent.StringMessage;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static uk.co.webamoeba.slf4j.junit.testsupport.DescriptionMatcher.describes;
-import static uk.co.webamoeba.slf4j.junit.testsupport.LevelTestFactory.aLevel;
+import static uk.co.webamoeba.slf4j.junit.testsupport.LogEventTestFactory.logEventWithMessage;
 
 /**
  * Test for {@link LogEventMessageMatcher}
@@ -80,10 +80,6 @@ public class LogEventMessageMatcherTest {
 
 		// Then
 		assertThat(description, describes("LogEvent with message \"" + message.getMessageAsString() + "\""));
-	}
-
-	private static LogEvent logEventWithMessage(Message message) {
-		return new LogEvent(aLevel(), message.getMessageAsString());
 	}
 
 	private static Message aMessage() {
