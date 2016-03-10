@@ -20,7 +20,7 @@ import uk.co.webamoeba.slf4j.junit.logger.RecordingLogger;
 /**
  * @author James Kennard
  */
-public abstract class LogEntryMatcherTest {
+public abstract class LegacyLogEntryMatcherTest {
 
 	@Before
 	public void clearAll() {
@@ -35,7 +35,7 @@ public abstract class LogEntryMatcherTest {
 	@Test
 	public void shouldNotMatchGivenUnexpectedTypeOfLogger() {
 		// Given
-		LogEntryMatcher matcher = matcher();
+		LegacyLogEntryMatcher matcher = matcher();
 		Logger logger = mock(Logger.class);
 
 		// When
@@ -48,7 +48,7 @@ public abstract class LogEntryMatcherTest {
 	@Test
 	public void shouldDescribeToGivenUnexpectedTypeOfLogger() {
 		// Given
-		LogEntryMatcher matcher = matcher();
+		LegacyLogEntryMatcher matcher = matcher();
 		Logger logger = mock(Logger.class);
 		Description description = new StringDescription();
 
@@ -64,7 +64,7 @@ public abstract class LogEntryMatcherTest {
 	public void shouldMatchGivenLoggerHasMessage() {
 		// Given
 		String message = "Some Message";
-		LogEntryMatcher matcher = matcher(message);
+		LegacyLogEntryMatcher matcher = matcher(message);
 		Logger logger = new RecordingLogger("A recording logger");
 		log(message, logger);
 
@@ -80,7 +80,7 @@ public abstract class LogEntryMatcherTest {
 		// Given
 		Marker marker = new BasicMarkerFactory().getMarker("Some Marker");
 		String message = "Some Message";
-		LogEntryMatcher matcher = matcher(marker, message);
+		LegacyLogEntryMatcher matcher = matcher(marker, message);
 		Logger logger = new RecordingLogger("A recording logger");
 		log(marker, message, logger);
 
@@ -97,7 +97,7 @@ public abstract class LogEntryMatcherTest {
 		Marker marker = new BasicMarkerFactory().getMarker("Some Marker");
 		String format = "Format {}";
 		String argument = "argument";
-		LogEntryMatcher matcher = matcher(marker, format, argument);
+		LegacyLogEntryMatcher matcher = matcher(marker, format, argument);
 		Logger logger = new RecordingLogger("A recording logger");
 		log(marker, format, argument, logger);
 
@@ -113,7 +113,7 @@ public abstract class LogEntryMatcherTest {
 		// Given
 		String message = "Some Message";
 		Throwable throwable = new Throwable();
-		LogEntryMatcher matcher = matcher(message, throwable);
+		LegacyLogEntryMatcher matcher = matcher(message, throwable);
 		Logger logger = new RecordingLogger("A recording logger");
 		log(message, throwable, logger);
 
@@ -130,7 +130,7 @@ public abstract class LogEntryMatcherTest {
 		Marker marker = new BasicMarkerFactory().getMarker("Some Marker");
 		String message = "Some Message";
 		Throwable throwable = new Throwable();
-		LogEntryMatcher matcher = matcher(marker, message, throwable);
+		LegacyLogEntryMatcher matcher = matcher(marker, message, throwable);
 		Logger logger = new RecordingLogger("A recording logger");
 		log(marker, message, throwable, logger);
 
@@ -145,7 +145,7 @@ public abstract class LogEntryMatcherTest {
 	public void shouldNotMatchGivenDifferentLevel() {
 		// Given
 		String message = "Some Message";
-		LogEntryMatcher matcher = matcher(message);
+		LegacyLogEntryMatcher matcher = matcher(message);
 		Logger logger = new RecordingLogger("A recording logger");
 		logDifferentLevel(message, logger);
 
@@ -161,7 +161,7 @@ public abstract class LogEntryMatcherTest {
 		// Given
 		Marker marker = new BasicMarkerFactory().getMarker("Some Marker");
 		String message = "Some Message";
-		LogEntryMatcher matcher = matcher(marker, message);
+		LegacyLogEntryMatcher matcher = matcher(marker, message);
 		Logger logger = new RecordingLogger("A recording logger");
 		log(message, logger);
 
@@ -178,7 +178,7 @@ public abstract class LogEntryMatcherTest {
 		Marker marker = new BasicMarkerFactory().getMarker("Some Marker");
 		String message = "Some Message";
 		Throwable throwable = new Throwable();
-		LogEntryMatcher matcher = matcher(marker, message, throwable);
+		LegacyLogEntryMatcher matcher = matcher(marker, message, throwable);
 		Logger logger = new RecordingLogger("A recording logger");
 		log(marker, message, logger);
 
@@ -194,7 +194,7 @@ public abstract class LogEntryMatcherTest {
 		// Given
 		String message = "Some Message";
 		Throwable throwable = new Throwable();
-		LogEntryMatcher matcher = matcher(message, throwable);
+		LegacyLogEntryMatcher matcher = matcher(message, throwable);
 		Logger logger = new RecordingLogger("A recording logger");
 		log(message, logger);
 
@@ -210,7 +210,7 @@ public abstract class LogEntryMatcherTest {
 		// Given
 		String message = "Some Message";
 		Throwable throwable = new Throwable();
-		LogEntryMatcher matcher = matcher(message);
+		LegacyLogEntryMatcher matcher = matcher(message);
 		Logger logger = new RecordingLogger("A recording logger");
 		log(message, throwable, logger);
 
@@ -226,7 +226,7 @@ public abstract class LogEntryMatcherTest {
 		// Given
 		String message = "Some Message";
 		String format = "{}";
-		LogEntryMatcher matcher = log(format, message);
+		LegacyLogEntryMatcher matcher = log(format, message);
 		Logger logger = new RecordingLogger("A recording logger");
 		log(message, logger);
 
@@ -241,7 +241,7 @@ public abstract class LogEntryMatcherTest {
 	public void shouldMatchGivenLoggerHasFormattedMessageAndMatcherHasStringMessage() {
 		// Given
 		String message = "Some Message";
-		LogEntryMatcher matcher = matcher(message);
+		LegacyLogEntryMatcher matcher = matcher(message);
 		Logger logger = new RecordingLogger("A recording logger");
 		String format = "{}";
 		log(format, message, logger);
@@ -257,7 +257,7 @@ public abstract class LogEntryMatcherTest {
 	public void shouldNotMatchGivenLoggerHasNoLogEntries() {
 		// Given
 		String message = "Some Message";
-		LogEntryMatcher matcher = matcher(message);
+		LegacyLogEntryMatcher matcher = matcher(message);
 		Logger logger = new RecordingLogger("A recording logger");
 
 		// When
@@ -270,7 +270,7 @@ public abstract class LogEntryMatcherTest {
 	@Test
 	public void shouldNotMatchGivenLoggerHasLogEntryWithDifferentMessage() {
 		// Given
-		LogEntryMatcher matcher = matcher("Some Message");
+		LegacyLogEntryMatcher matcher = matcher("Some Message");
 		Logger logger = new RecordingLogger("A recording logger");
 		log("Some Different Message", logger);
 
@@ -285,7 +285,7 @@ public abstract class LogEntryMatcherTest {
 	public void shouldDescribeMismatchGivenMessage() {
 		// Given
 		String message = "Some Message";
-		LogEntryMatcher matcher = matcher(message);
+		LegacyLogEntryMatcher matcher = matcher(message);
 		String loggerName = "A recording logger";
 		Logger logger = new RecordingLogger(loggerName);
 		Description description = new StringDescription();
@@ -303,7 +303,7 @@ public abstract class LogEntryMatcherTest {
 		// Given
 		String message = "Some Message";
 		Throwable throwable = new Throwable();
-		LogEntryMatcher matcher = matcher(message, throwable);
+		LegacyLogEntryMatcher matcher = matcher(message, throwable);
 		String loggerName = "A recording logger";
 		Logger logger = new RecordingLogger(loggerName);
 		Description description = new StringDescription();
@@ -321,7 +321,7 @@ public abstract class LogEntryMatcherTest {
 		// Given
 		String message = "Some Message";
 		String somethingElse = "Something Else";
-		LogEntryMatcher matcher = matcher(message);
+		LegacyLogEntryMatcher matcher = matcher(message);
 		String loggerName = "A recording logger";
 		Logger logger = new RecordingLogger(loggerName);
 		log(somethingElse, logger);
@@ -342,7 +342,7 @@ public abstract class LogEntryMatcherTest {
 		String message = "Some Message";
 		String anotherThing = "Another Thing";
 		String yetAnotherThing = "Yet Another Thing";
-		LogEntryMatcher matcher = matcher(message);
+		LegacyLogEntryMatcher matcher = matcher(message);
 		String loggerName = "A recording logger";
 		Logger logger = new RecordingLogger(loggerName);
 		log(anotherThing, logger);
@@ -361,7 +361,7 @@ public abstract class LogEntryMatcherTest {
 	@Test
 	public void shouldDescribeToGivenStringMessage() {
 		// Given
-		LogEntryMatcher matcher = matcher("Some Message");
+		LegacyLogEntryMatcher matcher = matcher("Some Message");
 		Description description = new StringDescription();
 
 		// When
@@ -376,7 +376,7 @@ public abstract class LogEntryMatcherTest {
 		// Given
 		String message = "Some Message";
 		Throwable throwable = new Throwable();
-		LogEntryMatcher matcher = matcher(message, throwable);
+		LegacyLogEntryMatcher matcher = matcher(message, throwable);
 		Description description = new StringDescription();
 
 		// When
@@ -389,7 +389,7 @@ public abstract class LogEntryMatcherTest {
 	@Test
 	public void shouldDescribeToGivenFormattedMessage() {
 		// Given
-		LogEntryMatcher matcher = matcher("format", "argument");
+		LegacyLogEntryMatcher matcher = matcher("format", "argument");
 		Description description = new StringDescription();
 
 		// When
@@ -399,19 +399,19 @@ public abstract class LogEntryMatcherTest {
 		assertThat(description.toString(), is(expectedDescribeFunction() + "(\"format\", \"argument\")"));
 	}
 
-	protected abstract LogEntryMatcher matcher();
+	protected abstract LegacyLogEntryMatcher matcher();
 
-	protected abstract LogEntryMatcher matcher(String message);
+	protected abstract LegacyLogEntryMatcher matcher(String message);
 
-	protected abstract LogEntryMatcher matcher(String format, String argument);
+	protected abstract LegacyLogEntryMatcher matcher(String format, String argument);
 
-	protected abstract LogEntryMatcher matcher(Marker marker, String message);
+	protected abstract LegacyLogEntryMatcher matcher(Marker marker, String message);
 
-	protected abstract LogEntryMatcher matcher(String message, Throwable throwable);
+	protected abstract LegacyLogEntryMatcher matcher(String message, Throwable throwable);
 
-	protected abstract LogEntryMatcher matcher(Marker marker, String message, Throwable throwable);
+	protected abstract LegacyLogEntryMatcher matcher(Marker marker, String message, Throwable throwable);
 
-	protected abstract LogEntryMatcher matcher(Marker marker, String format, String argument);
+	protected abstract LegacyLogEntryMatcher matcher(Marker marker, String format, String argument);
 
 	protected abstract void log(String message, Logger logger);
 
@@ -419,7 +419,7 @@ public abstract class LogEntryMatcherTest {
 
 	protected abstract void log(Marker marker, String message, Logger logger);
 
-	protected abstract LogEntryMatcher log(String format, String argument);
+	protected abstract LegacyLogEntryMatcher log(String format, String argument);
 
 	protected abstract void log(String message, Throwable throwable, Logger logger);
 

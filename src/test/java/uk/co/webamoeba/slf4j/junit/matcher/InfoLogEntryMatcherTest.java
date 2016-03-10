@@ -8,7 +8,7 @@ import org.slf4j.Marker;
  * 
  * @author James Kennard
  */
-public class InfoLogEntryMatcherTest extends LogEntryMatcherTest {
+public class InfoLogEntryMatcherTest extends LegacyLogEntryMatcherTest {
 
 	@Override
 	protected InfoLogEntryMatcher matcher() {
@@ -21,7 +21,7 @@ public class InfoLogEntryMatcherTest extends LogEntryMatcherTest {
 	}
 	
 	@Override
-	protected LogEntryMatcher matcher(String format, String argument) {
+	protected LegacyLogEntryMatcher matcher(String format, String argument) {
 		return new InfoLogEntryMatcher(format, argument);
 	}
 	

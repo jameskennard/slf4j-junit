@@ -18,7 +18,7 @@ import uk.co.webamoeba.slf4j.junit.logger.RecordingLogger;
 /**
  * @author James Kennard
  */
-public abstract class LogEntryMatcher extends BaseMatcher<Logger> {
+public abstract class LegacyLogEntryMatcher extends BaseMatcher<Logger> {
 
 	private final Level level;
 	
@@ -31,7 +31,7 @@ public abstract class LogEntryMatcher extends BaseMatcher<Logger> {
 	/**
 	 * @param message The message we want the {@link LogEntry} to have
 	 */
-	protected LogEntryMatcher(Level level, String message) {
+	protected LegacyLogEntryMatcher(Level level, String message) {
 		this(level, null, new StringMessage(message), null);
 	}
 
@@ -39,7 +39,7 @@ public abstract class LogEntryMatcher extends BaseMatcher<Logger> {
 	 * @param format The format of the message we want the {@link LogEntry} to have
 	 * @param arguments The arguments we want to use to describe the parts of the message from the format
 	 */
-	protected LogEntryMatcher(Level level, String format, Object... arguments) {
+	protected LegacyLogEntryMatcher(Level level, String format, Object... arguments) {
 		this(level, null, new FormattedMessage(format, arguments), null);
 	}
 
@@ -47,23 +47,23 @@ public abstract class LogEntryMatcher extends BaseMatcher<Logger> {
 	 * @param message The message we want the {@link LogEntry} to have
 	 * @param throwable The {@link Throwable} we are logging
 	 */
-	protected LogEntryMatcher(Level level, String message, Throwable throwable) {
+	protected LegacyLogEntryMatcher(Level level, String message, Throwable throwable) {
 		this(level, null, new StringMessage(message), throwable);
 	}
 
-	protected LogEntryMatcher(Level level, Marker marker, String message) {
+	protected LegacyLogEntryMatcher(Level level, Marker marker, String message) {
 		this(level, marker, new StringMessage(message), null);
 	}
 	
-	protected LogEntryMatcher(Level level, Marker marker, String message, Throwable throwable) {
+	protected LegacyLogEntryMatcher(Level level, Marker marker, String message, Throwable throwable) {
 		this(level, marker, new StringMessage(message), throwable);
 	}
 	
-	protected LogEntryMatcher(Level level, Marker marker, String format, Object... arguments) {
+	protected LegacyLogEntryMatcher(Level level, Marker marker, String format, Object... arguments) {
 		this(level, marker, new FormattedMessage(format, arguments), null);
 	}
 	
-	protected LogEntryMatcher(Level level, Marker marker, Message message, Throwable throwable) {
+	protected LegacyLogEntryMatcher(Level level, Marker marker, Message message, Throwable throwable) {
 		this.level = level;
 		this.marker = marker;
 		this.message = message;

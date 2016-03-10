@@ -7,7 +7,7 @@ import static uk.co.webamoeba.slf4j.junit.log.Level.WARN;
 /**
  * @author James Kennard
  */
-public class WarningLogEntryMatcher extends LogEntryMatcher {
+public class WarningLogEntryMatcher extends LegacyLogEntryMatcher {
 
 	public WarningLogEntryMatcher(String message) {
 		super(WARN, message);

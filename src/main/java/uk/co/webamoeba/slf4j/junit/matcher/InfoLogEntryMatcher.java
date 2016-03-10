@@ -26,7 +26,7 @@ import static uk.co.webamoeba.slf4j.junit.log.Level.INFO;
  * 
  * @author James Kennard
  */
-public class InfoLogEntryMatcher extends LogEntryMatcher {
+public class InfoLogEntryMatcher extends LegacyLogEntryMatcher {
 
 	/**
 	 * @param message The message we want the {@link LogEntry} to have

@@ -6,40 +6,40 @@ import org.slf4j.Marker;
 /**
  * @author James Kennard
  */
-public class WarningLogEntryMatcherTest extends LogEntryMatcherTest {
+public class WarningLogEntryMatcherTest extends LegacyLogEntryMatcherTest {
 
 	@Override
-	protected LogEntryMatcher matcher() {
+	protected LegacyLogEntryMatcher matcher() {
 		return new WarningLogEntryMatcher("Message");
 	}
 
 	@Override
-	protected LogEntryMatcher matcher(String message) {
+	protected LegacyLogEntryMatcher matcher(String message) {
 		return new WarningLogEntryMatcher(message);
 	}
 
 	@Override
-	protected LogEntryMatcher matcher(String format, String argument) {
+	protected LegacyLogEntryMatcher matcher(String format, String argument) {
 		return new WarningLogEntryMatcher(format, argument);
 	}
 
 	@Override
-	protected LogEntryMatcher matcher(Marker marker, String message) {
+	protected LegacyLogEntryMatcher matcher(Marker marker, String message) {
 		return new WarningLogEntryMatcher(marker, message);
 	}
 
 	@Override
-	protected LogEntryMatcher matcher(String message, Throwable throwable) {
+	protected LegacyLogEntryMatcher matcher(String message, Throwable throwable) {
 		return new WarningLogEntryMatcher(message, throwable);
 	}
 
 	@Override
-	protected LogEntryMatcher matcher(Marker marker, String message, Throwable throwable) {
+	protected LegacyLogEntryMatcher matcher(Marker marker, String message, Throwable throwable) {
 		return new WarningLogEntryMatcher(marker, message, throwable);
 	}
 
 	@Override
-	protected LogEntryMatcher matcher(Marker marker, String format, String argument) {
+	protected LegacyLogEntryMatcher matcher(Marker marker, String format, String argument) {
 		return new WarningLogEntryMatcher(marker, format, argument);
 	}
 
@@ -59,7 +59,7 @@ public class WarningLogEntryMatcherTest extends LogEntryMatcherTest {
 	}
 
 	@Override
-	protected LogEntryMatcher log(String format, String argument) {
+	protected LegacyLogEntryMatcher log(String format, String argument) {
 		return new WarningLogEntryMatcher(format, argument);
 	}
 
