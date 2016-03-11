@@ -17,7 +17,7 @@ import static uk.co.webamoeba.slf4j.junit.testsupport.LogEntryTestFactory.logEnt
  * 
  * @author James Kennard
  */
-public class LogEntryMessageMatcherTest {
+public class LogEntryMessageMatcherTest extends LogEntryMatcherTest<LogEntryMessageMatcher> {
 
 	@Test
 	public void shouldMatch() {
@@ -81,12 +81,31 @@ public class LogEntryMessageMatcherTest {
 		// Then
 		assertThat(description, describes("LogEntry with message \"" + message.getMessageAsString() + "\""));
 	}
+	
+	@Test
+	public void shouldDescribeMatchingLogEntry() {
+		// Given
+		Message message = aMessage();
+		LogEntryMessageMatcher matcher = new LogEntryMessageMatcher(message);
+		Description description = new StringDescription();
+
+		// When
+		matcher.describeMatchingLogEntry(description);
+
+		// Then
+		assertThat(description, describes("with message \"" + message.getMessageAsString() + "\""));
+	}
+	
+	@Override
+	protected LogEntryMessageMatcher aMatcher() {
+		return new LogEntryMessageMatcher(aMessage());
+	}
 
 	private static Message aMessage() {
 		return new StringMessage("Some Message");
 	}
 
-	private Message aDifferentMessage(Message message) {
+	private static Message aDifferentMessage(Message message) {
 		return new StringMessage("Different to: " + message.getMessageAsString());
 	}
 }

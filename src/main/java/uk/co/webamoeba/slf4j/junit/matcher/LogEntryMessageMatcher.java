@@ -1,7 +1,6 @@
 package uk.co.webamoeba.slf4j.junit.matcher;
 
 import org.hamcrest.Description;
-import org.hamcrest.TypeSafeDiagnosingMatcher;
 import uk.co.webamoeba.slf4j.junit.log.Level;
 import uk.co.webamoeba.slf4j.junit.log.LogEntry;
 import uk.co.webamoeba.slf4j.junit.log.LogEntry.Message;
@@ -11,7 +10,7 @@ import uk.co.webamoeba.slf4j.junit.log.LogEntry.Message;
  * 
  * @author James Kennard
  */
-public class LogEntryMessageMatcher extends TypeSafeDiagnosingMatcher<LogEntry> {
+public class LogEntryMessageMatcher extends LogEntryMatcher {
 
 	private final Message message;
 
@@ -20,16 +19,6 @@ public class LogEntryMessageMatcher extends TypeSafeDiagnosingMatcher<LogEntry> 
 	 */
 	public LogEntryMessageMatcher(Message message) {
 		this.message = message;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public void describeTo(Description description) {
-		description
-				.appendText(LogEntry.class.getSimpleName())
-				.appendText(" with message ")
-				.appendValue(message.getMessageAsString());
 	}
 
 	/**
@@ -44,6 +33,11 @@ public class LogEntryMessageMatcher extends TypeSafeDiagnosingMatcher<LogEntry> 
 			return false;
 		}
 		return true;
+	}
+
+	@Override
+	public void describeMatchingLogEntry(Description description) {
+		description.appendText("with message ").appendValue(message.getMessageAsString());
 	}
 
 }

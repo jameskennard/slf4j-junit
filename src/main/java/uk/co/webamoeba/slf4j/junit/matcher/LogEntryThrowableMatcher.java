@@ -1,7 +1,6 @@
 package uk.co.webamoeba.slf4j.junit.matcher;
 
 import org.hamcrest.Description;
-import org.hamcrest.TypeSafeDiagnosingMatcher;
 import uk.co.webamoeba.slf4j.junit.log.LogEntry;
 
 /**
@@ -9,7 +8,7 @@ import uk.co.webamoeba.slf4j.junit.log.LogEntry;
  * 
  * @author James Kennard
  */
-public class LogEntryThrowableMatcher extends TypeSafeDiagnosingMatcher<LogEntry> {
+public class LogEntryThrowableMatcher extends LogEntryMatcher {
 
 	private final Throwable throwable;
 
@@ -19,12 +18,10 @@ public class LogEntryThrowableMatcher extends TypeSafeDiagnosingMatcher<LogEntry
 	public LogEntryThrowableMatcher(Throwable throwable) {
 		this.throwable = throwable;
 	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public void describeTo(Description description) {
-		description.appendText(LogEntry.class.getSimpleName()).appendText(" with Throwable ").appendValue(throwable);
+	
+	@Override
+	public void describeMatchingLogEntry(Description description) {
+		description.appendText("with Throwable ").appendValue(throwable);
 	}
 
 	/**
@@ -40,5 +37,7 @@ public class LogEntryThrowableMatcher extends TypeSafeDiagnosingMatcher<LogEntry
 		}
 		return true;
 	}
+
+	
 
 }

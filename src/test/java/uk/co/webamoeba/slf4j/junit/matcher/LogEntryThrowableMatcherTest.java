@@ -15,7 +15,7 @@ import static uk.co.webamoeba.slf4j.junit.testsupport.LogEntryTestFactory.logEnt
  * 
  * @author James Kennard
  */
-public class LogEntryThrowableMatcherTest {
+public class LogEntryThrowableMatcherTest extends LogEntryMatcherTest<LogEntryThrowableMatcher> {
 
 	@Test
 	public void shouldMatch() {
@@ -79,6 +79,20 @@ public class LogEntryThrowableMatcherTest {
 		// Then
 		assertThat(description, describes("LogEntry with Throwable <" + throwable + ">"));
 	}
+	
+	@Test
+	public void shouldDescribeMatchingLogEntry() {
+		// Given
+		Throwable throwable = aThrowable();
+		LogEntryThrowableMatcher matcher = new LogEntryThrowableMatcher(throwable);
+		Description description = new StringDescription();
+
+		// When
+		matcher.describeMatchingLogEntry(description);
+
+		// Then
+		assertThat(description, describes("with Throwable <" + throwable + ">"));
+	}
 
 	private static Throwable aThrowable() {
 		return new Throwable("A Throwable");
@@ -86,5 +100,10 @@ public class LogEntryThrowableMatcherTest {
 
 	private static Throwable aDifferentThrowable(Throwable throwable) {
 		return new Throwable("Different to: " + throwable.getMessage());
+	}
+
+	@Override
+	protected LogEntryThrowableMatcher aMatcher() {
+		return new LogEntryThrowableMatcher(aThrowable());
 	}
 }

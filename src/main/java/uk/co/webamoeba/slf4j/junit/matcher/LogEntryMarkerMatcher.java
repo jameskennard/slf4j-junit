@@ -1,7 +1,6 @@
 package uk.co.webamoeba.slf4j.junit.matcher;
 
 import org.hamcrest.Description;
-import org.hamcrest.TypeSafeDiagnosingMatcher;
 import org.slf4j.Marker;
 import uk.co.webamoeba.slf4j.junit.log.LogEntry;
 
@@ -10,7 +9,7 @@ import uk.co.webamoeba.slf4j.junit.log.LogEntry;
  * 
  * @author James Kennard
  */
-public class LogEntryMarkerMatcher extends TypeSafeDiagnosingMatcher<LogEntry> {
+public class LogEntryMarkerMatcher extends LogEntryMatcher {
 
 	private final Marker marker;
 
@@ -20,12 +19,10 @@ public class LogEntryMarkerMatcher extends TypeSafeDiagnosingMatcher<LogEntry> {
 	public LogEntryMarkerMatcher(Marker marker) {
 		this.marker = marker;
 	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public void describeTo(Description description) {
-		description.appendText(LogEntry.class.getSimpleName()).appendText(" with marker ").appendValue(marker);
+	
+	@Override
+	public void describeMatchingLogEntry(Description description) {
+		description.appendText("with marker ").appendValue(marker);
 	}
 
 	/**

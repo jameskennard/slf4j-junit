@@ -91,10 +91,10 @@ public class LogEntryLevelMatcherTest extends LogEntryMatcherTest<LogEntryLevelM
 		Description description = new StringDescription();
 
 		// When
-		matcher.describeTo(description);
+		matcher.describeMatchingLogEntry(description);
 
 		// Then
-		assertThat(description, describes("LogEntry at level <" + level + ">"));
+		assertThat(description, describes("at level <" + level + ">"));
 	}
 
 	@Override

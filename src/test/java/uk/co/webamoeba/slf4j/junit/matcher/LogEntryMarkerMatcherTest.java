@@ -17,7 +17,7 @@ import static uk.co.webamoeba.slf4j.junit.testsupport.LogEntryTestFactory.logEnt
  * 
  * @author James Kennard
  */
-public class LogEntryMarkerMatcherTest {
+public class LogEntryMarkerMatcherTest extends LogEntryMatcherTest<LogEntryMarkerMatcher> {
 
 	private static final BasicMarkerFactory MARKER_FACTORY = new BasicMarkerFactory();
 
@@ -83,12 +83,32 @@ public class LogEntryMarkerMatcherTest {
 		// Then
 		assertThat(description, describes("LogEntry with marker <" + marker + ">"));
 	}
+	
+	@Test
+	public void shouldDescribeMatchingLogEntry() {
+		// Given
+		Marker marker = aMarker();
+		LogEntryMarkerMatcher matcher = new LogEntryMarkerMatcher(marker);
+		Description description = new StringDescription();
+
+		// When
+		matcher.describeMatchingLogEntry(description);
+
+		// Then
+		assertThat(description, describes("with marker <" + marker + ">"));
+	}
+
+	@Override
+	protected LogEntryMarkerMatcher aMatcher() {
+		return new LogEntryMarkerMatcher(aMarker());
+	}
 
 	private static Marker aMarker() {
 		return MARKER_FACTORY.getMarker("A Marker");
 	}
 
-	private Marker aDifferentMarker(Marker marker) {
+	private static Marker aDifferentMarker(Marker marker) {
 		return MARKER_FACTORY.getMarker("Different to: " + marker.getName());
 	}
+
 }
