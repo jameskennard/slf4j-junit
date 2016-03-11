@@ -10,8 +10,7 @@ import uk.co.webamoeba.slf4j.junit.log.LogRegistry;
 import static uk.co.webamoeba.slf4j.junit.log.Level.INFO;
 
 /**
- * Records calls made to the {@link Logger} against the related singleton {@link Log}. This allows
- * assertion to be made regarding the what has and has not been logged.
+ * Records calls made to the {@link Logger} against the related singleton {@link Log}. This allows assertions to be made regarding what has and has not been logged.
  * 
  * @author James Kennard
  */
@@ -174,7 +173,7 @@ public class RecordingLogger implements Logger {
 	public void warn(String format, Object argument) {
 		log(new LogEntry(Level.WARN, format, new Object[] { argument }));
 	}
-	
+
 	public void warn(String format, Object arg1, Object arg2) {
 		log(new LogEntry(Level.WARN, format, new Object[] { arg1, arg2 }));
 	}

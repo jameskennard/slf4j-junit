@@ -13,7 +13,7 @@ import static uk.co.webamoeba.slf4j.junit.testsupport.DescriptionMatcher.describ
  * @author James Kennard
  */
 public abstract class LogEntryMatcherTest<T extends LogEntryMatcher> {
-	
+
 	@Test
 	public void shouldDescribeMismatchGivenIsNotALogEntry() {
 		// Given
@@ -27,7 +27,7 @@ public abstract class LogEntryMatcherTest<T extends LogEntryMatcher> {
 		// Then
 		assertThat(mismatchDescription, describes("The item is not a LogEntry, are you using the matcher correctly?"));
 	}
-	
+
 	protected abstract T aMatcher();
 
 }

@@ -81,7 +81,7 @@ public class LogEntryMessageMatcherTest extends LogEntryMatcherTest<LogEntryMess
 		// Then
 		assertThat(description, describes("LogEntry with message \"" + message.getMessageAsString() + "\""));
 	}
-	
+
 	@Test
 	public void shouldDescribeMatchingLogEntry() {
 		// Given
@@ -95,7 +95,7 @@ public class LogEntryMessageMatcherTest extends LogEntryMatcherTest<LogEntryMess
 		// Then
 		assertThat(description, describes("with message \"" + message.getMessageAsString() + "\""));
 	}
-	
+
 	@Override
 	protected LogEntryMessageMatcher aMatcher() {
 		return new LogEntryMessageMatcher(aMessage());

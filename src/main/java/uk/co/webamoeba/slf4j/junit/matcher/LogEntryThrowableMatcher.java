@@ -18,7 +18,7 @@ public class LogEntryThrowableMatcher extends LogEntryMatcher {
 	public LogEntryThrowableMatcher(Throwable throwable) {
 		this.throwable = throwable;
 	}
-	
+
 	@Override
 	public void describeMatchingLogEntry(Description description) {
 		description.appendText("with Throwable ").appendValue(throwable);
@@ -37,7 +37,5 @@ public class LogEntryThrowableMatcher extends LogEntryMatcher {
 		}
 		return true;
 	}
-
-	
 
 }

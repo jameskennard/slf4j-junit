@@ -5,7 +5,7 @@ import uk.co.webamoeba.slf4j.junit.log.Level;
 import static uk.co.webamoeba.slf4j.junit.log.Level.INFO;
 
 /**
- * Factory which creates {@link Level Levels} 
+ * Factory which creates {@link Level Levels}
  * 
  * @author James Kennard
  */

@@ -19,7 +19,7 @@ public class LogEntryMarkerMatcher extends LogEntryMatcher {
 	public LogEntryMarkerMatcher(Marker marker) {
 		this.marker = marker;
 	}
-	
+
 	@Override
 	public void describeMatchingLogEntry(Description description) {
 		description.appendText("with marker ").appendValue(marker);

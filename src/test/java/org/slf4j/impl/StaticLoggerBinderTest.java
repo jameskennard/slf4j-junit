@@ -18,7 +18,7 @@ public class StaticLoggerBinderTest {
 	public void shouldGetSingleton() {
 		assertThat(StaticLoggerBinder.getSingleton(), is(notNullValue()));
 	}
-	
+
 	@Test
 	public void shouldGetSingletonGivenCalledMoreThanOnce() {
 		StaticLoggerBinder singletonInstance = StaticLoggerBinder.getSingleton();

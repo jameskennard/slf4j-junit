@@ -79,7 +79,7 @@ public class LogEntryThrowableMatcherTest extends LogEntryMatcherTest<LogEntryTh
 		// Then
 		assertThat(description, describes("LogEntry with Throwable <" + throwable + ">"));
 	}
-	
+
 	@Test
 	public void shouldDescribeMatchingLogEntry() {
 		// Given

@@ -27,15 +27,15 @@ public class ClearLogsTestRuleTest {
 		Description description = Description.createTestDescription("SomeClass", "SomeTest");
 		Class<? extends ClearLogsTestRuleTest> loggerClass = getClass();
 		logger(loggerClass).info("Some Info Message");
-		
+
 		// When
 		clearLogs().apply(base, description).evaluate();
-		
+
 		// Then
 		verify(base).evaluate();
 		assertThat(logEntries(loggerClass).size(), is(0));
 	}
-	
+
 	@Test
 	public void shouldClearLogsGivenClass() throws Throwable {
 		// Given
@@ -45,10 +45,10 @@ public class ClearLogsTestRuleTest {
 		Description description = Description.createTestDescription("SomeClass", "SomeTest");
 		logger(loggerClass).info("Some Info Message");
 		logger(anotherLoggerClass).info("Another Info Message");
-		
+
 		// When
 		clearLogs(loggerClass).apply(base, description).evaluate();
-		
+
 		// Then
 		verify(base).evaluate();
 		assertThat(logEntries(loggerClass).size(), is(0));
@@ -58,5 +58,5 @@ public class ClearLogsTestRuleTest {
 	private List<LogEntry> logEntries(Class<?> loggerClass) {
 		return LogRegistry.getSingleton().getRegister(loggerClass.getName()).getEntries();
 	}
-	
+
 }

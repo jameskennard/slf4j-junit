@@ -140,7 +140,7 @@ public abstract class LegacyLogEntryMatcherTest {
 		// Then
 		assertThat(matches, is(true));
 	}
-	
+
 	@Test
 	public void shouldNotMatchGivenDifferentLevel() {
 		// Given
@@ -426,10 +426,10 @@ public abstract class LegacyLogEntryMatcherTest {
 	protected abstract void log(Marker marker, String message, Throwable throwable, Logger logger);
 
 	protected abstract void log(Marker marker, String format, String argument, Logger logger);
-	
+
 	protected abstract void logDifferentLevel(String message, Logger logger);
 
 	protected abstract String expectedDescribeLevel();
-	
+
 	protected abstract String expectedDescribeFunction();
 }

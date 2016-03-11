@@ -83,7 +83,7 @@ public class LogEntryMarkerMatcherTest extends LogEntryMatcherTest<LogEntryMarke
 		// Then
 		assertThat(description, describes("LogEntry with marker <" + marker + ">"));
 	}
-	
+
 	@Test
 	public void shouldDescribeMatchingLogEntry() {
 		// Given

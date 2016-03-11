@@ -54,13 +54,13 @@ public class LogTest {
 			assertThat(e.getMessage(), is("logEntry must not be null"));
 		}
 	}
-	
+
 	@Test
 	public void shouldClear() {
 		// Given
 		Log log = new Log();
 		log.register(new LogEntry(INFO, "A Log Entry"));
-		
+
 		// When
 		log.clear();
 

@@ -8,13 +8,13 @@ package uk.co.webamoeba.slf4j.junit.log;
 public enum Level {
 
 	ERROR,
-	
+
 	WARN,
-	
+
 	INFO,
-	
+
 	DEBUG,
-	
+
 	TRACE
-	
+
 }

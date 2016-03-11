@@ -12,8 +12,8 @@ import static uk.co.webamoeba.slf4j.junit.log.Level.INFO;
 /**
  * Matcher capable of matching {@link Level#INFO} {@link LogEntry LogEntries} with a specific message.
  * <p>
- * Messages may be expressed as a plain {@link String} or as a format and zero or more argument {@link Object Objects}.
- * The matcher will match regardless of how the logger was called. For example, the following would both match:
+ * Messages may be expressed as a plain {@link String} or as a format and zero or more argument {@link Object Objects}. The matcher will match regardless of how the logger was called. For example, the
+ * following would both match:
  * </p>
  * 
  * <pre>
@@ -54,20 +54,20 @@ public class InfoLogEntryMatcher extends LegacyLogEntryMatcher {
 	public InfoLogEntryMatcher(Marker marker, String message) {
 		super(INFO, marker, new StringMessage(message), null);
 	}
-	
+
 	public InfoLogEntryMatcher(Marker marker, String message, Throwable throwable) {
 		super(INFO, marker, new StringMessage(message), throwable);
 	}
-	
+
 	public InfoLogEntryMatcher(Marker marker, String format, Object... arguments) {
 		super(INFO, marker, new FormattedMessage(format, arguments), null);
 	}
-	
+
 	@Override
 	protected String describeFunction() {
 		return "loggedInfo";
 	}
-	
+
 	@Override
 	protected String describeLevel() {
 		return "info";

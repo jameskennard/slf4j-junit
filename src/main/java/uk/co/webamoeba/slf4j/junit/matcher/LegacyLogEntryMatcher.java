@@ -21,9 +21,9 @@ import uk.co.webamoeba.slf4j.junit.logger.RecordingLogger;
 public abstract class LegacyLogEntryMatcher extends BaseMatcher<Logger> {
 
 	private final Level level;
-	
+
 	private final Marker marker;
-	
+
 	private final Message message;
 
 	private final Throwable throwable;
@@ -54,15 +54,15 @@ public abstract class LegacyLogEntryMatcher extends BaseMatcher<Logger> {
 	protected LegacyLogEntryMatcher(Level level, Marker marker, String message) {
 		this(level, marker, new StringMessage(message), null);
 	}
-	
+
 	protected LegacyLogEntryMatcher(Level level, Marker marker, String message, Throwable throwable) {
 		this(level, marker, new StringMessage(message), throwable);
 	}
-	
+
 	protected LegacyLogEntryMatcher(Level level, Marker marker, String format, Object... arguments) {
 		this(level, marker, new FormattedMessage(format, arguments), null);
 	}
-	
+
 	protected LegacyLogEntryMatcher(Level level, Marker marker, Message message, Throwable throwable) {
 		this.level = level;
 		this.marker = marker;
@@ -89,7 +89,7 @@ public abstract class LegacyLogEntryMatcher extends BaseMatcher<Logger> {
 			description.appendValue(message.getMessageAsString());
 		}
 		if (throwable != null) {
-			description.appendText(", ") .appendValue(throwable);
+			description.appendText(", ").appendValue(throwable);
 		}
 		description.appendText(")");
 	}
@@ -139,7 +139,7 @@ public abstract class LegacyLogEntryMatcher extends BaseMatcher<Logger> {
 	 * Describes why the matcher did not match by appending the description to the provided mismatchDescription.
 	 * 
 	 * @param logger The {@link RecordingLogger} that did not contain a matching {@link LogEntry}
-	 * @param mismatchDescription The description in which we want to describe the mismatch 
+	 * @param mismatchDescription The description in which we want to describe the mismatch
 	 */
 	private void describeMismatch(RecordingLogger logger, Description mismatchDescription) {
 		mismatchDescription.appendText(describeLevel() + " to ").appendValue(logger.getName()).appendText(" with message ")
@@ -161,8 +161,8 @@ public abstract class LegacyLogEntryMatcher extends BaseMatcher<Logger> {
 	}
 
 	/**
-	 * <code>null</code> safe method used to determine if two {@link Object Objects} are not equal. This method relies
-	 * on the {@link Object Objects} equals() method to determine equality for non <code>null</code> values.
+	 * <code>null</code> safe method used to determine if two {@link Object Objects} are not equal. This method relies on the {@link Object Objects} equals() method to determine equality for non
+	 * <code>null</code> values.
 	 * 
 	 * @param object1 object to check for non equality
 	 * @param object2 object to check for non equality
@@ -171,7 +171,7 @@ public abstract class LegacyLogEntryMatcher extends BaseMatcher<Logger> {
 	private static boolean notEqual(Object object1, Object object2) {
 		return object1 == null && object2 != null || (object1 != null && !object1.equals(object2));
 	}
-	
+
 	/**
 	 * @return The name of the function to use when describing the matcher, for example "loggedInfo"
 	 */
@@ -181,5 +181,5 @@ public abstract class LegacyLogEntryMatcher extends BaseMatcher<Logger> {
 	 * @return The name of the level to use when describing a mismatch, for example "info"
 	 */
 	protected abstract String describeLevel();
-	
+
 }

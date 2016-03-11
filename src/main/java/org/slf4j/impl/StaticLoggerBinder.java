@@ -9,13 +9,13 @@ import uk.co.webamoeba.slf4j.junit.logger.LoggerFactory;
  * @author James Kennard
  */
 public class StaticLoggerBinder implements LoggerFactoryBinder {
-	
+
 	private static final StaticLoggerBinder STATIC_LOGGER_BINDER = new StaticLoggerBinder();
 
 	public static StaticLoggerBinder getSingleton() {
 		return STATIC_LOGGER_BINDER;
 	}
-	
+
 	/**
 	 * @see #getSingleton()
 	 */

@@ -19,7 +19,7 @@ public class DescriptionMatcher extends TypeSafeDiagnosingMatcher<Description> {
 	public static DescriptionMatcher describes(String value) {
 		return new DescriptionMatcher(value);
 	}
-	
+
 	/**
 	 * @param value Value we want to match
 	 */

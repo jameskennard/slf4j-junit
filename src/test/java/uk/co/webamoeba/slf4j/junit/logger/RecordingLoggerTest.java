@@ -364,7 +364,7 @@ public class RecordingLoggerTest {
 		assertThat(logEntries(name).get(0).getThrowable(), is(sameInstance(throwable)));
 		assertThat(logEntries(name).get(0).getLevel(), is(Level.INFO));
 	}
-	
+
 	@Test
 	public void shouldLogWarningGivenMessage() {
 		// Given
