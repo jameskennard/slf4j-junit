@@ -1,7 +1,6 @@
 package uk.co.webamoeba.slf4j.junit.matcher;
 
 import org.hamcrest.Description;
-import org.hamcrest.TypeSafeDiagnosingMatcher;
 import uk.co.webamoeba.slf4j.junit.log.Level;
 import uk.co.webamoeba.slf4j.junit.log.LogEntry;
 
@@ -10,7 +9,7 @@ import uk.co.webamoeba.slf4j.junit.log.LogEntry;
  * 
  * @author James Kennard
  */
-public class LogEntryLevelMatcher extends TypeSafeDiagnosingMatcher<LogEntry> {
+public class LogEntryLevelMatcher extends LogEntryMatcher {
 
 	private final Level level;
 
@@ -24,8 +23,8 @@ public class LogEntryLevelMatcher extends TypeSafeDiagnosingMatcher<LogEntry> {
 	/**
 	 * {@inheritDoc}
 	 */
-	public void describeTo(Description description) {
-		description.appendText(LogEntry.class.getSimpleName()).appendText(" at level ").appendValue(level);
+	public void describeMatchingLogEntry(Description description) {
+		description.appendText("at level ").appendValue(level);
 	}
 
 	/**

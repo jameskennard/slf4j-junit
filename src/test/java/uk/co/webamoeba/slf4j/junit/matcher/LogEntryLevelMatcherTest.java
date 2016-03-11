@@ -18,7 +18,7 @@ import static uk.co.webamoeba.slf4j.junit.testsupport.LogEntryTestFactory.logEnt
  * 
  * @author James Kennard
  */
-public class LogEntryLevelMatcherTest {
+public class LogEntryLevelMatcherTest extends LogEntryMatcherTest<LogEntryLevelMatcher> {
 
 	@Test
 	public void shouldMatch() {
@@ -68,7 +68,7 @@ public class LogEntryLevelMatcherTest {
 		// Then
 		assertThat(mismatchDescription, describes("wanted <" + level + "> but was <" + differentLevel + ">"));
 	}
-	
+
 	@Test
 	public void shouldDescribe() {
 		// Given
@@ -81,6 +81,25 @@ public class LogEntryLevelMatcherTest {
 
 		// Then
 		assertThat(description, describes("LogEntry at level <" + level + ">"));
+	}
+
+	@Test
+	public void shouldDescribeMatchingLogEntry() {
+		// Given
+		Level level = aLevel();
+		LogEntryLevelMatcher matcher = new LogEntryLevelMatcher(level);
+		Description description = new StringDescription();
+
+		// When
+		matcher.describeTo(description);
+
+		// Then
+		assertThat(description, describes("LogEntry at level <" + level + ">"));
+	}
+
+	@Override
+	protected LogEntryLevelMatcher aMatcher() {
+		return new LogEntryLevelMatcher(aLevel());
 	}
 
 }
