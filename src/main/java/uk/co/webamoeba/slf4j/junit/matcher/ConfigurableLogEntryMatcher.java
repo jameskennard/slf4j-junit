@@ -1,0 +1,39 @@
+package uk.co.webamoeba.slf4j.junit.matcher;
+
+import org.hamcrest.Description;
+import org.hamcrest.Matcher;
+import uk.co.webamoeba.slf4j.junit.log.LogEntry;
+
+public class ConfigurableLogEntryMatcher {
+
+	private LogEntryMatcher[] logEntryMatchers;
+
+	/**
+	 * @param logEntryMatchers The {@link LogEntryMatcher LogEntryMatchers} which must also match for this {@link Matcher} to match a {@link LogEntry}
+	 */
+	public ConfigurableLogEntryMatcher(LogEntryMatcher... logEntryMatchers) {
+		this.logEntryMatchers = logEntryMatchers;
+	}
+
+	public void describeTo(Description description) {
+		description.appendText(LogEntry.class.getSimpleName());
+		if (logEntryMatchers.length > 0) {
+			description.appendText(" ");
+			describeLogEntry(description);
+		}
+	}
+
+	private void describeLogEntry(Description description) {
+		for (int logEntryIndex = 0; logEntryIndex < logEntryMatchers.length; logEntryIndex++) {
+			logEntryMatchers[logEntryIndex].describeMatchingLogEntry(description);
+			if (isNotLastLogEntryIndex(logEntryIndex)) {
+				description.appendText(" and ");
+			}
+		}
+	}
+
+	private boolean isNotLastLogEntryIndex(int logEntryIndex) {
+		return logEntryIndex < logEntryMatchers.length - 1;
+	}
+
+}
