@@ -25,6 +25,14 @@ public class LogEntryMessageMatcher extends LogEntryMatcher {
 	 * {@inheritDoc}
 	 */
 	@Override
+	public void describeMatchingLogEntry(Description description) {
+		description.appendText("with message ").appendValue(message.getMessageAsString());
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	protected boolean matchesSafely(LogEntry logEntry, Description mismatchDescription) {
 		if (!logEntry.getMessage().equals(message)) {
 			mismatchDescription
@@ -33,11 +41,6 @@ public class LogEntryMessageMatcher extends LogEntryMatcher {
 			return false;
 		}
 		return true;
-	}
-
-	@Override
-	public void describeMatchingLogEntry(Description description) {
-		description.appendText("with message ").appendValue(message.getMessageAsString());
 	}
 
 }

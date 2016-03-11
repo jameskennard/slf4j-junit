@@ -19,6 +19,9 @@ public class LogEntryThrowableMatcher extends LogEntryMatcher {
 		this.throwable = throwable;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void describeMatchingLogEntry(Description description) {
 		description.appendText("with Throwable ").appendValue(throwable);
