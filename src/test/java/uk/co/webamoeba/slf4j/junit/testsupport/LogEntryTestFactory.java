@@ -14,6 +14,10 @@ import static uk.co.webamoeba.slf4j.junit.testsupport.LevelTestFactory.aLevel;
  */
 public class LogEntryTestFactory {
 
+	public static LogEntry aLogEntry() {
+		return new LogEntry(aLevel(), "Some Message");
+	}
+	
 	public static LogEntry logEntryAtLevel(Level level) {
 		return new LogEntry(level, "Some Message");
 	}
