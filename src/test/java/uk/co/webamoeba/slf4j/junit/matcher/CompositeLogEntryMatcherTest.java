@@ -21,16 +21,16 @@ import static uk.co.webamoeba.slf4j.junit.testsupport.DescriptionMatcher.describ
 import static uk.co.webamoeba.slf4j.junit.testsupport.LogEntryTestFactory.aLogEntry;
 
 /**
- * Test for {@link ConfigurableLogEntryMatcher}
+ * Test for {@link CompositeLogEntryMatcher}
  * 
  * @author James Kennard
  */
-public class ConfigurableLogEntryMatcherTest {
+public class CompositeLogEntryMatcherTest {
 
 	@Test
 	public void shouldMatch() {
 		// Given
-		ConfigurableLogEntryMatcher matcher = new ConfigurableLogEntryMatcher();
+		CompositeLogEntryMatcher matcher = new CompositeLogEntryMatcher();
 		LogEntry logEntry = aLogEntry();
 
 		// When
@@ -43,7 +43,7 @@ public class ConfigurableLogEntryMatcherTest {
 	@Test
 	public void shouldNotMatchGivenIsNotALogEntry() {
 		// Given
-		ConfigurableLogEntryMatcher matcher = new ConfigurableLogEntryMatcher();
+		CompositeLogEntryMatcher matcher = new CompositeLogEntryMatcher();
 		Object item = "not a log entry";
 
 		// When
@@ -58,7 +58,7 @@ public class ConfigurableLogEntryMatcherTest {
 		// Given
 		LogEntry logEntry = aLogEntry();
 		LogEntryMatcher logEntryMatcher = aLogEntryMatcherThatOnlyDoesNotMatch(logEntry);
-		ConfigurableLogEntryMatcher matcher = new ConfigurableLogEntryMatcher(logEntryMatcher);
+		CompositeLogEntryMatcher matcher = new CompositeLogEntryMatcher(logEntryMatcher);
 
 		// When
 		boolean matches = matcher.matches(logEntry);
@@ -77,7 +77,7 @@ public class ConfigurableLogEntryMatcherTest {
 	@Test
 	public void shouldDescribeMismatchGivenIsNotALogEntry() {
 		// Given
-		ConfigurableLogEntryMatcher matcher = new ConfigurableLogEntryMatcher();
+		CompositeLogEntryMatcher matcher = new CompositeLogEntryMatcher();
 		Description description = new StringDescription();
 		Object item = "not a log entry";
 
@@ -87,7 +87,7 @@ public class ConfigurableLogEntryMatcherTest {
 		// Then
 		assertThat(description, describes("The item is not a LogEntry, are you using the matcher correctly?"));
 	}
-	
+
 	@Test
 	public void shouldDescribeMismatchGivenLogEntryMatcherDoesNotMatch() {
 		// Given
@@ -95,8 +95,8 @@ public class ConfigurableLogEntryMatcherTest {
 		LogEntryMatcher logEntryMatcher = aLogEntryMatcherThatOnlyDoesNotMatch(logEntry);
 		final String expectedMismatchDescription = "wanted <x> but was <y>";
 		givenMismatchForLogEntryDescribedAs(logEntryMatcher, logEntry, expectedMismatchDescription);
-		
-		ConfigurableLogEntryMatcher matcher = new ConfigurableLogEntryMatcher(logEntryMatcher);
+
+		CompositeLogEntryMatcher matcher = new CompositeLogEntryMatcher(logEntryMatcher);
 		Description description = new StringDescription();
 
 		// When
@@ -120,7 +120,7 @@ public class ConfigurableLogEntryMatcherTest {
 	@Test
 	public void shouldDescribe() {
 		// Given
-		ConfigurableLogEntryMatcher matcher = new ConfigurableLogEntryMatcher();
+		CompositeLogEntryMatcher matcher = new CompositeLogEntryMatcher();
 		Description description = new StringDescription();
 
 		// When
@@ -134,7 +134,7 @@ public class ConfigurableLogEntryMatcherTest {
 	public void shouldDescribeGivenOneLogEntryMatcher() {
 		// Given
 		LogEntryMatcher logEntryMatcher = logEntryMatcherThatDescribesMatchingLogEntryAs("something");
-		ConfigurableLogEntryMatcher matcher = new ConfigurableLogEntryMatcher(logEntryMatcher);
+		CompositeLogEntryMatcher matcher = new CompositeLogEntryMatcher(logEntryMatcher);
 		Description description = new StringDescription();
 
 		// When
@@ -150,7 +150,7 @@ public class ConfigurableLogEntryMatcherTest {
 		LogEntryMatcher aLogEntryMatcher = logEntryMatcherThatDescribesMatchingLogEntryAs("something");
 		LogEntryMatcher anotherLogEntryMatcher = logEntryMatcherThatDescribesMatchingLogEntryAs("something else");
 
-		ConfigurableLogEntryMatcher matcher = new ConfigurableLogEntryMatcher(aLogEntryMatcher, anotherLogEntryMatcher);
+		CompositeLogEntryMatcher matcher = new CompositeLogEntryMatcher(aLogEntryMatcher, anotherLogEntryMatcher);
 		Description description = new StringDescription();
 
 		// When
@@ -161,7 +161,7 @@ public class ConfigurableLogEntryMatcherTest {
 	}
 
 	private static LogEntryMatcher logEntryMatcherThatDescribesMatchingLogEntryAs(final String text) {
-		LogEntryMatcher configuredMatcher = mock(LogEntryMatcher.class);
+		LogEntryMatcher matcher = mock(LogEntryMatcher.class);
 
 		willAnswer(new Answer<Void>() {
 
@@ -170,8 +170,8 @@ public class ConfigurableLogEntryMatcherTest {
 				description.appendText(text);
 				return null;
 			}
-		}).given(configuredMatcher).describeMatchingLogEntry(Matchers.argThat(any(Description.class)));
-		return configuredMatcher;
+		}).given(matcher).describeMatchingLogEntry(Matchers.argThat(any(Description.class)));
+		return matcher;
 	}
 
 }

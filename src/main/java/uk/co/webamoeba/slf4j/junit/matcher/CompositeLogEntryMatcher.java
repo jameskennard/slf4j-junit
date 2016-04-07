@@ -6,18 +6,19 @@ import org.hamcrest.Matcher;
 import uk.co.webamoeba.slf4j.junit.log.LogEntry;
 
 /**
- * {@link Matcher} that can be configured with additional {@link LogEntryMatcher LogEntryMatchers}.
+ * {@link Matcher} that is composed of {@link LogEntryMatcher LogEntryMatchers}.
  * 
  * @author James Kennard
  */
-public class ConfigurableLogEntryMatcher extends BaseMatcher<LogEntry> {
+public class CompositeLogEntryMatcher extends BaseMatcher<LogEntry> {
 
 	private LogEntryMatcher[] logEntryMatchers;
 
 	/**
 	 * @param logEntryMatchers The {@link LogEntryMatcher LogEntryMatchers} which must also match for this {@link Matcher} to match a {@link LogEntry}
 	 */
-	public ConfigurableLogEntryMatcher(LogEntryMatcher... logEntryMatchers) {
+	public CompositeLogEntryMatcher(LogEntryMatcher... logEntryMatchers) {
+		// TODO consider ensuring there is at least one
 		this.logEntryMatchers = logEntryMatchers;
 	}
 
