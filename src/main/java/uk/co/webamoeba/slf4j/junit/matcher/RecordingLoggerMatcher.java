@@ -40,6 +40,7 @@ public class RecordingLoggerMatcher extends BaseMatcher<Logger> {
 
 	// FIXME Add describe to
 	public void describeTo(Description description) {
+		description.appendText("Logged ").appendDescriptionOf(entryMatcher);
 	}
 
 	private boolean matches(Object item, Description mismatchDescription) {
@@ -59,9 +60,15 @@ public class RecordingLoggerMatcher extends BaseMatcher<Logger> {
 				return true;
 			}
 		}
-		mismatchDescription
-				.appendText("No ").appendDescriptionOf(entryMatcher)
-				.appendText(" was logged to ").appendValue(logger.getName());
+		if (entries.isEmpty()) {
+			mismatchDescription
+					.appendText("No LogEntries were logged to ").appendValue(logger.getName())
+					.appendText("\nWanted ").appendDescriptionOf(entryMatcher);
+		} else {
+			mismatchDescription
+					.appendText("There are LogEntries, but no ").appendDescriptionOf(entryMatcher)
+					.appendText(" was logged to ").appendValue(logger.getName());
+		}
 		return false;
 	}
 

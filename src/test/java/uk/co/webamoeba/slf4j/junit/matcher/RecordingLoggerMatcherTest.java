@@ -5,6 +5,8 @@ import org.hamcrest.Matcher;
 import org.hamcrest.StringDescription;
 import org.junit.Rule;
 import org.junit.Test;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
 import org.slf4j.Logger;
 import uk.co.webamoeba.slf4j.junit.ClearLogsTestRule;
 import uk.co.webamoeba.slf4j.junit.log.LogEntry;
@@ -13,6 +15,8 @@ import uk.co.webamoeba.slf4j.junit.logger.RecordingLogger;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+import static org.mockito.BDDMockito.willAnswer;
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static uk.co.webamoeba.slf4j.junit.testsupport.DescriptionMatcher.describes;
 
@@ -22,7 +26,7 @@ import static uk.co.webamoeba.slf4j.junit.testsupport.DescriptionMatcher.describ
  * @author James Kennard
  */
 public class RecordingLoggerMatcherTest {
-	
+
 	@Rule
 	public ClearLogsTestRule rule = new ClearLogsTestRule();
 
@@ -32,9 +36,9 @@ public class RecordingLoggerMatcherTest {
 		Logger logger = new RecordingLogger("A Logger");
 		String message = "some message";
 		logger.info(message);
-		LogEntryMessageMatcher logEntryMessageMatcher = new LogEntryMessageMatcher(new StringMessage(message));
-		
-		RecordingLoggerMatcher matcher = new RecordingLoggerMatcher(logEntryMessageMatcher);
+
+		Matcher<LogEntry> logEntryMatcher = new LogEntryMessageMatcher(new StringMessage(message));
+		RecordingLoggerMatcher matcher = new RecordingLoggerMatcher(logEntryMatcher);
 
 		// When
 		boolean matches = matcher.matches(logger);
@@ -42,17 +46,17 @@ public class RecordingLoggerMatcherTest {
 		// Then
 		assertThat(matches, is(true));
 	}
-	
+
 	@Test
-	public void shouldNotMatch() {
+	public void shouldNotMatchGivenNoMatchingLogEntries() {
 		// Given
 		Logger logger = new RecordingLogger("A Logger");
 		String message = "some message";
-		String differentMessage = "some different message";
 		logger.info(message);
-		LogEntryMessageMatcher logEntryMessageMatcher = new LogEntryMessageMatcher(new StringMessage(differentMessage));
-		
-		RecordingLoggerMatcher matcher = new RecordingLoggerMatcher(logEntryMessageMatcher);
+
+		String differentMessage = "some different message";
+		Matcher<LogEntry> logEntryMatcher = new LogEntryMessageMatcher(new StringMessage(differentMessage));
+		RecordingLoggerMatcher matcher = new RecordingLoggerMatcher(logEntryMatcher);
 
 		// When
 		boolean matches = matcher.matches(logger);
@@ -60,27 +64,60 @@ public class RecordingLoggerMatcherTest {
 		// Then
 		assertThat(matches, is(false));
 	}
-	
+
 	@Test
-	public void shouldDescribeMismatch() {
+	public void shouldNotMatchGivenNoLogEntries() {
+		// Given
+		Logger logger = new RecordingLogger("A Logger");
+
+		Matcher<LogEntry> logEntryMatcher = new LogEntryMessageMatcher(new StringMessage("some message"));
+		RecordingLoggerMatcher matcher = new RecordingLoggerMatcher(logEntryMatcher);
+
+		// When
+		boolean matches = matcher.matches(logger);
+
+		// Then
+		assertThat(matches, is(false));
+	}
+
+	@Test
+	public void shouldDescribeMismatchGivenNoMatchingLogEntries() {
 		// Given
 		Logger logger = new RecordingLogger("A Logger");
 		String differentMessage = "some different message";
-		String message = "some message";
 		logger.info(differentMessage);
+
+		String message = "some message";
 		LogEntryMessageMatcher logEntryMessageMatcher = new LogEntryMessageMatcher(new StringMessage(message));
-		
 		RecordingLoggerMatcher matcher = new RecordingLoggerMatcher(logEntryMessageMatcher);
 
 		Description description = new StringDescription();
-		
+
 		// When
 		matcher.describeMismatch(logger, description);
 
 		// Then
-		assertThat(description, describes("No LogEntry with message \"some message\" was logged to \"A Logger\""));
+		assertThat(description, describes("There are LogEntries, but no LogEntry with message \"some message\" was logged to \"A Logger\""));
 	}
-	
+
+	@Test
+	public void shouldDescribeMismatchGivenNoLogEntries() {
+		// Given
+		Logger logger = new RecordingLogger("A Logger");
+
+		String message = "some message";
+		LogEntryMessageMatcher logEntryMessageMatcher = new LogEntryMessageMatcher(new StringMessage(message));
+		RecordingLoggerMatcher matcher = new RecordingLoggerMatcher(logEntryMessageMatcher);
+
+		Description description = new StringDescription();
+
+		// When
+		matcher.describeMismatch(logger, description);
+
+		// Then
+		assertThat(description, describes("No LogEntries were logged to \"A Logger\"\nWanted LogEntry with message \"some message\""));
+	}
+
 	@Test
 	public void shouldNotMatchGivenIsNotARecordingLogger() {
 		// Given
@@ -93,12 +130,12 @@ public class RecordingLoggerMatcherTest {
 		// Then
 		assertThat(matches, is(false));
 	}
-	
+
 	@Test
 	public void shouldDescribeMismatchGivenIsNotARecordingLogger() {
 		// Given
 		RecordingLoggerMatcher matcher = new RecordingLoggerMatcher(aLogEntryMatcher());
-		
+
 		Logger logger = mock(Logger.class, "Not a RecordingLogger");
 		Description description = new StringDescription();
 
@@ -108,9 +145,39 @@ public class RecordingLoggerMatcherTest {
 		// Then
 		assertThat(description, describes("The logger is not a RecordingLogger, are you using the matcher correctly?"));
 	}
-	
+
+	@Test
+	public void shouldDescribe() {
+		// Given
+		Matcher<LogEntry> logEntryMatcher = logEntryMatcherDescribedAs("something");
+
+		RecordingLoggerMatcher matcher = new RecordingLoggerMatcher(logEntryMatcher);
+
+		Description description = new StringDescription();
+
+		// When
+		matcher.describeTo(description);
+
+		// Then
+		assertThat(description, describes("Logged something"));
+	}
+
+	@SuppressWarnings("unchecked")
+	private static Matcher<LogEntry> logEntryMatcherDescribedAs(final String text) {
+		Matcher<LogEntry> logEntryMatcher = mock(Matcher.class);
+		willAnswer(new Answer<Void>() {
+
+			public Void answer(InvocationOnMock invocation) throws Throwable {
+				Description description = (Description) invocation.getArguments()[0];
+				description.appendText(text);
+				return null;
+			}
+		}).given(logEntryMatcher).describeTo(any(Description.class));
+		return logEntryMatcher;
+	}
+
 	private static Matcher<LogEntry> aLogEntryMatcher() {
 		return mock(LogEntryMatcher.class);
 	}
-	
+
 }
