@@ -1,10 +1,5 @@
 package uk.co.webamoeba.slf4j.junit;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-import static uk.co.webamoeba.slf4j.junit.LoggingMatchers.loggedError;
-import static uk.co.webamoeba.slf4j.junit.LoggingMatchers.logger;
-
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -13,9 +8,15 @@ import org.slf4j.Marker;
 import org.slf4j.helpers.BasicMarkerFactory;
 import uk.co.webamoeba.slf4j.junit.log.LogRegistry;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+import static uk.co.webamoeba.slf4j.junit.LoggingMatchers.loggedError;
+import static uk.co.webamoeba.slf4j.junit.LoggingMatchers.logger;
+
 /**
  * @author James Kennard
  */
+@Ignore
 public class LoggingMatchersLoggedErrorIntegrationTest {
 
 	@Before
@@ -24,7 +25,6 @@ public class LoggingMatchersLoggedErrorIntegrationTest {
 	}
 
 	@Test
-	@Ignore("Not Ready")
 	public void shouldMatchGivenErrorLogged() {
 		// Given
 		Logger logger = logger(LoggingMatchersLoggedErrorIntegrationTest.class);
@@ -39,7 +39,6 @@ public class LoggingMatchersLoggedErrorIntegrationTest {
 	}
 
 	@Test
-	@Ignore("Not Ready")
 	public void shouldMatchGivenErrorLoggedWithFormat() {
 		// Given
 		Logger logger = logger(LoggingMatchersLoggedErrorIntegrationTest.class);
@@ -55,7 +54,6 @@ public class LoggingMatchersLoggedErrorIntegrationTest {
 	}
 
 	@Test
-	@Ignore("Not Ready")
 	public void shouldMatchGivenErrorLoggedWithThrowable() {
 		// Given
 		Logger logger = logger(LoggingMatchersLoggedErrorIntegrationTest.class);
@@ -71,7 +69,6 @@ public class LoggingMatchersLoggedErrorIntegrationTest {
 	}
 
 	@Test
-	@Ignore("Not Ready")
 	public void shouldMatchGivenErrorLoggedWithMarker() {
 		// Given
 		Logger logger = logger(LoggingMatchersLoggedErrorIntegrationTest.class);
@@ -87,7 +84,6 @@ public class LoggingMatchersLoggedErrorIntegrationTest {
 	}
 
 	@Test
-	@Ignore("Not Ready")
 	public void shouldMatchGivenErrorLoggedWithMarkerAndThrowable() {
 		// Given
 		Logger logger = logger(LoggingMatchersLoggedErrorIntegrationTest.class);
@@ -104,7 +100,6 @@ public class LoggingMatchersLoggedErrorIntegrationTest {
 	}
 
 	@Test
-	@Ignore("Not Ready")
 	public void shouldMatchGivenErrorLoggedWithMarkerAndFormat() {
 		// Given
 		Marker marker = new BasicMarkerFactory().getMarker("Some Marker");
@@ -121,7 +116,6 @@ public class LoggingMatchersLoggedErrorIntegrationTest {
 	}
 
 	@Test
-	@Ignore("Not Ready")
 	public void shouldNotMatchGivenErrorLoggedWithDifferentMessage() {
 		// Given
 		Logger logger = logger(LoggingMatchersLoggedErrorIntegrationTest.class);
@@ -136,7 +130,6 @@ public class LoggingMatchersLoggedErrorIntegrationTest {
 	}
 
 	@Test
-	@Ignore("Not Ready")
 	public void shouldNotMatchGivenNoErrorLogged() {
 		// Given
 		Logger logger = logger(LoggingMatchersLoggedErrorIntegrationTest.class);
@@ -150,7 +143,6 @@ public class LoggingMatchersLoggedErrorIntegrationTest {
 	}
 
 	@Test
-	@Ignore("Not Ready")
 	public void shouldNotMatchGivenLoggedAtDifferentLevel() {
 		// Given
 		Logger logger = logger(LoggingMatchersLoggedErrorIntegrationTest.class);
