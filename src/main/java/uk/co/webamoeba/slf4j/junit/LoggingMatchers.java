@@ -73,28 +73,4 @@ public class LoggingMatchers {
 		return new RecordingLoggerMatcher(new CompositeLogEntryMatcher(INFO_MATCHER, messageMatcher, throwableMatcher, markerMatcher));
 	}
 
-	public static Matcher<Logger> loggedError(String message) {
-		return null;
-	}
-
-	public static Matcher<Logger> loggedError(String format, Object... arguments) {
-		return null;
-	}
-
-	public static Matcher<Logger> loggedError(String message, Throwable throwable) {
-		return null;
-	}
-
-	public static Matcher<Logger> loggedError(Marker marker, String message) {
-		return null;
-	}
-
-	public static Matcher<Logger> loggedError(Marker marker, String format, Object... arguments) {
-		return null;
-	}
-
-	public static Matcher<Logger> loggedError(Marker marker, String message, Throwable throwable) {
-		return null;
-	}
-
 }
