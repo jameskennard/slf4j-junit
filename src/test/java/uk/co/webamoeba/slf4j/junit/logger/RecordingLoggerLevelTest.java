@@ -42,7 +42,7 @@ public abstract class RecordingLoggerLevelTest {
 	protected abstract boolean isEnabled(RecordingLogger recordingLogger);
 
 	@Test
-	public void shouldDetermineIfInfoEnabledGivenMarker() {
+	public void shouldDetermineIfEnabledGivenMarker() {
 		// Given
 		RecordingLogger recordingLogger = new RecordingLogger("a recording logger");
 		Marker marker = new BasicMarkerFactory().getMarker("some marker");
@@ -57,7 +57,7 @@ public abstract class RecordingLoggerLevelTest {
 	protected abstract boolean isEnabled(RecordingLogger recordingLogger, Marker marker);
 
 	@Test
-	public void shouldLogInfoGivenMessage() {
+	public void shouldLogGivenMessage() {
 		// Given
 		String name = "a recording logger";
 		RecordingLogger recordingLogger = new RecordingLogger(name);
@@ -75,7 +75,7 @@ public abstract class RecordingLoggerLevelTest {
 	protected abstract void log(RecordingLogger recordingLogger, String message);
 
 	@Test
-	public void shouldLogInfoGivenFormatAndArgument() {
+	public void shouldLogGivenFormatAndArgument() {
 		// Given
 		String format = "Format {}";
 		Object arg = "Argument";
@@ -95,7 +95,7 @@ public abstract class RecordingLoggerLevelTest {
 	protected abstract void log(String format, Object argument, RecordingLogger recordingLogger);
 
 	@Test
-	public void shouldLogInfoGivenFormatAndTwoArguments() {
+	public void shouldLogGivenFormatAndTwoArguments() {
 		// Given
 		String format = "Format {} {}";
 		Object arg1 = "Argument One";
@@ -116,7 +116,7 @@ public abstract class RecordingLoggerLevelTest {
 	protected abstract void log(String format, Object argument1, Object argument2, RecordingLogger recordingLogger);
 
 	@Test
-	public void shouldLogInfoGivenFormatAndVarArgs() {
+	public void shouldLogGivenFormatAndVarArgs() {
 		// Given
 		String format = "Format {} {} {}";
 		Object arg1 = "Argument One";
@@ -138,7 +138,7 @@ public abstract class RecordingLoggerLevelTest {
 	protected abstract void log(String format, Object argument1, Object argument2, Object argument3, RecordingLogger recordingLogger);
 
 	@Test
-	public void shouldLogInfoGivenMessageAndThrowable() {
+	public void shouldLogGivenMessageAndThrowable() {
 		// Given
 		String message = "Some Message";
 		Throwable throwable = new RuntimeException();
@@ -158,7 +158,7 @@ public abstract class RecordingLoggerLevelTest {
 	protected abstract void log(String message, Throwable throwable, RecordingLogger recordingLogger);
 
 	@Test
-	public void shouldLogInfoGivenMarkerAndMessage() {
+	public void shouldLogGivenMarkerAndMessage() {
 		// Given
 		Marker marker = new BasicMarkerFactory().getMarker("Some marker");
 		String message = "Some Message";
@@ -178,7 +178,7 @@ public abstract class RecordingLoggerLevelTest {
 	protected abstract void log(Marker marker, String message, RecordingLogger recordingLogger);
 
 	@Test
-	public void shouldLogInfoGivenMarkerFormatAndArgument() {
+	public void shouldLogGivenMarkerFormatAndArgument() {
 		// Given
 		Marker marker = new BasicMarkerFactory().getMarker("Some marker");
 		String format = "Format {}";
@@ -199,7 +199,7 @@ public abstract class RecordingLoggerLevelTest {
 	protected abstract void log(Marker marker, String format, Object argument, RecordingLogger recordingLogger);
 
 	@Test
-	public void shouldFailToLogInfoGivenMarkerFormatAndTwoArguments() {
+	public void shouldFailToLogGivenMarkerFormatAndTwoArguments() {
 		// Given
 		Marker marker = new BasicMarkerFactory().getMarker("Some marker");
 		String format = "Format {} {}";
@@ -221,7 +221,7 @@ public abstract class RecordingLoggerLevelTest {
 	protected abstract void log(Marker marker, String format, Object argument1, Object argument2, RecordingLogger recordingLogger);
 
 	@Test
-	public void shouldFailToLogInfoGivenMarkerFormatAndVarArgs() {
+	public void shouldFailToLogGivenMarkerFormatAndVarArgs() {
 		// Given
 		Marker marker = new BasicMarkerFactory().getMarker("Some marker");
 		String format = "Format {} {} {}";
@@ -244,7 +244,7 @@ public abstract class RecordingLoggerLevelTest {
 	protected abstract void log(Marker marker, String format, Object argument1, Object argument2, Object argument3, RecordingLogger recordingLogger);
 
 	@Test
-	public void shouldFailToLogInfoGivenMarkerMessageAndThrowable() {
+	public void shouldFailToLogGivenMarkerMessageAndThrowable() {
 		// Given
 		Marker marker = new BasicMarkerFactory().getMarker("Some marker");
 		String message = "Message";

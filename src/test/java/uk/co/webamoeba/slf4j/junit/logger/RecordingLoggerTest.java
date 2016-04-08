@@ -3,8 +3,6 @@ package uk.co.webamoeba.slf4j.junit.logger;
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
-import org.slf4j.Marker;
-import org.slf4j.helpers.BasicMarkerFactory;
 import uk.co.webamoeba.slf4j.junit.log.LogRegistry;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -45,81 +43,6 @@ public class RecordingLoggerTest {
 
 		// Then
 		assertThat(isLogger, is(true));
-	}
-
-	@Test
-	public void shouldDetermineIfTraceEnabled() {
-		// Given
-		RecordingLogger recordingLogger = new RecordingLogger("a recording logger");
-
-		// When
-		boolean isTraceEnabled = recordingLogger.isTraceEnabled();
-
-		// Then
-		assertThat(isTraceEnabled, is(false));
-	}
-
-	@Test
-	public void shouldDetermineIfTraceEnabledGivenMarker() {
-		// Given
-		RecordingLogger recordingLogger = new RecordingLogger("a recording logger");
-		Marker marker = new BasicMarkerFactory().getMarker("some marker");
-
-		// When
-		boolean isTraceEnabled = recordingLogger.isTraceEnabled(marker);
-
-		// Then
-		assertThat(isTraceEnabled, is(false));
-	}
-
-	@Test
-	public void shouldDetermineIfDebugEnabled() {
-		// Given
-		RecordingLogger recordingLogger = new RecordingLogger("a recording logger");
-
-		// When
-		boolean isTraceEnabled = recordingLogger.isDebugEnabled();
-
-		// Then
-		assertThat(isTraceEnabled, is(false));
-	}
-
-	@Test
-	public void shouldDetermineIfDebugEnabledGivenMarker() {
-		// Given
-		RecordingLogger recordingLogger = new RecordingLogger("a recording logger");
-		Marker marker = new BasicMarkerFactory().getMarker("some marker");
-
-		// When
-		boolean isTraceEnabled = recordingLogger.isDebugEnabled(marker);
-
-		// Then
-		assertThat(isTraceEnabled, is(false));
-	}
-
-	@Test
-	public void shouldDetermineIfErrorEnabled() {
-		// Given
-		RecordingLogger recordingLogger = new RecordingLogger("a recording logger");
-
-		// When
-		boolean isTraceEnabled = recordingLogger.isErrorEnabled();
-
-		// Then
-		assertThat(isTraceEnabled, is(false));
-	}
-
-	@Test
-	public void shouldDetermineIfErrorEnabledGivenMarker() {
-		// Given
-		RecordingLogger recordingLogger = new RecordingLogger("a recording logger");
-		Marker marker = new BasicMarkerFactory().getMarker("some marker");
-
-		// When
-		boolean isTraceEnabled = recordingLogger.isErrorEnabled(marker);
-
-		// Then
-		assertThat(isTraceEnabled, is(false));
 	}
 
 }
