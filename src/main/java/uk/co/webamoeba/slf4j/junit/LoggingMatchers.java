@@ -20,7 +20,11 @@ import uk.co.webamoeba.slf4j.junit.matcher.RecordingLoggerMatcher;
  */
 public class LoggingMatchers {
 
+	private static final LogEntryLevelMatcher WARN_MATCHER = new LogEntryLevelMatcher(Level.WARN);
+	
 	private static final LogEntryLevelMatcher INFO_MATCHER = new LogEntryLevelMatcher(Level.INFO);
+	
+	private static final LogEntryLevelMatcher DEBUG_MATCHER = new LogEntryLevelMatcher(Level.DEBUG);
 
 	public static Logger logger(Class<?> clazz) {
 		return LoggerFactory.getLogger(clazz);
@@ -71,6 +75,76 @@ public class LoggingMatchers {
 		LogEntryMatcher throwableMatcher = new LogEntryThrowableMatcher(throwable);
 		LogEntryMatcher markerMatcher = new LogEntryMarkerMatcher(marker);
 		return new RecordingLoggerMatcher(new CompositeLogEntryMatcher(INFO_MATCHER, messageMatcher, throwableMatcher, markerMatcher));
+	}
+	
+	public static Matcher<Logger> loggedWarn(String message) {
+		LogEntryMatcher messageMatcher = new LogEntryMessageMatcher(new LogEntry.StringMessage(message));
+		return new RecordingLoggerMatcher(new CompositeLogEntryMatcher(WARN_MATCHER, messageMatcher));
+	}
+
+	public static Matcher<Logger> loggedWarn(String format, Object... arguments) {
+		LogEntryMatcher messageMatcher = new LogEntryMessageMatcher(new LogEntry.FormattedMessage(format, arguments));
+		return new RecordingLoggerMatcher(new CompositeLogEntryMatcher(WARN_MATCHER, messageMatcher));
+	}
+
+	public static Matcher<Logger> loggedWarn(String message, Throwable throwable) {
+		LogEntryMatcher messageMatcher = new LogEntryMessageMatcher(new LogEntry.StringMessage(message));
+		LogEntryMatcher throwableMatcher = new LogEntryThrowableMatcher(throwable);
+		return new RecordingLoggerMatcher(new CompositeLogEntryMatcher(WARN_MATCHER, messageMatcher, throwableMatcher));
+	}
+
+	public static Matcher<Logger> loggedWarn(Marker marker, String message) {
+		LogEntryMatcher messageMatcher = new LogEntryMessageMatcher(new LogEntry.StringMessage(message));
+		LogEntryMatcher markerMatcher = new LogEntryMarkerMatcher(marker);
+		return new RecordingLoggerMatcher(new CompositeLogEntryMatcher(WARN_MATCHER, messageMatcher, markerMatcher));
+	}
+
+	public static Matcher<Logger> loggedWarn(Marker marker, String format, Object... arguments) {
+		LogEntryMatcher messageMatcher = new LogEntryMessageMatcher(new LogEntry.FormattedMessage(format, arguments));
+		LogEntryMatcher markerMatcher = new LogEntryMarkerMatcher(marker);
+		return new RecordingLoggerMatcher(new CompositeLogEntryMatcher(WARN_MATCHER, messageMatcher, markerMatcher));
+	}
+
+	public static Matcher<Logger> loggedWarn(Marker marker, String message, Throwable throwable) {
+		LogEntryMatcher messageMatcher = new LogEntryMessageMatcher(new LogEntry.StringMessage(message));
+		LogEntryMatcher throwableMatcher = new LogEntryThrowableMatcher(throwable);
+		LogEntryMatcher markerMatcher = new LogEntryMarkerMatcher(marker);
+		return new RecordingLoggerMatcher(new CompositeLogEntryMatcher(WARN_MATCHER, messageMatcher, throwableMatcher, markerMatcher));
+	}
+	
+	public static Matcher<Logger> loggedDebug(String message) {
+		LogEntryMatcher messageMatcher = new LogEntryMessageMatcher(new LogEntry.StringMessage(message));
+		return new RecordingLoggerMatcher(new CompositeLogEntryMatcher(DEBUG_MATCHER, messageMatcher));
+	}
+
+	public static Matcher<Logger> loggedDebug(String format, Object... arguments) {
+		LogEntryMatcher messageMatcher = new LogEntryMessageMatcher(new LogEntry.FormattedMessage(format, arguments));
+		return new RecordingLoggerMatcher(new CompositeLogEntryMatcher(DEBUG_MATCHER, messageMatcher));
+	}
+
+	public static Matcher<Logger> loggedDebug(String message, Throwable throwable) {
+		LogEntryMatcher messageMatcher = new LogEntryMessageMatcher(new LogEntry.StringMessage(message));
+		LogEntryMatcher throwableMatcher = new LogEntryThrowableMatcher(throwable);
+		return new RecordingLoggerMatcher(new CompositeLogEntryMatcher(DEBUG_MATCHER, messageMatcher, throwableMatcher));
+	}
+
+	public static Matcher<Logger> loggedDebug(Marker marker, String message) {
+		LogEntryMatcher messageMatcher = new LogEntryMessageMatcher(new LogEntry.StringMessage(message));
+		LogEntryMatcher markerMatcher = new LogEntryMarkerMatcher(marker);
+		return new RecordingLoggerMatcher(new CompositeLogEntryMatcher(DEBUG_MATCHER, messageMatcher, markerMatcher));
+	}
+
+	public static Matcher<Logger> loggedDebug(Marker marker, String format, Object... arguments) {
+		LogEntryMatcher messageMatcher = new LogEntryMessageMatcher(new LogEntry.FormattedMessage(format, arguments));
+		LogEntryMatcher markerMatcher = new LogEntryMarkerMatcher(marker);
+		return new RecordingLoggerMatcher(new CompositeLogEntryMatcher(DEBUG_MATCHER, messageMatcher, markerMatcher));
+	}
+
+	public static Matcher<Logger> loggedDebug(Marker marker, String message, Throwable throwable) {
+		LogEntryMatcher messageMatcher = new LogEntryMessageMatcher(new LogEntry.StringMessage(message));
+		LogEntryMatcher throwableMatcher = new LogEntryThrowableMatcher(throwable);
+		LogEntryMatcher markerMatcher = new LogEntryMarkerMatcher(marker);
+		return new RecordingLoggerMatcher(new CompositeLogEntryMatcher(DEBUG_MATCHER, messageMatcher, throwableMatcher, markerMatcher));
 	}
 
 }
