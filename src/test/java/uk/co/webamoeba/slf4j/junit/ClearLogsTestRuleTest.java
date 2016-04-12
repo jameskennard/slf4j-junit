@@ -5,10 +5,11 @@ import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static uk.co.webamoeba.slf4j.junit.LoggingMatchers.clearLogs;
+import static uk.co.webamoeba.slf4j.junit.LoggingMatchers.enableLogging;
 import static uk.co.webamoeba.slf4j.junit.LoggingMatchers.logger;
 
 import java.util.List;
-
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.Description;
 import org.junit.runners.model.Statement;
@@ -20,6 +21,9 @@ import uk.co.webamoeba.slf4j.junit.log.LogRegistry;
  */
 public class ClearLogsTestRuleTest {
 
+	@Rule
+	public EnableLogging enableLogging = enableLogging();
+	
 	@Test
 	public void shouldClearAllLogs() throws Throwable {
 		// Given
@@ -56,7 +60,7 @@ public class ClearLogsTestRuleTest {
 	}
 
 	private List<LogEntry> logEntries(Class<?> loggerClass) {
-		return LogRegistry.getSingleton().getRegister(loggerClass.getName()).getEntries();
+		return LogRegistry.getSingleton().getLog(loggerClass.getName()).getEntries();
 	}
 
 }

@@ -8,7 +8,7 @@ import org.junit.Test;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 import org.slf4j.Logger;
-import uk.co.webamoeba.slf4j.junit.ClearLogsTestRule;
+import uk.co.webamoeba.slf4j.junit.EnableLogging;
 import uk.co.webamoeba.slf4j.junit.log.LogEntry;
 import uk.co.webamoeba.slf4j.junit.log.LogEntry.StringMessage;
 import uk.co.webamoeba.slf4j.junit.logger.RecordingLogger;
@@ -18,6 +18,7 @@ import static org.junit.Assert.assertThat;
 import static org.mockito.BDDMockito.willAnswer;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
+import static uk.co.webamoeba.slf4j.junit.LoggingMatchers.enableLogging;
 import static uk.co.webamoeba.slf4j.junit.testsupport.DescriptionMatcher.describes;
 
 /**
@@ -28,7 +29,7 @@ import static uk.co.webamoeba.slf4j.junit.testsupport.DescriptionMatcher.describ
 public class RecordingLoggerMatcherTest {
 
 	@Rule
-	public ClearLogsTestRule rule = new ClearLogsTestRule();
+	public EnableLogging enableLogging = enableLogging();
 
 	@Test
 	public void shouldMatch() {

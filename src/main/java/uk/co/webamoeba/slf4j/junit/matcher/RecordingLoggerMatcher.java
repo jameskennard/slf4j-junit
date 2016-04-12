@@ -52,7 +52,7 @@ public class RecordingLoggerMatcher extends BaseMatcher<Logger> {
 	}
 
 	private boolean matchesSafely(RecordingLogger logger, Description mismatchDescription) {
-		Log register = LogRegistry.getSingleton().getRegister(logger.getName());
+		Log register = LogRegistry.getSingleton().getLog(logger.getName());
 
 		List<LogEntry> entries = register.getEntries();
 		for (LogEntry logEntry : entries) {

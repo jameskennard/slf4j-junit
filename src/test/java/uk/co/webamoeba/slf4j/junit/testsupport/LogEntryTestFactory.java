@@ -17,7 +17,7 @@ import static uk.co.webamoeba.slf4j.junit.testsupport.LevelTestFactory.aLevel;
 public class LogEntryTestFactory {
 
 	public static List<LogEntry> logEntries(String name) {
-		return LogRegistry.getSingleton().getRegister(name).getEntries();
+		return LogRegistry.getSingleton().getLog(name).getEntries();
 	}
 	
 	public static LogEntry aLogEntry() {

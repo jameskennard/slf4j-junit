@@ -2,6 +2,7 @@ package uk.co.webamoeba.slf4j.junit;
 
 import org.hamcrest.Matcher;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.Marker;
@@ -12,6 +13,7 @@ import uk.co.webamoeba.slf4j.junit.log.LogRegistry;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
+import static uk.co.webamoeba.slf4j.junit.LoggingMatchers.enableLogging;
 import static uk.co.webamoeba.slf4j.junit.LoggingMatchers.logger;
 
 /**
@@ -24,6 +26,9 @@ public abstract class LoggingMatchersLoggedLevelIntegrationTest {
 	public LoggingMatchersLoggedLevelIntegrationTest(Level level) {
 		this.level = level;
 	}
+	
+	@Rule
+	public EnableLogging enableLogging = enableLogging();
 
 	private Level level() {
 		return level;

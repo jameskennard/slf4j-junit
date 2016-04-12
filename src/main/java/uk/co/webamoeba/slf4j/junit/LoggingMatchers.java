@@ -30,6 +30,10 @@ public class LoggingMatchers {
 	
 	private static final LogEntryLevelMatcher TRACE_MATCHER = new LogEntryLevelMatcher(Level.TRACE);
 
+	public static EnableLogging enableLogging() { 
+		return EnableLogging.enableLogging();
+	}
+	
 	public static Logger logger(Class<?> clazz) {
 		return LoggerFactory.getLogger(clazz);
 	}

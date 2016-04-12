@@ -4,12 +4,13 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.slf4j.Marker;
 import org.slf4j.helpers.BasicMarkerFactory;
-import uk.co.webamoeba.slf4j.junit.ClearLogsTestRule;
+import uk.co.webamoeba.slf4j.junit.EnableLogging;
 import uk.co.webamoeba.slf4j.junit.log.Level;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.sameInstance;
 import static org.junit.Assert.assertThat;
+import static uk.co.webamoeba.slf4j.junit.LoggingMatchers.enableLogging;
 import static uk.co.webamoeba.slf4j.junit.testsupport.LogEntryTestFactory.logEntries;
 
 public abstract class RecordingLoggerLevelTest {
@@ -25,7 +26,7 @@ public abstract class RecordingLoggerLevelTest {
 	}
 	
 	@Rule
-	public ClearLogsTestRule clearLogsTestRule = new ClearLogsTestRule();
+	public EnableLogging enableLogging = enableLogging();
 	
 	@Test
 	public void shouldDetermineIfEnabled() {

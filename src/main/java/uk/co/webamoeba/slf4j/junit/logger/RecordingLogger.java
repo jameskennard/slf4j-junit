@@ -270,7 +270,7 @@ public class RecordingLogger implements Logger {
 	}
 
 	private void log(LogEntry logEntry) {
-		LogRegistry.getSingleton().getRegister(name).register(logEntry);
+		LogRegistry.getSingleton().getLog(name).register(logEntry);
 	}
 
 }

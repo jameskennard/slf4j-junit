@@ -43,7 +43,7 @@ public class ClearLogsTestRule implements TestRule {
 		if (clearAll()) {
 			registry.clearAll();
 		} else {
-			registry.getRegister(loggerName()).clear();
+			registry.getLog(loggerName()).clear();
 		}
 	}
 
