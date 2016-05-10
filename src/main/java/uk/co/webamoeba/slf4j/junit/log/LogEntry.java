@@ -158,7 +158,7 @@ public class LogEntry implements SelfDescribing {
 
 		@Override
 		public String getMessageAsString() {
-			return MessageFormatter.arrayFormat(format, arguments).getMessage();
+			return MessageFormatter.arrayFormat(getFormat(), getArguments()).getMessage();
 		}
 
 		@Override

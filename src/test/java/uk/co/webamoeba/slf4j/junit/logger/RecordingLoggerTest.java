@@ -1,9 +1,7 @@
 package uk.co.webamoeba.slf4j.junit.logger;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
-import uk.co.webamoeba.slf4j.junit.log.LogRegistry;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -14,11 +12,6 @@ import static org.junit.Assert.assertThat;
  * @author James Kennard
  */
 public class RecordingLoggerTest {
-
-	@Before
-	public void clearLogs() {
-		LogRegistry.getSingleton().clearAll();
-	}
 
 	@Test
 	public void shouldGetName() {

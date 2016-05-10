@@ -8,7 +8,6 @@ import org.junit.rules.TestRule;
 import org.junit.runner.Description;
 import org.junit.runners.model.Statement;
 import uk.co.webamoeba.slf4j.junit.context.LoggingContext;
-import uk.co.webamoeba.slf4j.junit.log.LogRegistry;
 
 /**
  * {@link TestRule} which must be used if you want to test logging in a test.
@@ -69,8 +68,6 @@ public class EnableLogging implements TestRule {
 					} catch (Throwable throwable) {
 						EnableLoggingStatement.this.throwable = throwable;
 					}
-					// FIXME
-//					LogRegistry.getSingleton().clearAll();
 				}
 			});
 			return result;

@@ -1,7 +1,7 @@
 package uk.co.webamoeba.slf4j.junit.log;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import uk.co.webamoeba.slf4j.junit.context.LoggingContext;
 
 /**
@@ -11,69 +11,39 @@ import uk.co.webamoeba.slf4j.junit.context.LoggingContext;
  */
 public class LogRegistry {
 
-	private static final LogRegistry REGISTRY = new LogRegistry();
-
-	private static final Map<LogKey, Log> LOGS = new HashMap<LogKey, Log>();
+	private Map<LogKey, Log> logs = new ConcurrentHashMap<LogRegistry.LogKey, Log>();
 
 	public static LogRegistry getSingleton() {
-		return REGISTRY;
-	}
-
-	private LogRegistry() {
+		return LoggingContext.getRegistry();
 	}
 
 	/**
 	 * @param name The name of the {@link Log} we want to get
 	 * @return The Log for the given name
 	 */
-	public Log getLog(String name) {
+	public synchronized Log getLog(String name) {
 		LogKey logKey = logKey(name);
-		if (!LOGS.containsKey(logKey)) {
-			LOGS.put(logKey, new Log());
+		if (!logs.containsKey(logKey)) {
+			logs.put(logKey, new Log());
 		}
-		return LOGS.get(logKey);
+		return logs.get(logKey);
 	}
 
 	private LogKey logKey(String name) {
-		return new LogKey(name, getContext().getName());
-	}
-
-	/**
-	 * {@link Log#clear() Clears} the {@link LogEntry LogEntries} from all of the {@link Log Logs}.
-	 */
-	public void clearAll() {
-		LoggingContext context = getContext();
-		for (LogKey logKey : LOGS.keySet()) {
-			if (logKey.contextName.equals(context.getName())) {
-				LOGS.remove(logKey);
-			}
-		}
-		
-		throw new IllegalStateException("Logging is not enabled, have you used the EnableLogging @Rule?");
-	}
-	
-	private static LoggingContext getContext() {
-		LoggingContext context = LoggingContext.getContext();
-		if (context == null) {
-			throw new IllegalStateException("Logging is not enabled, have you used the EnableLogging @Rule?");
-		}
-		return context;
+		return new LogKey(name);
 	}
 
 	private static class LogKey {
 
 		private final String name;
 
-		private final String contextName;
-
-		public LogKey(String name, String contextName) {
+		public LogKey(String name) {
 			this.name = name;
-			this.contextName = contextName;
 		}
 
 		@Override
 		public int hashCode() {
-			return 31 * (name.hashCode() + contextName.hashCode());
+			return 31 * (name.hashCode());
 		}
 
 		@Override
@@ -85,7 +55,7 @@ public class LogRegistry {
 				return false;
 			}
 			LogKey other = (LogKey) obj;
-			return this.contextName.equals(other.contextName) && this.name.equals(other.name);
+			return this.name.equals(other.name);
 		}
 
 	}

@@ -1,14 +1,12 @@
 package uk.co.webamoeba.slf4j.junit;
 
 import org.hamcrest.Matcher;
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.Marker;
 import org.slf4j.helpers.BasicMarkerFactory;
 import uk.co.webamoeba.slf4j.junit.log.Level;
-import uk.co.webamoeba.slf4j.junit.log.LogRegistry;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.assertThat;
@@ -32,11 +30,6 @@ public abstract class LoggingMatchersLoggedLevelIntegrationTest {
 
 	private Level level() {
 		return level;
-	}
-
-	@Before
-	public void clearLogs() {
-		LogRegistry.getSingleton().clearAll();
 	}
 
 	@Test

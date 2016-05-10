@@ -1,7 +1,6 @@
 package uk.co.webamoeba.slf4j.junit;
 
 import org.hamcrest.Matcher;
-import org.junit.rules.TestRule;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Marker;
@@ -40,14 +39,6 @@ public class LoggingMatchers {
 
 	public static Logger logger(String loggerName) {
 		return LoggerFactory.getLogger(loggerName);
-	}
-
-	public static TestRule clearLogs() {
-		return new ClearLogsTestRule();
-	}
-
-	public static TestRule clearLogs(Class<?> loggerClass) {
-		return new ClearLogsTestRule(loggerClass);
 	}
 
 	public static Matcher<Logger> loggedError(String message) {

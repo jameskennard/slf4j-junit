@@ -1,7 +1,6 @@
 package uk.co.webamoeba.slf4j.junit;
 
 import java.lang.annotation.Annotation;
-import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.Description;
 import org.junit.runners.model.Statement;

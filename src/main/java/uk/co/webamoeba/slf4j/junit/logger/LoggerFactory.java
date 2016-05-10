@@ -13,7 +13,7 @@ public class LoggerFactory implements ILoggerFactory {
 		if (name == null) {
 			throw new IllegalArgumentException("name must not be null");
 		}
-		if (LoggingContext.getContext().loggingIsEnabled()) {
+		if (LoggingContext.loggingIsEnabled()) {
 			return new RecordingLogger(name);
 		}
 		return new IgnoreLoggingLogger(name);

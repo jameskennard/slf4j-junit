@@ -1,24 +1,16 @@
 package uk.co.webamoeba.slf4j.junit.log;
 
-import java.util.Collections;
-
-import static org.junit.Assert.assertNotNull;
-import static org.hamcrest.CoreMatchers.not;
-import static org.hamcrest.CoreMatchers.sameInstance;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
-import static uk.co.webamoeba.slf4j.junit.LoggingMatchers.enableLogging;
-import static uk.co.webamoeba.slf4j.junit.log.Level.INFO;
-
 import org.junit.Rule;
 import org.junit.Test;
-import uk.co.webamoeba.slf4j.junit.DisableLogging;
 import uk.co.webamoeba.slf4j.junit.EnableLogging;
-import uk.co.webamoeba.slf4j.junit.log.Log;
-import uk.co.webamoeba.slf4j.junit.log.LogEntry;
-import uk.co.webamoeba.slf4j.junit.log.LogRegistry;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.CoreMatchers.sameInstance;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
+import static uk.co.webamoeba.slf4j.junit.LoggingMatchers.enableLogging;
 
 /**
  * Test for {@link LogRegistry}
@@ -68,7 +60,7 @@ public class LogRegistryTest {
 	}
 
 	@Test
-	public void shouldGetlofGivenDifferentName() {
+	public void shouldGetLogGivenDifferentName() {
 		// Given
 		LogRegistry registry = LogRegistry.getSingleton();
 		String name = "Some Log";
@@ -82,34 +74,4 @@ public class LogRegistryTest {
 		assertThat(register, is(not(sameInstance(expectedRegister))));
 	}
 
-	@Test
-	public void shouldClearAll() {
-		// Given
-		LogRegistry registry = LogRegistry.getSingleton();
-		Log register = registry.getLog("Some Register");
-		register.register(new LogEntry(INFO, "Some Log Entry"));
-
-		// When
-		registry.clearAll();
-
-		// Then
-		assertThat(register.getEntries(), is(Collections.<LogEntry> emptyList()));
-	}
-
-	@Test
-	@DisableLogging
-	public void shouldFailToGetRegisterGivenLoggingIsNotEnabled() {
-		LogRegistry registry = LogRegistry.getSingleton();
-		String name = "Some Log";
-
-		try {
-			// When
-			registry.getLog(name);
-
-			// Then
-			fail("Should throw exceptionClass");
-		} catch (IllegalStateException e) {
-			assertThat(e.getMessage(), is("Logging is not enabled, have you used the EnableLogging @Rule?"));
-		}
-	}
 }

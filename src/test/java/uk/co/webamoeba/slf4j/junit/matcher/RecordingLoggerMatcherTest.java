@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 import org.slf4j.Logger;
+import uk.co.webamoeba.slf4j.junit.DisableLogging;
 import uk.co.webamoeba.slf4j.junit.EnableLogging;
 import uk.co.webamoeba.slf4j.junit.log.LogEntry;
 import uk.co.webamoeba.slf4j.junit.log.LogEntry.StringMessage;
@@ -145,6 +146,23 @@ public class RecordingLoggerMatcherTest {
 
 		// Then
 		assertThat(description, describes("The logger is not a RecordingLogger, are you using the matcher correctly?"));
+	}
+
+	@Test
+	@DisableLogging
+	public void shouldDescribeMismatchGivenIsNotARecordingLoggerAndLoggingIsNotEnabled() {
+		// Given
+		RecordingLoggerMatcher matcher = new RecordingLoggerMatcher(aLogEntryMatcher());
+
+		Logger logger = mock(Logger.class, "Not a RecordingLogger");
+		Description description = new StringDescription();
+
+		// When
+		matcher.describeMismatch(logger, description);
+
+		// Then
+		assertThat(description, describes("The logger is not a RecordingLogger, are you using the matcher correctly?" +
+				"\nLogging is not enabled, have you used the EnableLogging @Rule?"));
 	}
 
 	@Test
