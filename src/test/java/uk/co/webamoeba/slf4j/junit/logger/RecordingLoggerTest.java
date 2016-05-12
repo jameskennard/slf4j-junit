@@ -1,7 +1,7 @@
 package uk.co.webamoeba.slf4j.junit.logger;
 
 import org.junit.Test;
-import org.slf4j.Logger;
+import uk.co.webamoeba.slf4j.junit.log.LogRegistry;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -17,25 +17,14 @@ public class RecordingLoggerTest {
 	public void shouldGetName() {
 		// Given
 		String expectedName = "expected name";
-		RecordingLogger recordingLogger = new RecordingLogger(expectedName);
+		LogRegistry registry = new LogRegistry();
+		RecordingLogger recordingLogger = new RecordingLogger(expectedName, registry);
 
 		// When
 		String name = recordingLogger.getName();
 
 		// Then
 		assertThat(name, is(expectedName));
-	}
-
-	@Test
-	public void shouldImplementLogger() {
-		// Given
-		RecordingLogger recordingLogger = new RecordingLogger("a recording logger");
-
-		// When
-		boolean isLogger = Logger.class.isInstance(recordingLogger);
-
-		// Then
-		assertThat(isLogger, is(true));
 	}
 
 }

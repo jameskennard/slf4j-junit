@@ -10,6 +10,7 @@ import org.mockito.stubbing.Answer;
 import org.slf4j.Logger;
 import uk.co.webamoeba.slf4j.junit.DisableLogging;
 import uk.co.webamoeba.slf4j.junit.EnableLogging;
+import uk.co.webamoeba.slf4j.junit.context.LoggingContext;
 import uk.co.webamoeba.slf4j.junit.log.LogEntry;
 import uk.co.webamoeba.slf4j.junit.log.LogEntry.StringMessage;
 import uk.co.webamoeba.slf4j.junit.logger.RecordingLogger;
@@ -35,7 +36,7 @@ public class RecordingLoggerMatcherTest {
 	@Test
 	public void shouldMatch() {
 		// Given
-		Logger logger = new RecordingLogger("A Logger");
+		Logger logger =  new RecordingLogger("A Logger", LoggingContext.getRegistry());
 		String message = "some message";
 		logger.info(message);
 
@@ -52,7 +53,7 @@ public class RecordingLoggerMatcherTest {
 	@Test
 	public void shouldNotMatchGivenNoMatchingLogEntries() {
 		// Given
-		Logger logger = new RecordingLogger("A Logger");
+		Logger logger = new RecordingLogger("A Logger", LoggingContext.getRegistry());
 		String message = "some message";
 		logger.info(message);
 
@@ -70,7 +71,7 @@ public class RecordingLoggerMatcherTest {
 	@Test
 	public void shouldNotMatchGivenNoLogEntries() {
 		// Given
-		Logger logger = new RecordingLogger("A Logger");
+		Logger logger = new RecordingLogger("A Logger", LoggingContext.getRegistry());
 
 		Matcher<LogEntry> logEntryMatcher = new LogEntryMessageMatcher(new StringMessage("some message"));
 		RecordingLoggerMatcher matcher = new RecordingLoggerMatcher(logEntryMatcher);
@@ -85,7 +86,7 @@ public class RecordingLoggerMatcherTest {
 	@Test
 	public void shouldDescribeMismatchGivenNoMatchingLogEntries() {
 		// Given
-		Logger logger = new RecordingLogger("A Logger");
+		Logger logger = new RecordingLogger("A Logger", LoggingContext.getRegistry());
 		String differentMessage = "some different message";
 		logger.info(differentMessage);
 
@@ -105,7 +106,7 @@ public class RecordingLoggerMatcherTest {
 	@Test
 	public void shouldDescribeMismatchGivenNoLogEntries() {
 		// Given
-		Logger logger = new RecordingLogger("A Logger");
+		Logger logger = new RecordingLogger("A Logger", LoggingContext.getRegistry());
 
 		String message = "some message";
 		LogEntryMessageMatcher logEntryMessageMatcher = new LogEntryMessageMatcher(new StringMessage(message));

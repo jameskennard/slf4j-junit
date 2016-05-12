@@ -1,16 +1,16 @@
 package uk.co.webamoeba.slf4j.junit.logger;
 
-import org.junit.Rule;
+import java.util.List;
 import org.junit.Test;
 import org.slf4j.Marker;
 import org.slf4j.helpers.BasicMarkerFactory;
-import uk.co.webamoeba.slf4j.junit.EnableLogging;
 import uk.co.webamoeba.slf4j.junit.log.Level;
+import uk.co.webamoeba.slf4j.junit.log.LogEntry;
+import uk.co.webamoeba.slf4j.junit.log.LogRegistry;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.sameInstance;
 import static org.junit.Assert.assertThat;
-import static uk.co.webamoeba.slf4j.junit.LoggingMatchers.enableLogging;
 import static uk.co.webamoeba.slf4j.junit.testsupport.LogEntryTestFactory.logEntries;
 
 public abstract class RecordingLoggerLevelTest {
@@ -25,13 +25,13 @@ public abstract class RecordingLoggerLevelTest {
 		return level;
 	}
 	
-	@Rule
-	public EnableLogging enableLogging = enableLogging();
+//	@Rule
+//	public EnableLogging enableLogging = enableLogging();
 	
 	@Test
 	public void shouldDetermineIfEnabled() {
 		// Given
-		RecordingLogger recordingLogger = new RecordingLogger("a recording logger");
+		RecordingLogger recordingLogger = new RecordingLogger("a recording logger", new LogRegistry());
 
 		// When
 		boolean isTraceEnabled = isEnabled(recordingLogger);
@@ -45,7 +45,7 @@ public abstract class RecordingLoggerLevelTest {
 	@Test
 	public void shouldDetermineIfEnabledGivenMarker() {
 		// Given
-		RecordingLogger recordingLogger = new RecordingLogger("a recording logger");
+		RecordingLogger recordingLogger = new RecordingLogger("a recording logger", new LogRegistry());
 		Marker marker = new BasicMarkerFactory().getMarker("some marker");
 
 		// When
@@ -61,16 +61,17 @@ public abstract class RecordingLoggerLevelTest {
 	public void shouldLogGivenMessage() {
 		// Given
 		String name = "a recording logger";
-		RecordingLogger recordingLogger = new RecordingLogger(name);
+		LogRegistry registry = new LogRegistry();
+		RecordingLogger recordingLogger = new RecordingLogger(name, registry);
 		String message = "expected message";
 
 		// When
 		log(recordingLogger, message);
 
 		// Then
-		assertThat(logEntries(name).size(), is(1));
-		assertThat(logEntries(name).get(0).getMessageAsString(), is(message));
-		assertThat(logEntries(name).get(0).getLevel(), is(expectedLevel()));
+		assertThat(logEntries(registry, name).size(), is(1));
+		assertThat(logEntries(registry, name).get(0).getMessageAsString(), is(message));
+		assertThat(logEntries(registry, name).get(0).getLevel(), is(expectedLevel()));
 	}
 
 	protected abstract void log(RecordingLogger recordingLogger, String message);
@@ -82,15 +83,16 @@ public abstract class RecordingLoggerLevelTest {
 		Object arg = "Argument";
 		String expectedMessage = "Format Argument";
 		String name = "a recording logger";
-		RecordingLogger recordingLogger = new RecordingLogger(name);
+		LogRegistry registry = new LogRegistry();
+		RecordingLogger recordingLogger = new RecordingLogger(name, registry);
 
 		// When
 		log(format, arg, recordingLogger);
 
 		// Then
-		assertThat(logEntries(name).size(), is(1));
-		assertThat(logEntries(name).get(0).getMessageAsString(), is(expectedMessage));
-		assertThat(logEntries(name).get(0).getLevel(), is(expectedLevel()));
+		assertThat(logEntries(registry, name).size(), is(1));
+		assertThat(logEntries(registry, name).get(0).getMessageAsString(), is(expectedMessage));
+		assertThat(logEntries(registry, name).get(0).getLevel(), is(expectedLevel()));
 	}
 
 	protected abstract void log(String format, Object argument, RecordingLogger recordingLogger);
@@ -103,15 +105,16 @@ public abstract class RecordingLoggerLevelTest {
 		Object arg2 = "Argument Two";
 		String expectedMessage = "Format Argument One Argument Two";
 		String name = "a recording logger";
-		RecordingLogger recordingLogger = new RecordingLogger(name);
+		LogRegistry registry = new LogRegistry();
+		RecordingLogger recordingLogger = new RecordingLogger(name, registry);
 
 		// When
 		log(format, arg1, arg2, recordingLogger);
 
 		// Then
-		assertThat(logEntries(name).size(), is(1));
-		assertThat(logEntries(name).get(0).getMessageAsString(), is(expectedMessage));
-		assertThat(logEntries(name).get(0).getLevel(), is(expectedLevel()));
+		assertThat(logEntries(registry, name).size(), is(1));
+		assertThat(logEntries(registry, name).get(0).getMessageAsString(), is(expectedMessage));
+		assertThat(logEntries(registry, name).get(0).getLevel(), is(expectedLevel()));
 	}
 
 	protected abstract void log(String format, Object argument1, Object argument2, RecordingLogger recordingLogger);
@@ -125,15 +128,16 @@ public abstract class RecordingLoggerLevelTest {
 		Object arg3 = "Argument Three";
 		String expectedMessage = "Format Argument One Argument Two Argument Three";
 		String name = "a recording logger";
-		RecordingLogger recordingLogger = new RecordingLogger(name);
+		LogRegistry registry = new LogRegistry();
+		RecordingLogger recordingLogger = new RecordingLogger(name, registry);
 
 		// When
 		log(format, arg1, arg2, arg3, recordingLogger);
 
 		// Then
-		assertThat(logEntries(name).size(), is(1));
-		assertThat(logEntries(name).get(0).getMessageAsString(), is(expectedMessage));
-		assertThat(logEntries(name).get(0).getLevel(), is(expectedLevel()));
+		assertThat(logEntries(registry, name).size(), is(1));
+		assertThat(logEntries(registry, name).get(0).getMessageAsString(), is(expectedMessage));
+		assertThat(logEntries(registry, name).get(0).getLevel(), is(expectedLevel()));
 	}
 
 	protected abstract void log(String format, Object argument1, Object argument2, Object argument3, RecordingLogger recordingLogger);
@@ -144,16 +148,17 @@ public abstract class RecordingLoggerLevelTest {
 		String message = "Some Message";
 		Throwable throwable = new RuntimeException();
 		String name = "a recording logger";
-		RecordingLogger recordingLogger = new RecordingLogger(name);
+		LogRegistry registry = new LogRegistry();
+		RecordingLogger recordingLogger = new RecordingLogger(name, registry);
 
 		// When
 		log(message, throwable, recordingLogger);
 
 		// Then
-		assertThat(logEntries(name).size(), is(1));
-		assertThat(logEntries(name).get(0).getMessageAsString(), is(message));
-		assertThat(logEntries(name).get(0).getThrowable(), is(sameInstance(throwable)));
-		assertThat(logEntries(name).get(0).getLevel(), is(expectedLevel()));
+		assertThat(logEntries(registry, name).size(), is(1));
+		assertThat(logEntries(registry, name).get(0).getMessageAsString(), is(message));
+		assertThat(logEntries(registry, name).get(0).getThrowable(), is(sameInstance(throwable)));
+		assertThat(logEntries(registry, name).get(0).getLevel(), is(expectedLevel()));
 	}
 
 	protected abstract void log(String message, Throwable throwable, RecordingLogger recordingLogger);
@@ -164,16 +169,17 @@ public abstract class RecordingLoggerLevelTest {
 		Marker marker = new BasicMarkerFactory().getMarker("Some marker");
 		String message = "Some Message";
 		String name = "a recording logger";
-		RecordingLogger recordingLogger = new RecordingLogger(name);
+		LogRegistry registry = new LogRegistry();
+		RecordingLogger recordingLogger = new RecordingLogger(name, registry);
 
 		// When
 		log(marker, message, recordingLogger);
 
 		// Then
-		assertThat(logEntries(name).size(), is(1));
-		assertThat(logEntries(name).get(0).getMessageAsString(), is(message));
-		assertThat(logEntries(name).get(0).getMarker(), is(sameInstance(marker)));
-		assertThat(logEntries(name).get(0).getLevel(), is(expectedLevel()));
+		assertThat(logEntries(registry, name).size(), is(1));
+		assertThat(logEntries(registry, name).get(0).getMessageAsString(), is(message));
+		assertThat(logEntries(registry, name).get(0).getMarker(), is(sameInstance(marker)));
+		assertThat(logEntries(registry, name).get(0).getLevel(), is(expectedLevel()));
 	}
 
 	protected abstract void log(Marker marker, String message, RecordingLogger recordingLogger);
@@ -185,16 +191,17 @@ public abstract class RecordingLoggerLevelTest {
 		String format = "Format {}";
 		Object arg = "Argument";
 		String name = "a recording logger";
-		RecordingLogger recordingLogger = new RecordingLogger(name);
+		LogRegistry registry = new LogRegistry();
+		RecordingLogger recordingLogger = new RecordingLogger(name, registry);
 
 		// When
 		log(marker, format, arg, recordingLogger);
 
 		// Then
-		assertThat(logEntries(name).size(), is(1));
-		assertThat(logEntries(name).get(0).getMessageAsString(), is("Format Argument"));
-		assertThat(logEntries(name).get(0).getMarker(), is(sameInstance(marker)));
-		assertThat(logEntries(name).get(0).getLevel(), is(expectedLevel()));
+		assertThat(logEntries(registry, name).size(), is(1));
+		assertThat(logEntries(registry, name).get(0).getMessageAsString(), is("Format Argument"));
+		assertThat(logEntries(registry, name).get(0).getMarker(), is(sameInstance(marker)));
+		assertThat(logEntries(registry, name).get(0).getLevel(), is(expectedLevel()));
 	}
 
 	protected abstract void log(Marker marker, String format, Object argument, RecordingLogger recordingLogger);
@@ -207,16 +214,17 @@ public abstract class RecordingLoggerLevelTest {
 		Object arg1 = "Argument";
 		Object arg2 = "Argument";
 		String name = "a recording logger";
-		RecordingLogger recordingLogger = new RecordingLogger(name);
+		LogRegistry registry = new LogRegistry();
+		RecordingLogger recordingLogger = new RecordingLogger(name, registry);
 
 		// When
 		log(marker, format, arg1, arg2, recordingLogger);
 
 		// Then
-		assertThat(logEntries(name).size(), is(1));
-		assertThat(logEntries(name).get(0).getMessageAsString(), is("Format Argument Argument"));
-		assertThat(logEntries(name).get(0).getMarker(), is(sameInstance(marker)));
-		assertThat(logEntries(name).get(0).getLevel(), is(expectedLevel()));
+		assertThat(logEntries(registry, name).size(), is(1));
+		assertThat(logEntries(registry, name).get(0).getMessageAsString(), is("Format Argument Argument"));
+		assertThat(logEntries(registry, name).get(0).getMarker(), is(sameInstance(marker)));
+		assertThat(logEntries(registry, name).get(0).getLevel(), is(expectedLevel()));
 	}
 
 	protected abstract void log(Marker marker, String format, Object argument1, Object argument2, RecordingLogger recordingLogger);
@@ -230,16 +238,17 @@ public abstract class RecordingLoggerLevelTest {
 		Object arg2 = "Argument";
 		Object arg3 = "Argument";
 		String name = "a recording logger";
-		RecordingLogger recordingLogger = new RecordingLogger(name);
+		LogRegistry registry = new LogRegistry();
+		RecordingLogger recordingLogger = new RecordingLogger(name, registry);
 
 		// When
 		log(marker, format, arg1, arg2, arg3, recordingLogger);
 
 		// Then
-		assertThat(logEntries(name).size(), is(1));
-		assertThat(logEntries(name).get(0).getMessageAsString(), is("Format Argument Argument Argument"));
-		assertThat(logEntries(name).get(0).getMarker(), is(sameInstance(marker)));
-		assertThat(logEntries(name).get(0).getLevel(), is(expectedLevel()));
+		assertThat(logEntries(registry, name).size(), is(1));
+		assertThat(logEntries(registry, name).get(0).getMessageAsString(), is("Format Argument Argument Argument"));
+		assertThat(logEntries(registry, name).get(0).getMarker(), is(sameInstance(marker)));
+		assertThat(logEntries(registry, name).get(0).getLevel(), is(expectedLevel()));
 	}
 
 	protected abstract void log(Marker marker, String format, Object argument1, Object argument2, Object argument3, RecordingLogger recordingLogger);
@@ -251,17 +260,22 @@ public abstract class RecordingLoggerLevelTest {
 		String message = "Message";
 		Throwable throwable = new RuntimeException();
 		String name = "a recording logger";
-		RecordingLogger recordingLogger = new RecordingLogger(name);
+		LogRegistry registry = new LogRegistry();
+		RecordingLogger recordingLogger = new RecordingLogger(name, registry);
 
 		// When
 		log(marker, message, throwable, recordingLogger);
 
 		// Then
-		assertThat(logEntries(name).size(), is(1));
-		assertThat(logEntries(name).get(0).getMessageAsString(), is(message));
-		assertThat(logEntries(name).get(0).getMarker(), is(sameInstance(marker)));
-		assertThat(logEntries(name).get(0).getThrowable(), is(sameInstance(throwable)));
-		assertThat(logEntries(name).get(0).getLevel(), is(expectedLevel()));
+		assertThat(logEntries(registry, name).size(), is(1));
+		assertThat(logEntries(registry, name).get(0).getMessageAsString(), is(message));
+		assertThat(logEntries(registry, name).get(0).getMarker(), is(sameInstance(marker)));
+		assertThat(logEntries(registry, name).get(0).getThrowable(), is(sameInstance(throwable)));
+		assertThat(logEntries(registry, name).get(0).getLevel(), is(expectedLevel()));
+	}
+
+	private List<LogEntry> logEntries(LogRegistry registry, String name) {
+		return registry.getLog(name).getEntries();
 	}
 
 	protected abstract void log(Marker marker, String message, Throwable throwable, RecordingLogger recordingLogger);

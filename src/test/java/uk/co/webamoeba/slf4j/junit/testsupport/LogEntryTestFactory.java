@@ -2,6 +2,7 @@ package uk.co.webamoeba.slf4j.junit.testsupport;
 
 import java.util.List;
 import org.slf4j.Marker;
+import uk.co.webamoeba.slf4j.junit.context.LoggingContext;
 import uk.co.webamoeba.slf4j.junit.log.Level;
 import uk.co.webamoeba.slf4j.junit.log.LogEntry;
 import uk.co.webamoeba.slf4j.junit.log.LogRegistry;
@@ -17,7 +18,7 @@ import static uk.co.webamoeba.slf4j.junit.testsupport.LevelTestFactory.aLevel;
 public class LogEntryTestFactory {
 
 	public static List<LogEntry> logEntries(String name) {
-		return LogRegistry.getSingleton().getLog(name).getEntries();
+		return LoggingContext.getRegistry().getLog(name).getEntries();
 	}
 	
 	public static LogEntry aLogEntry() {

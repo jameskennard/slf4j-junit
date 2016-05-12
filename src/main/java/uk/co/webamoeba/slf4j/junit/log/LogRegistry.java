@@ -2,7 +2,6 @@ package uk.co.webamoeba.slf4j.junit.log;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import uk.co.webamoeba.slf4j.junit.context.LoggingContext;
 
 /**
  * A registry from which we can retrieve {@link Log Logs} by their name.
@@ -12,10 +11,6 @@ import uk.co.webamoeba.slf4j.junit.context.LoggingContext;
 public class LogRegistry {
 
 	private Map<LogKey, Log> logs = new ConcurrentHashMap<LogRegistry.LogKey, Log>();
-
-	public static LogRegistry getSingleton() {
-		return LoggingContext.getRegistry();
-	}
 
 	/**
 	 * @param name The name of the {@link Log} we want to get

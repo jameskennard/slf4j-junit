@@ -21,12 +21,19 @@ public class RecordingLogger implements Logger {
 
 	private final String name;
 
-	public RecordingLogger(String name) {
+	private final LogRegistry registry;
+
+	public RecordingLogger(String name, LogRegistry registry) {
 		this.name = name;
+		this.registry = registry;
 	}
 
 	public String getName() {
 		return name;
+	}
+
+	public Log getLog() {
+		return registry.getLog(name);
 	}
 
 	public boolean isTraceEnabled() {
@@ -270,7 +277,7 @@ public class RecordingLogger implements Logger {
 	}
 
 	private void log(LogEntry logEntry) {
-		LogRegistry.getSingleton().getLog(name).register(logEntry);
+		registry.getLog(name).register(logEntry);
 	}
 
 }

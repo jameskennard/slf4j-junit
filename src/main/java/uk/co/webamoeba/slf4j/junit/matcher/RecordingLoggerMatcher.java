@@ -8,7 +8,6 @@ import org.slf4j.Logger;
 import uk.co.webamoeba.slf4j.junit.context.LoggingContext;
 import uk.co.webamoeba.slf4j.junit.log.Log;
 import uk.co.webamoeba.slf4j.junit.log.LogEntry;
-import uk.co.webamoeba.slf4j.junit.log.LogRegistry;
 import uk.co.webamoeba.slf4j.junit.logger.RecordingLogger;
 
 /**
@@ -56,9 +55,9 @@ public class RecordingLoggerMatcher extends BaseMatcher<Logger> {
 	}
 
 	private boolean matchesSafely(RecordingLogger logger, Description mismatchDescription) {
-		Log register = LogRegistry.getSingleton().getLog(logger.getName());
+		Log log = LoggingContext.getRegistry().getLog(logger.getName());
 
-		List<LogEntry> entries = register.getEntries();
+		List<LogEntry> entries = log.getEntries();
 		for (LogEntry logEntry : entries) {
 			if (entryMatcher.matches(logEntry)) {
 				return true;
