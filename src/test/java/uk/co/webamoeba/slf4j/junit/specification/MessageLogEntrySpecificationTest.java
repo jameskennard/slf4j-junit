@@ -11,7 +11,7 @@ import static org.junit.Assert.fail;
 import static uk.co.webamoeba.slf4j.junit.testsupport.LogEntryTestFactory.logEntryWithMessage;
 
 /**
- * Test for {@link MarkerLogEntrySpecification}
+ * Test for {@link MessageLogEntrySpecification}
  * 
  * @author James Kennard
  */
