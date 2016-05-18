@@ -5,7 +5,6 @@ import org.slf4j.Marker;
 import uk.co.webamoeba.slf4j.junit.context.LoggingContext;
 import uk.co.webamoeba.slf4j.junit.log.Level;
 import uk.co.webamoeba.slf4j.junit.log.LogEntry;
-import uk.co.webamoeba.slf4j.junit.log.LogRegistry;
 import uk.co.webamoeba.slf4j.junit.log.LogEntry.Message;
 
 import static uk.co.webamoeba.slf4j.junit.testsupport.LevelTestFactory.aLevel;

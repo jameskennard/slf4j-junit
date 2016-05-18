@@ -29,7 +29,7 @@ public class CheckArgument {
 			isNotNull(argument[index], message);
 		}
 	}
-	
+
 	/**
 	 * @param argument Array argument we want to check at least one element
 	 * @param message Message explaining the argument must have at least one elements
@@ -40,6 +40,20 @@ public class CheckArgument {
 		if (argument.length == 0) {
 			throw new IllegalArgumentException(message);
 		}
+	}
+
+	/**
+	 * @param message Message explaining at least one of the arguments must npot be {@code null}
+	 * @param arguments Arguments we want to check for at least one of them not being {@code null}
+	 * @throws IllegalArgumentException
+	 */
+	public static void hasAtLeastOneThatIsNotNull(String message, Object... arguments) throws IllegalArgumentException {
+		for (int argumentIndex = 0; argumentIndex < arguments.length; argumentIndex++) {
+			if (arguments[argumentIndex] != null) {
+				return;
+			}
+		}
+		throw new IllegalArgumentException(message);
 	}
 
 }
