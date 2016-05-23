@@ -1,7 +1,6 @@
 package uk.co.webamoeba.slf4j.junit.specification;
 
 import org.hamcrest.Description;
-import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeDiagnosingMatcher;
 import org.junit.Test;
 import org.slf4j.Marker;
