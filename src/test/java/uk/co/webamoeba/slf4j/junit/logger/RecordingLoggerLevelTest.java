@@ -11,7 +11,6 @@ import uk.co.webamoeba.slf4j.junit.log.LogRegistry;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.sameInstance;
 import static org.junit.Assert.assertThat;
-import static uk.co.webamoeba.slf4j.junit.testsupport.LogEntryTestFactory.logEntries;
 
 public abstract class RecordingLoggerLevelTest {
 
@@ -24,9 +23,6 @@ public abstract class RecordingLoggerLevelTest {
 	protected Level expectedLevel() {
 		return level;
 	}
-	
-//	@Rule
-//	public EnableLogging enableLogging = enableLogging();
 	
 	@Test
 	public void shouldDetermineIfEnabled() {

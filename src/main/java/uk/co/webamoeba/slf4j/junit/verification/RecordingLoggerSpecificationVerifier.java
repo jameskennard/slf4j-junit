@@ -10,10 +10,10 @@ import uk.co.webamoeba.slf4j.junit.specification.LogEntrySpecification;
  * 
  * @author James Kennard
  */
-public class RecordingLoggerVerifier {
+public class RecordingLoggerSpecificationVerifier {
 
 	/**
-	 * @param logger {@link RecordingLogger} from which we want to verify a {@link LogEntry} satisfies the {@link LogEntrySpecification} 
+	 * @param logger {@link RecordingLogger} from which we want to verify a {@link LogEntry} satisfies the {@link LogEntrySpecification}
 	 * @param specification {@link LogEntrySpecification} that one of the {@link LogEntry Log Entries} needs to satisfy
 	 * @throws AssertionError Thrown if no {@link LogEntry} from the {@link RecordingLogger} is able to satisfy the {@link LogEntrySpecification}
 	 */
@@ -22,7 +22,7 @@ public class RecordingLoggerVerifier {
 		if (entries.isEmpty()) {
 			throw new AssertionError("No LogEntries were logged to \"" + logger.getName() + "\"");
 		}
-		
+
 		boolean specificationIsSatisfiedByALogEntry = specificationIsSatisfiedByALogEntry(specification, entries);
 		if (!specificationIsSatisfiedByALogEntry) {
 			throw new AssertionError("There are LogEntries, but no LogEntry " + specification.describeSatisfiedLogEntry()

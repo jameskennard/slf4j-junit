@@ -16,13 +16,13 @@ import static org.mockito.Mockito.mock;
 import static uk.co.webamoeba.slf4j.junit.testsupport.LogEntryTestFactory.aLogEntry;
 
 /**
- * Test for {@link RecordingLoggerVerifier}.
+ * Test for {@link RecordingLoggerSpecificationVerifier}.
  * 
  * @author James Kennard
  */
-public class RecordingLoggerVerifierTest {
+public class RecordingLoggerSpecificationVerifierTest {
 
-	private RecordingLoggerVerifier verifier = new RecordingLoggerVerifier();
+	private RecordingLoggerSpecificationVerifier verifier = new RecordingLoggerSpecificationVerifier();
 
 	@Test
 	public void shouldVerifyRecordingLoggerSatisfiesSpecification() {
