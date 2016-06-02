@@ -13,7 +13,8 @@ import uk.co.webamoeba.slf4j.junit.specification.LogEntrySpecification;
  * 
  * @author James Kennard
  */
-public class OnGoingLogVerifier {
+// FIXME Would be nicer to use SLF4Js Level instead, or to change the methods to loggedInfo() etc 
+public class LogVerifier {
 
 	private final GroupLogEntrySpecificationFactory factory;
 
@@ -21,7 +22,7 @@ public class OnGoingLogVerifier {
 
 	private final RecordingLoggerSpecificationVerifier recordingLoggerSpecificationVerifier;
 
-	public OnGoingLogVerifier(GroupLogEntrySpecificationFactory factory, RecordingLogger logger, RecordingLoggerSpecificationVerifier recordingLoggerSpecificationVerifier) {
+	public LogVerifier(GroupLogEntrySpecificationFactory factory, RecordingLogger logger, RecordingLoggerSpecificationVerifier recordingLoggerSpecificationVerifier) {
 		this.factory = factory;
 		this.logger = logger;
 		this.recordingLoggerSpecificationVerifier = recordingLoggerSpecificationVerifier;
@@ -30,48 +31,44 @@ public class OnGoingLogVerifier {
 	/**
 	 * @param level {@link Level} of the log entry we want
 	 * @param message message of the log entry we want
-	 * @return {@link OnGoingLogVerifier}
+	 * @return {@link LogVerifier}
 	 */
-	public OnGoingLogVerifier logged(Level level, String message) {
+	public void logged(Level level, String message) {
 		LogEntrySpecification specification = factory.createGroupLogEntrySpecification(level, new LogEntry.StringMessage(message), null, null);
 		verifyRecordingLoggerSatisfiesSpecification(specification);
-		return this;
 	}
 
 	/**
 	 * @param level {@link Level} of the log entry we want
 	 * @param message message of the log entry we want
 	 * @param arguments arguments in the message of the log entry we want
-	 * @return {@link OnGoingLogVerifier}
+	 * @return {@link LogVerifier}
 	 */
-	public OnGoingLogVerifier logged(Level level, String message, Object... arguments) {
+	public void logged(Level level, String message, Object... arguments) {
 		LogEntrySpecification specification = factory.createGroupLogEntrySpecification(level, new LogEntry.FormattedMessage(message, arguments), null, null);
 		verifyRecordingLoggerSatisfiesSpecification(specification);
-		return this;
 	}
 
 	/**
 	 * @param level {@link Level} of the log entry we want
 	 * @param message message of the log entry we want
 	 * @param throwable {@link Throwable} of the log entry we want
-	 * @return {@link OnGoingLogVerifier}
+	 * @return {@link LogVerifier}
 	 */
-	public OnGoingLogVerifier logged(Level level, String message, Throwable throwable) {
+	public void logged(Level level, String message, Throwable throwable) {
 		LogEntrySpecification specification = factory.createGroupLogEntrySpecification(level, new LogEntry.StringMessage(message), throwable, null);
 		verifyRecordingLoggerSatisfiesSpecification(specification);
-		return this;
 	}
 
 	/**
 	 * @param level {@link Level} of the log entry we want
 	 * @param marker {@link Marker} of the log entry we want
 	 * @param message message of the log entry we want
-	 * @return {@link OnGoingLogVerifier}
+	 * @return {@link LogVerifier}
 	 */
-	public OnGoingLogVerifier logged(Level level, Marker marker, String message) {
+	public void logged(Level level, Marker marker, String message) {
 		LogEntrySpecification specification = factory.createGroupLogEntrySpecification(level, new LogEntry.StringMessage(message), null, marker);
 		verifyRecordingLoggerSatisfiesSpecification(specification);
-		return this;
 	}
 
 	/**
@@ -79,12 +76,11 @@ public class OnGoingLogVerifier {
 	 * @param marker {@link Marker} of the log entry we want
 	 * @param message message of the log entry we want
 	 * @param arguments arguments in the message of the log entry we want
-	 * @return {@link OnGoingLogVerifier}
+	 * @return {@link LogVerifier}
 	 */
-	public OnGoingLogVerifier logged(Level level, Marker marker, String message, Object... arguments) {
+	public void logged(Level level, Marker marker, String message, Object... arguments) {
 		LogEntrySpecification specification = factory.createGroupLogEntrySpecification(level, new LogEntry.FormattedMessage(message, arguments), null, marker);
 		verifyRecordingLoggerSatisfiesSpecification(specification);
-		return this;
 	}
 
 	/**
@@ -92,12 +88,11 @@ public class OnGoingLogVerifier {
 	 * @param marker {@link Marker} of the log entry we want
 	 * @param message message of the log entry we want
 	 * @param throwable {@link Throwable} of the log entry we want
-	 * @return {@link OnGoingLogVerifier}
+	 * @return {@link LogVerifier}
 	 */
-	public OnGoingLogVerifier logged(Level level, Marker marker, String message, Throwable throwable) {
+	public void logged(Level level, Marker marker, String message, Throwable throwable) {
 		LogEntrySpecification specification = factory.createGroupLogEntrySpecification(level, new LogEntry.StringMessage(message), throwable, marker);
 		verifyRecordingLoggerSatisfiesSpecification(specification);
-		return this;
 	}
 
 	private void verifyRecordingLoggerSatisfiesSpecification(LogEntrySpecification specification) throws AssertionError {

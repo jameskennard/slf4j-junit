@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 import uk.co.webamoeba.slf4j.junit.context.LoggingContext;
 import uk.co.webamoeba.slf4j.junit.logger.RecordingLogger;
 import uk.co.webamoeba.slf4j.junit.specification.GroupLogEntrySpecificationFactory;
-import uk.co.webamoeba.slf4j.junit.verification.OnGoingLogVerifier;
+import uk.co.webamoeba.slf4j.junit.verification.LogVerifier;
 import uk.co.webamoeba.slf4j.junit.verification.RecordingLoggerSpecificationVerifier;
 
 /**
@@ -70,12 +70,12 @@ public class LogVerification {
 	}
 	
 	/**
-	 * Obtain an {@link OnGoingLogVerifier} in order to verify that the {@link Logger} with the specified name logged something.
+	 * Obtain an {@link LogVerifier} in order to verify that the {@link Logger} with the specified name logged something.
 	 * 
 	 * @param name Name of the {@link Logger} to which we want to verify something was logged
-	 * @return An {@link OnGoingLogVerifier} which allows us to verify certain things were logged
+	 * @return An {@link LogVerifier} which allows us to verify certain things were logged
 	 */
-	public static OnGoingLogVerifier verifyLogger(String name) {
+	public static LogVerifier verifyLogger(String name) {
 		if (!LoggingContext.loggingIsEnabled()) {
 			throw new IllegalStateException("Logging is not enabled, have you used the LogVerification#enableLogging() @Rule?");
 		}
@@ -84,16 +84,16 @@ public class LogVerification {
 			throw new IllegalStateException("Something went wrong, logging is enabled, but the Logger is not a recording logger");
 		}
 		
-		return new OnGoingLogVerifier(FACTORY, (RecordingLogger) logger, RECORDING_LOGGER_SPECIFICATION_VERIFIER);
+		return new LogVerifier(FACTORY, (RecordingLogger) logger, RECORDING_LOGGER_SPECIFICATION_VERIFIER);
 	}
 
 	/**
-	 * Obtain an {@link OnGoingLogVerifier} in order to verify that the {@link Logger} for the specified {@link Class} logged something. 
+	 * Obtain an {@link LogVerifier} in order to verify that the {@link Logger} for the specified {@link Class} logged something. 
 	 *  
 	 * @param clazz {@link Class} used to create a name for the {@link Logger} for  which we want to verify something was logged
-	 * @return An {@link OnGoingLogVerifier} which allows us to verify certain things were logged
+	 * @return An {@link LogVerifier} which allows us to verify certain things were logged
 	 */
-	public static OnGoingLogVerifier verifyLogger(Class<?> clazz) {
+	public static LogVerifier verifyLogger(Class<?> clazz) {
 		return verifyLogger(clazz.getName());
 	}
 }

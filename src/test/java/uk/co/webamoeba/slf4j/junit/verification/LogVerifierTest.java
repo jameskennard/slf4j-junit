@@ -13,23 +13,21 @@ import uk.co.webamoeba.slf4j.junit.logger.RecordingLogger;
 import uk.co.webamoeba.slf4j.junit.specification.GroupLogEntrySpecification;
 import uk.co.webamoeba.slf4j.junit.specification.GroupLogEntrySpecificationFactory;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
 import static org.mockito.Answers.RETURNS_DEEP_STUBS;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 /**
- * Test for {@link OnGoingLogVerifier}
+ * Test for {@link LogVerifier}
  * 
  * @author James Kennard
  */
 @RunWith(MockitoJUnitRunner.class)
-public class OnGoingLogVerifierTest {
+public class LogVerifierTest {
 
 	@InjectMocks
-	private OnGoingLogVerifier verifier;
+	private LogVerifier verifier;
 
 	@Mock
 	private GroupLogEntrySpecificationFactory factory;
@@ -49,10 +47,9 @@ public class OnGoingLogVerifierTest {
 		given(factory.createGroupLogEntrySpecification(level, new StringMessage(message), null, null)).willReturn(specification);
 
 		// When
-		OnGoingLogVerifier chainedVerifier = verifier.logged(level, message);
+		verifier.logged(level, message);
 
 		// Then
-		assertThat(chainedVerifier, is(verifier));
 		verify(recordingLoggerSpecificationVerifier).verifyRecordingLoggerSatisfiesSpecification(logger, specification);
 	}
 
@@ -68,10 +65,9 @@ public class OnGoingLogVerifierTest {
 		given(factory.createGroupLogEntrySpecification(level, stringMessage, null, null)).willReturn(specification);
 
 		// When
-		OnGoingLogVerifier chainedVerifier = verifier.logged(level, message, argument);
+		verifier.logged(level, message, argument);
 
 		// Then
-		assertThat(chainedVerifier, is(verifier));
 		verify(recordingLoggerSpecificationVerifier).verifyRecordingLoggerSatisfiesSpecification(logger, specification);
 	}
 
@@ -86,10 +82,9 @@ public class OnGoingLogVerifierTest {
 		given(factory.createGroupLogEntrySpecification(level, new StringMessage(message), throwable, null)).willReturn(specification);
 
 		// When
-		OnGoingLogVerifier chainedVerifier = verifier.logged(level, message, throwable);
+		verifier.logged(level, message, throwable);
 
 		// Then
-		assertThat(chainedVerifier, is(verifier));
 		verify(recordingLoggerSpecificationVerifier).verifyRecordingLoggerSatisfiesSpecification(logger, specification);
 	}
 
@@ -103,10 +98,9 @@ public class OnGoingLogVerifierTest {
 		given(factory.createGroupLogEntrySpecification(level, new StringMessage(message), null, marker)).willReturn(specification);
 
 		// When
-		OnGoingLogVerifier chainedVerifier = verifier.logged(level, marker, message);
+		verifier.logged(level, marker, message);
 
 		// Then
-		assertThat(chainedVerifier, is(verifier));
 		verify(recordingLoggerSpecificationVerifier).verifyRecordingLoggerSatisfiesSpecification(logger, specification);
 	}
 
@@ -123,10 +117,9 @@ public class OnGoingLogVerifierTest {
 		given(factory.createGroupLogEntrySpecification(level, stringMessage, null, marker)).willReturn(specification);
 
 		// When
-		OnGoingLogVerifier chainedVerifier = verifier.logged(level, marker, message, argument);
+		verifier.logged(level, marker, message, argument);
 
 		// Then
-		assertThat(chainedVerifier, is(verifier));
 		verify(recordingLoggerSpecificationVerifier).verifyRecordingLoggerSatisfiesSpecification(logger, specification);
 	}
 
@@ -142,10 +135,9 @@ public class OnGoingLogVerifierTest {
 		given(factory.createGroupLogEntrySpecification(level, new StringMessage(message), throwable, marker)).willReturn(specification);
 
 		// When
-		OnGoingLogVerifier chainedVerifier = verifier.logged(level, marker, message, throwable);
+		verifier.logged(level, marker, message, throwable);
 
 		// Then
-		assertThat(chainedVerifier, is(verifier));
 		verify(recordingLoggerSpecificationVerifier).verifyRecordingLoggerSatisfiesSpecification(logger, specification);
 	}
 

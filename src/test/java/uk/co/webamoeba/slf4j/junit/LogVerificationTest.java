@@ -7,7 +7,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.slf4j.LoggerFactory;
 import uk.co.webamoeba.slf4j.junit.log.Level;
-import uk.co.webamoeba.slf4j.junit.verification.OnGoingLogVerifier;
+import uk.co.webamoeba.slf4j.junit.verification.LogVerifier;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -25,7 +25,7 @@ public class LogVerificationTest {
 		String name = "some-logger";
 
 		// When
-		OnGoingLogVerifier verifier = LogVerification.verifyLogger(name);
+		LogVerifier verifier = LogVerification.verifyLogger(name);
 
 		// Then
 		assertThat(verifier, verifiesLogging(name));
@@ -37,7 +37,7 @@ public class LogVerificationTest {
 		Class<?> clazz = getClass();
 
 		// When
-		OnGoingLogVerifier verifier = LogVerification.verifyLogger(clazz);
+		LogVerifier verifier = LogVerification.verifyLogger(clazz);
 
 		// Then
 		assertThat(verifier, verifiesLogging(clazz.getName()));
@@ -77,15 +77,15 @@ public class LogVerificationTest {
 		}
 	}
 
-	private static Matcher<OnGoingLogVerifier> verifiesLogging(final String name) {
-		return new TypeSafeDiagnosingMatcher<OnGoingLogVerifier>() {
+	private static Matcher<LogVerifier> verifiesLogging(final String name) {
+		return new TypeSafeDiagnosingMatcher<LogVerifier>() {
 
 			public void describeTo(Description description) {
-				description.appendText("OnGoingLogVerifier verifies logging");
+				description.appendText("LogVerifier verifies logging");
 			}
 
 			@Override
-			protected boolean matchesSafely(OnGoingLogVerifier verifier, Description mismatchDescription) {
+			protected boolean matchesSafely(LogVerifier verifier, Description mismatchDescription) {
 				Level level = INFO;
 				String aLoggedMessage = "Logged Message";
 				String anUnloggedMessage = "Unlogged Message";
@@ -102,7 +102,7 @@ public class LogVerificationTest {
 				return true;
 			}
 
-			private boolean verifiesWasLogged(OnGoingLogVerifier verifier, Level level, String aLoggedMessage) {
+			private boolean verifiesWasLogged(LogVerifier verifier, Level level, String aLoggedMessage) {
 				try {
 					verifier.logged(level, aLoggedMessage);
 				} catch (AssertionError e) {
