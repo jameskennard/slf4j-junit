@@ -42,9 +42,7 @@ import uk.co.webamoeba.slf4j.junit.verification.RecordingLoggerSpecificationVeri
  * 	something.doSomething(someArgument);
  * 
  * 	// Then
- * 	verifyLogger(Something.class)
- * 			.logged(INFO, "I saw the 'Hello'")
- * 			.logged(WARN, "But I did not see the 'Goodbye'");;
+ * 	verifyLogger(Something.class).logged(INFO, "I saw the 'Hello everyone!'");
  * }
  * </pre>
  * 

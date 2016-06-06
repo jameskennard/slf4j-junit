@@ -10,7 +10,7 @@ import static org.hamcrest.CoreMatchers.sameInstance;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
-import static uk.co.webamoeba.slf4j.junit.LoggingMatchers.enableLogging;
+import static uk.co.webamoeba.slf4j.junit.LogVerification.enableLogging;
 
 /**
  * Test for {@link LoggingContext}
