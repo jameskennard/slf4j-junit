@@ -18,14 +18,20 @@
 		Library to make testing of logging behaviour easier when using SLF4J and JUnit
 	</description>
 	<url>https://github.com/jameskennard/slf4j-junit</url>
-
+	
 	<scm>
 		<url>http://github.com/jameskennard/slf4j-junit</url>
 		<connection>scm:git:git://github.com/jameskennard/slf4j-junit.git</connection>
 		<developerConnection>scm:git:ssh://git@github.com/jameskennard/slf4j-junit.git</developerConnection>
 	</scm>
 
-	<!-- TODO: Add licenses -->
+	<licenses>
+		<license>
+			<name>The MIT License (MIT)</name>
+			<url>https://github.com/jameskennard/slf4j-junit</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
 
 	<developers>
 		<developer>
@@ -122,6 +128,7 @@
 						<hotfixBranchPrefix>hotfix-</hotfixBranchPrefix>
 						<versionTagPrefix></versionTagPrefix>
 					</flowInitContext>
+					<pushReleases>true</pushReleases>
 				</configuration>
 			</plugin>
 		</plugins>
