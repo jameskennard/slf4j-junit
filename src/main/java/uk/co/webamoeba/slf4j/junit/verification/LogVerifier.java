@@ -31,7 +31,6 @@ public class LogVerifier {
 	/**
 	 * @param level {@link Level} of the log entry we want
 	 * @param message message of the log entry we want
-	 * @return {@link LogVerifier}
 	 */
 	public void logged(Level level, String message) {
 		LogEntrySpecification specification = factory.createGroupLogEntrySpecification(level, new LogEntry.StringMessage(message), null, null);
@@ -42,7 +41,6 @@ public class LogVerifier {
 	 * @param level {@link Level} of the log entry we want
 	 * @param message message of the log entry we want
 	 * @param arguments arguments in the message of the log entry we want
-	 * @return {@link LogVerifier}
 	 */
 	public void logged(Level level, String message, Object... arguments) {
 		LogEntrySpecification specification = factory.createGroupLogEntrySpecification(level, new LogEntry.FormattedMessage(message, arguments), null, null);
@@ -53,7 +51,6 @@ public class LogVerifier {
 	 * @param level {@link Level} of the log entry we want
 	 * @param message message of the log entry we want
 	 * @param throwable {@link Throwable} of the log entry we want
-	 * @return {@link LogVerifier}
 	 */
 	public void logged(Level level, String message, Throwable throwable) {
 		LogEntrySpecification specification = factory.createGroupLogEntrySpecification(level, new LogEntry.StringMessage(message), throwable, null);
@@ -64,7 +61,6 @@ public class LogVerifier {
 	 * @param level {@link Level} of the log entry we want
 	 * @param marker {@link Marker} of the log entry we want
 	 * @param message message of the log entry we want
-	 * @return {@link LogVerifier}
 	 */
 	public void logged(Level level, Marker marker, String message) {
 		LogEntrySpecification specification = factory.createGroupLogEntrySpecification(level, new LogEntry.StringMessage(message), null, marker);
@@ -76,7 +72,6 @@ public class LogVerifier {
 	 * @param marker {@link Marker} of the log entry we want
 	 * @param message message of the log entry we want
 	 * @param arguments arguments in the message of the log entry we want
-	 * @return {@link LogVerifier}
 	 */
 	public void logged(Level level, Marker marker, String message, Object... arguments) {
 		LogEntrySpecification specification = factory.createGroupLogEntrySpecification(level, new LogEntry.FormattedMessage(message, arguments), null, marker);
@@ -88,7 +83,6 @@ public class LogVerifier {
 	 * @param marker {@link Marker} of the log entry we want
 	 * @param message message of the log entry we want
 	 * @param throwable {@link Throwable} of the log entry we want
-	 * @return {@link LogVerifier}
 	 */
 	public void logged(Level level, Marker marker, String message, Throwable throwable) {
 		LogEntrySpecification specification = factory.createGroupLogEntrySpecification(level, new LogEntry.StringMessage(message), throwable, marker);

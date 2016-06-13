@@ -57,7 +57,7 @@ public class LogVerification {
 	/**
 	 * Gets an {@link EnableLogging} {@link TestRule} for use in a JUnit test where we want to  verify some logging.
 	 * <pre>
-	 * @Rule
+	 * {@code @Rule}
 	 * public EnableLogging enableLogging = LogVerification.enableLogging();
 	 * </pre>
 	 * 

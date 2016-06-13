@@ -28,10 +28,10 @@ public class GroupLogEntrySpecificationFactory {
 	}
 
 	/**
-	 * @param level Optional {@link Level} a {@link LogEntry} must have to {@link #isSatisfiedBy(LogEntry) satisfy} this {@link LogEntrySpecification}
-	 * @param message Optional {@link Message} a {@link LogEntry} must have to {@link #isSatisfiedBy(LogEntry) satisfy} this {@link LogEntrySpecification}
-	 * @param throwable Optional {@link Throwable} a {@link LogEntry} must have to {@link #isSatisfiedBy(LogEntry) satisfy} this {@link LogEntrySpecification}
-	 * @param marker Optional {@link Marker} a {@link LogEntry} must have to {@link #isSatisfiedBy(LogEntry) satisfy} this {@link LogEntrySpecification}
+	 * @param level Optional {@link Level} a {@link LogEntry} must have to satisfy this {@link LogEntrySpecification}
+	 * @param message Optional {@link Message} a {@link LogEntry} must have to satisfy this {@link LogEntrySpecification}
+	 * @param throwable Optional {@link Throwable} a {@link LogEntry} must have to satisfy this {@link LogEntrySpecification}
+	 * @param marker Optional {@link Marker} a {@link LogEntry} must have to satisfy this {@link LogEntrySpecification}
 	 * @return {@link GroupLogEntrySpecification} that will be satisfied be a {@link LogEntry} that has any of the passed arguments, any arguments that are {@code null} will be ignore
 	 */
 	public GroupLogEntrySpecification createGroupLogEntrySpecification(Level level, Message message, Throwable throwable, Marker marker) {
