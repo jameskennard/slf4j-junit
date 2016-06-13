@@ -1,6 +1,6 @@
 {
   "name": "slf4j-junit",
-  "tagline": "",
+  "tagline": "slf4j-junit enables verification of logging made with SLF4J",
   "body": "# slf4j-junit\r\n\r\nslf4j-junit enables verification of logging made with SLF4J.\r\n\r\n<h1>Getting Started</h1>\r\n<p>We create a normal JUnit test, and we add a JUnit TestRule in order to enable the verification of logging within the test.</p>\r\n<pre>\r\nimport org.junit.Rule;\r\n\r\nimport static uk.co.webamoeba.slf4j.junit.LogVerification.enableLogging;\r\n\r\npublic class SomeTest {\r\n\r\n \t@Rule\r\n \tpublic EnableLogging enableLogging = enableLogging();\r\n \r\n}\r\n</pre>\r\n<p>We can now create a test, and verify that some logging has taken place:</p>\r\n<pre>\r\nimport static uk.co.webamoeba.slf4j.junit.LogVerification.verifyLogger;\r\nimport static uk.co.webamoeba.slf4j.junit.log.Level.INFO;\r\n\r\n...\r\n\r\npublic void shouldDoSomething() {\r\n\t// Given\r\n\tString someArgument = \"Hello everyone!\";\r\n\r\n\t// When\r\n\tsomething.doSomething(someArgument);\r\n\r\n\t// Then\r\n\tverifyLogger(Something.class).logged(INFO, \"I saw the 'Hello everyone!'\");\r\n}\r\n</pre>\r\n",
   "note": "Don't delete this file! It's used internally to help with page regeneration."
 }
