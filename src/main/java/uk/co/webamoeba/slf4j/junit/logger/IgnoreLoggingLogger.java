@@ -8,7 +8,6 @@ import org.slf4j.Marker;
  * 
  * @author James Kennard
  */
-// FIXME add tests
 public class IgnoreLoggingLogger implements Logger {
 
 	private String name;
