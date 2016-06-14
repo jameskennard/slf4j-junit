@@ -1,6 +1,7 @@
 # slf4j-junit
 
 <img src="https://travis-ci.org/jameskennard/slf4j-junit.svg?branch=develop" />
+<img src="http://img.shields.io/badge/license-MIT-green.svg" />
 
 slf4j-junit enables verification of logging made with SLF4J.
 
