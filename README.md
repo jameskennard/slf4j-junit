@@ -2,6 +2,7 @@
 
 <img src="https://travis-ci.org/jameskennard/slf4j-junit.svg?branch=develop" />
 <img src="http://img.shields.io/badge/license-MIT-green.svg" />
+[![Coverage Status](https://img.shields.io/codecov/c/github/jameskennard/slf4j-junit.svg)](https://codecov.io/github/jameskennard/slf4j-junit)
 
 slf4j-junit enables verification of logging made with SLF4J.
 
