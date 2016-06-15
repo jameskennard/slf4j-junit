@@ -13,7 +13,6 @@ import uk.co.webamoeba.slf4j.junit.specification.LogEntrySpecification;
  * 
  * @author James Kennard
  */
-// FIXME Would be nicer to use SLF4Js Level instead, or to change the methods to loggedInfo() etc 
 public class LogVerifier {
 
 	private final GroupLogEntrySpecificationFactory factory;
@@ -87,6 +86,251 @@ public class LogVerifier {
 	public void logged(Level level, Marker marker, String message, Throwable throwable) {
 		LogEntrySpecification specification = factory.createGroupLogEntrySpecification(level, new LogEntry.StringMessage(message), throwable, marker);
 		verifyRecordingLoggerSatisfiesSpecification(specification);
+	}
+	
+	/**
+	 * @param message message of the log entry we want
+	 */
+	public void loggedError(String message) {
+		logged(Level.ERROR, message);
+	}
+	
+	/**
+	 * @param message message of the log entry we want
+	 * @param arguments arguments in the message of the log entry we want
+	 */
+	public void loggedError(String message, Object... arguments) {
+		logged(Level.ERROR, message, arguments);
+	}
+	
+	/**
+	 * @param message message of the log entry we want
+	 * @param throwable {@link Throwable} of the log entry we want
+	 */
+	public void loggedError(String message, Throwable throwable) {
+		logged(Level.ERROR, message, throwable);
+	}
+	
+	/**
+	 * @param marker {@link Marker} of the log entry we want
+	 * @param message message of the log entry we want
+	 */
+	public void loggedError(Marker marker, String message) {
+		logged(Level.ERROR, marker, message);
+	}
+	
+	/**
+	 * @param marker {@link Marker} of the log entry we want
+	 * @param message message of the log entry we want
+	 * @param arguments arguments in the message of the log entry we want
+	 */
+	public void loggedError(Marker marker, String message, Object... arguments) {
+		logged(Level.ERROR, marker, message, arguments);
+	}
+	
+	/**
+	 * @param marker {@link Marker} of the log entry we want
+	 * @param message message of the log entry we want
+	 * @param throwable {@link Throwable} of the log entry we want
+	 */
+	public void loggedError(Marker marker, String message, Throwable throwable) {
+		logged(Level.ERROR, marker, message, throwable);
+	}
+	
+	/**
+	 * @param message message of the log entry we want
+	 */
+	public void loggedWarn(String message) {
+		logged(Level.WARN, message);
+	}
+	
+	/**
+	 * @param message message of the log entry we want
+	 * @param arguments arguments in the message of the log entry we want
+	 */
+	public void loggedWarn(String message, Object... arguments) {
+		logged(Level.WARN, message, arguments);
+	}
+	
+	/**
+	 * @param message message of the log entry we want
+	 * @param throwable {@link Throwable} of the log entry we want
+	 */
+	public void loggedWarn(String message, Throwable throwable) {
+		logged(Level.WARN, message, throwable);
+	}
+	
+	/**
+	 * @param marker {@link Marker} of the log entry we want
+	 * @param message message of the log entry we want
+	 */
+	public void loggedWarn(Marker marker, String message) {
+		logged(Level.WARN, marker, message);
+	}
+	
+	/**
+	 * @param marker {@link Marker} of the log entry we want
+	 * @param message message of the log entry we want
+	 * @param arguments arguments in the message of the log entry we want
+	 */
+	public void loggedWarn(Marker marker, String message, Object... arguments) {
+		logged(Level.WARN, marker, message, arguments);
+	}
+	
+	/**
+	 * @param marker {@link Marker} of the log entry we want
+	 * @param message message of the log entry we want
+	 * @param throwable {@link Throwable} of the log entry we want
+	 */
+	public void loggedWarn(Marker marker, String message, Throwable throwable) {
+		logged(Level.WARN, marker, message, throwable);
+	}
+	
+	/**
+	 * @param message message of the log entry we want
+	 */
+	public void loggedInfo(String message) {
+		logged(Level.INFO, message);
+	}
+	
+	/**
+	 * @param message message of the log entry we want
+	 * @param arguments arguments in the message of the log entry we want
+	 */
+	public void loggedInfo(String message, Object... arguments) {
+		logged(Level.INFO, message, arguments);
+	}
+	
+	/**
+	 * @param message message of the log entry we want
+	 * @param throwable {@link Throwable} of the log entry we want
+	 */
+	public void loggedInfo(String message, Throwable throwable) {
+		logged(Level.INFO, message, throwable);
+	}
+	
+	/**
+	 * @param marker {@link Marker} of the log entry we want
+	 * @param message message of the log entry we want
+	 */
+	public void loggedInfo(Marker marker, String message) {
+		logged(Level.INFO, marker, message);
+	}
+	
+	/**
+	 * @param marker {@link Marker} of the log entry we want
+	 * @param message message of the log entry we want
+	 * @param arguments arguments in the message of the log entry we want
+	 */
+	public void loggedInfo(Marker marker, String message, Object... arguments) {
+		logged(Level.INFO, marker, message, arguments);
+	}
+	
+	/**
+	 * @param marker {@link Marker} of the log entry we want
+	 * @param message message of the log entry we want
+	 * @param throwable {@link Throwable} of the log entry we want
+	 */
+	public void loggedInfo(Marker marker, String message, Throwable throwable) {
+		logged(Level.INFO, marker, message, throwable);
+	}
+	
+	/**
+	 * @param message message of the log entry we want
+	 */
+	public void loggedDebug(String message) {
+		logged(Level.DEBUG, message);
+	}
+	
+	/**
+	 * @param message message of the log entry we want
+	 * @param arguments arguments in the message of the log entry we want
+	 */
+	public void loggedDebug(String message, Object... arguments) {
+		logged(Level.DEBUG, message, arguments);
+	}
+	
+	/**
+	 * @param message message of the log entry we want
+	 * @param throwable {@link Throwable} of the log entry we want
+	 */
+	public void loggedDebug(String message, Throwable throwable) {
+		logged(Level.DEBUG, message, throwable);
+	}
+	
+	/**
+	 * @param marker {@link Marker} of the log entry we want
+	 * @param message message of the log entry we want
+	 */
+	public void loggedDebug(Marker marker, String message) {
+		logged(Level.DEBUG, marker, message);
+	}
+	
+	/**
+	 * @param marker {@link Marker} of the log entry we want
+	 * @param message message of the log entry we want
+	 * @param arguments arguments in the message of the log entry we want
+	 */
+	public void loggedDebug(Marker marker, String message, Object... arguments) {
+		logged(Level.DEBUG, marker, message, arguments);
+	}
+	
+	/**
+	 * @param marker {@link Marker} of the log entry we want
+	 * @param message message of the log entry we want
+	 * @param throwable {@link Throwable} of the log entry we want
+	 */
+	public void loggedDebug(Marker marker, String message, Throwable throwable) {
+		logged(Level.DEBUG, marker, message, throwable);
+	}
+	
+	/**
+	 * @param message message of the log entry we want
+	 */
+	public void loggedTrace(String message) {
+		logged(Level.TRACE, message);
+	}
+	
+	/**
+	 * @param message message of the log entry we want
+	 * @param arguments arguments in the message of the log entry we want
+	 */
+	public void loggedTrace(String message, Object... arguments) {
+		logged(Level.TRACE, message, arguments);
+	}
+	
+	/**
+	 * @param message message of the log entry we want
+	 * @param throwable {@link Throwable} of the log entry we want
+	 */
+	public void loggedTrace(String message, Throwable throwable) {
+		logged(Level.TRACE, message, throwable);
+	}
+	
+	/**
+	 * @param marker {@link Marker} of the log entry we want
+	 * @param message message of the log entry we want
+	 */
+	public void loggedTrace(Marker marker, String message) {
+		logged(Level.TRACE, marker, message);
+	}
+	
+	/**
+	 * @param marker {@link Marker} of the log entry we want
+	 * @param message message of the log entry we want
+	 * @param arguments arguments in the message of the log entry we want
+	 */
+	public void loggedTrace(Marker marker, String message, Object... arguments) {
+		logged(Level.TRACE, marker, message, arguments);
+	}
+	
+	/**
+	 * @param marker {@link Marker} of the log entry we want
+	 * @param message message of the log entry we want
+	 * @param throwable {@link Throwable} of the log entry we want
+	 */
+	public void loggedTrace(Marker marker, String message, Throwable throwable) {
+		logged(Level.TRACE, marker, message, throwable);
 	}
 
 	private void verifyRecordingLoggerSatisfiesSpecification(LogEntrySpecification specification) throws AssertionError {

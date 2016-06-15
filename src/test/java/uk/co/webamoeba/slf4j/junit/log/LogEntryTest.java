@@ -13,7 +13,6 @@ import org.hamcrest.StringDescription;
 import org.junit.Test;
 import org.slf4j.Marker;
 import org.slf4j.helpers.BasicMarkerFactory;
-import uk.co.webamoeba.slf4j.junit.log.Level;
 import uk.co.webamoeba.slf4j.junit.log.LogEntry;
 import uk.co.webamoeba.slf4j.junit.log.LogEntry.FormattedMessage;
 import uk.co.webamoeba.slf4j.junit.log.LogEntry.StringMessage;
