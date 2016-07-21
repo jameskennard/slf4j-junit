@@ -1,13 +1,13 @@
 package org.slf4j.impl;
 
+import org.junit.Test;
+import org.slf4j.ILoggerFactory;
+import org.slf4j.spi.LoggerFactoryBinder;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.CoreMatchers.sameInstance;
 import static org.junit.Assert.assertThat;
-
-import org.junit.Test;
-import org.slf4j.ILoggerFactory;
-import org.slf4j.spi.LoggerFactoryBinder;
 
 /**
  * @author James Kennard

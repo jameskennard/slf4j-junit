@@ -1,17 +1,13 @@
 package uk.co.webamoeba.slf4j.junit.log;
 
+import java.util.Collections;
+import org.junit.Test;
+
+import static java.util.Collections.singletonList;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 import static uk.co.webamoeba.slf4j.junit.log.Level.INFO;
-
-import java.util.Collections;
-
-import org.junit.Test;
-import uk.co.webamoeba.slf4j.junit.log.Log;
-import uk.co.webamoeba.slf4j.junit.log.LogEntry;
-
-import static java.util.Collections.singletonList;
 
 /**
  * Test for {@link Log}

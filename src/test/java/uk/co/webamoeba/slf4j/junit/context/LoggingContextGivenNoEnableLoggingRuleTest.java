@@ -13,12 +13,11 @@ import static org.junit.Assert.assertThat;
  */
 public class LoggingContextGivenNoEnableLoggingRuleTest {
 
-	
 	@Test
 	public void shouldNotGetRegistry() {
 		assertNull(LoggingContext.getRegistry());
 	}
-	
+
 	@Test
 	public void shouldDetermineLoggingIsNotEnabled() {
 		assertThat(LoggingContext.loggingIsEnabled(), is(false));

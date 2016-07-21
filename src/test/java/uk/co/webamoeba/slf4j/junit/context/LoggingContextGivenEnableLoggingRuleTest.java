@@ -21,7 +21,7 @@ public class LoggingContextGivenEnableLoggingRuleTest {
 
 	@Rule
 	public EnableLogging enableLogging = enableLogging();
-	
+
 	@Test
 	public void shouldGetRegistry() {
 		assertNotNull(LoggingContext.getRegistry());
@@ -31,18 +31,18 @@ public class LoggingContextGivenEnableLoggingRuleTest {
 	public void shouldGetRegistryGivenCalledTwice() {
 		assertThat(LoggingContext.getRegistry(), is(sameInstance(LoggingContext.getRegistry())));
 	}
-	
+
 	@Test
 	@DisableLogging
 	public void shouldNotGetRegistryGivenDisableLoggingAnnotation() {
 		assertNull(LoggingContext.getRegistry());
 	}
-	
+
 	@Test
 	public void shouldDetermineLoggingIsEnabled() {
 		assertThat(LoggingContext.loggingIsEnabled(), is(true));
 	}
-	
+
 	@Test
 	@DisableLogging
 	public void shouldDetermineLoggingIsNotEnabledGivenDisableLoggingAnnotation() {

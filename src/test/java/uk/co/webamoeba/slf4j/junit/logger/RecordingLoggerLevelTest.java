@@ -19,11 +19,11 @@ public abstract class RecordingLoggerLevelTest {
 	public RecordingLoggerLevelTest(Level level) {
 		this.level = level;
 	}
-	
+
 	protected Level expectedLevel() {
 		return level;
 	}
-	
+
 	@Test
 	public void shouldDetermineIfEnabled() {
 		// Given

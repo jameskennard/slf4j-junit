@@ -25,7 +25,7 @@ import static org.mockito.Mockito.verify;
  */
 public class EnableLoggingTest {
 
-//	@Rule
+	//	@Rule
 	public EnableLogging enableLogging = EnableLogging.enableLogging();
 
 	@Test
@@ -67,7 +67,7 @@ public class EnableLoggingTest {
 			}
 		};
 	}
-	
+
 	private static void assertThatStatementWillEnableLogging(Statement base, Statement statement) throws Throwable {
 		willAnswer(new Answer<Void>() {
 
@@ -80,7 +80,7 @@ public class EnableLoggingTest {
 		statement.evaluate();
 		Mockito.reset(base);
 	}
-	
+
 	private static void assertThatStatementWillEvaluateBase(Statement statement, Statement base) throws Throwable {
 		statement.evaluate();
 		verify(base).evaluate();

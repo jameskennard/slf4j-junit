@@ -135,7 +135,7 @@ public class GroupLogEntrySpecificationTest {
 			assertThat(e.getMessage(), is("specifications must not be null"));
 		}
 	}
-	
+
 	@Test
 	public void shouldFailToConstructGivenNoSpecifications() {
 		// Given

@@ -24,7 +24,7 @@ public class IgnoreLoggingLoggerTest {
 		// Then
 		assertThat(name, is(expectedName));
 	}
-	
+
 	@Test
 	public void shouldDetermineIfErrorEnabled() {
 		// Given
@@ -157,7 +157,7 @@ public class IgnoreLoggingLoggerTest {
 	public void shouldDoNothing() {
 		IgnoreLoggingLogger logger = new IgnoreLoggingLogger("a logger");
 		Marker marker = new BasicMarkerFactory().getMarker("some marker");
-		
+
 		logger.trace("message");
 		logger.trace("message []", "argument");
 		logger.trace("message {} {}", "argument", "argument");
@@ -168,7 +168,7 @@ public class IgnoreLoggingLoggerTest {
 		logger.trace(marker, "message {} {}", "argument", "argument");
 		logger.trace(marker, "message {} {}", "argument", "argument", "argument");
 		logger.trace(marker, "message", new Throwable());
-		
+
 		logger.debug("message");
 		logger.debug("message []", "argument");
 		logger.debug("message {} {}", "argument", "argument");
@@ -179,7 +179,7 @@ public class IgnoreLoggingLoggerTest {
 		logger.debug(marker, "message {} {}", "argument", "argument");
 		logger.debug(marker, "message {} {}", "argument", "argument", "argument");
 		logger.debug(marker, "message", new Throwable());
-		
+
 		logger.info("message");
 		logger.info("message []", "argument");
 		logger.info("message {} {}", "argument", "argument");
@@ -190,7 +190,7 @@ public class IgnoreLoggingLoggerTest {
 		logger.info(marker, "message {} {}", "argument", "argument");
 		logger.info(marker, "message {} {}", "argument", "argument", "argument");
 		logger.info(marker, "message", new Throwable());
-		
+
 		logger.warn("message");
 		logger.warn("message []", "argument");
 		logger.warn("message {} {}", "argument", "argument");
@@ -201,7 +201,7 @@ public class IgnoreLoggingLoggerTest {
 		logger.warn(marker, "message {} {}", "argument", "argument");
 		logger.warn(marker, "message {} {}", "argument", "argument", "argument");
 		logger.warn(marker, "message", new Throwable());
-		
+
 		logger.error("message");
 		logger.error("message []", "argument");
 		logger.error("message {} {}", "argument", "argument");

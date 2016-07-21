@@ -35,7 +35,7 @@ public class GroupLogEntrySpecificationFactoryTest {
 		// Then
 		assertThat(specification, satisfiesLogEntry().atLevel(level));
 	}
-	
+
 	@Test
 	public void shouldCreateGivenMessage() {
 		// Given
@@ -50,7 +50,7 @@ public class GroupLogEntrySpecificationFactoryTest {
 		// Then
 		assertThat(specification, satisfiesLogEntry().withMessage(message));
 	}
-	
+
 	@Test
 	public void shouldCreateGivenThrowable() {
 		// Given
@@ -65,7 +65,7 @@ public class GroupLogEntrySpecificationFactoryTest {
 		// Then
 		assertThat(specification, satisfiesLogEntry().withThrowable(throwable));
 	}
-	
+
 	@Test
 	public void shouldCreateGivenMarker() {
 		// Given
@@ -88,7 +88,7 @@ public class GroupLogEntrySpecificationFactoryTest {
 	private Level aLevel() {
 		return Level.INFO;
 	}
-	
+
 	@Test
 	public void shouldFailToCreateGivenAllNulls() {
 		// Given
@@ -107,12 +107,15 @@ public class GroupLogEntrySpecificationFactoryTest {
 
 		}
 	}
-	
+
 	private class LogEntrySpecificationMatcher extends TypeSafeDiagnosingMatcher<LogEntrySpecification> {
 
 		private Level level;
+
 		private Marker marker;
+
 		private Message message;
+
 		private Throwable throwable;
 
 		public void describeTo(Description description) {
@@ -123,17 +126,17 @@ public class GroupLogEntrySpecificationFactoryTest {
 			this.level = level;
 			return this;
 		}
-		
+
 		public LogEntrySpecificationMatcher withMessage(Message message) {
 			this.message = message;
 			return this;
 		}
-		
+
 		public LogEntrySpecificationMatcher withThrowable(Throwable throwable) {
 			this.throwable = throwable;
 			return this;
 		}
-		
+
 		public LogEntrySpecificationMatcher withMarker(Marker marker) {
 			this.marker = marker;
 			return this;
@@ -154,7 +157,7 @@ public class GroupLogEntrySpecificationFactoryTest {
 			LogEntry logEntry = new LogEntry(level, marker, messageAsString, throwable);
 			return logEntry;
 		}
-		
+
 	}
 
 }

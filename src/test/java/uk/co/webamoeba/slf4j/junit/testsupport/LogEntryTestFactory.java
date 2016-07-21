@@ -19,11 +19,11 @@ public class LogEntryTestFactory {
 	public static List<LogEntry> logEntries(String name) {
 		return LoggingContext.getRegistry().getLog(name).getEntries();
 	}
-	
+
 	public static LogEntry aLogEntry() {
 		return new LogEntry(aLevel(), "Some Message");
 	}
-	
+
 	public static LogEntry logEntryAtLevel(Level level) {
 		return new LogEntry(level, "Some Message");
 	}

@@ -68,5 +68,5 @@ public class RecordingLoggerTraceTest extends RecordingLoggerLevelTest {
 	protected void log(Marker marker, String message, Throwable throwable, RecordingLogger recordingLogger) {
 		recordingLogger.trace(marker, message, throwable);
 	}
-	
+
 }

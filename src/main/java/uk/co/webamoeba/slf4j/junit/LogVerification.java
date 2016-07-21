@@ -11,9 +11,11 @@ import uk.co.webamoeba.slf4j.junit.verification.RecordingLoggerSpecificationVeri
 
 /**
  * {@link LogVerification} enables verification of logging made with SLF4J.
- * 
  * <h1>Getting Started</h1>
- * <p>We create a normal JUnit test, and we add a JUnit {@link TestRule} in order to enable the verification of logging within the test.</p>
+ * <p>
+ * We create a normal JUnit test, and we add a JUnit {@link TestRule} in order to enable the verification of logging within the test.
+ * </p>
+ * 
  * <pre>
  * import org.junit.Rule;
  * 
@@ -26,7 +28,10 @@ import uk.co.webamoeba.slf4j.junit.verification.RecordingLoggerSpecificationVeri
  * 
  * }
  * </pre>
- * <p>We can now create a test, and verify that some logging has taken place:</p>
+ * <p>
+ * We can now create a test, and verify that some logging has taken place:
+ * </p>
+ * 
  * <pre>
  * import static uk.co.webamoeba.slf4j.junit.LogVerification.verifyLogger;
  * import static uk.co.webamoeba.slf4j.junit.log.Level.INFO;
@@ -49,13 +54,14 @@ import uk.co.webamoeba.slf4j.junit.verification.RecordingLoggerSpecificationVeri
  * @author James Kennard
  */
 public class LogVerification {
-	
+
 	private static final GroupLogEntrySpecificationFactory FACTORY = new GroupLogEntrySpecificationFactory();
-	
+
 	private static final RecordingLoggerSpecificationVerifier RECORDING_LOGGER_SPECIFICATION_VERIFIER = new RecordingLoggerSpecificationVerifier();
 
 	/**
-	 * Gets an {@link EnableLogging} {@link TestRule} for use in a JUnit test where we want to  verify some logging.
+	 * Gets an {@link EnableLogging} {@link TestRule} for use in a JUnit test where we want to verify some logging.
+	 * 
 	 * <pre>
 	 * {@code @Rule}
 	 * public EnableLogging enableLogging = LogVerification.enableLogging();
@@ -63,10 +69,10 @@ public class LogVerification {
 	 * 
 	 * @return An {@link EnableLogging} {@link TestRule}
 	 */
-	public static EnableLogging enableLogging() { 
+	public static EnableLogging enableLogging() {
 		return EnableLogging.enableLogging();
 	}
-	
+
 	/**
 	 * Obtain an {@link LogVerifier} in order to verify that the {@link Logger} with the specified name logged something.
 	 * 
@@ -81,14 +87,14 @@ public class LogVerification {
 		if (!(logger instanceof RecordingLogger)) {
 			throw new IllegalStateException("Something went wrong, logging is enabled, but the Logger is not a recording logger");
 		}
-		
+
 		return new LogVerifier(FACTORY, (RecordingLogger) logger, RECORDING_LOGGER_SPECIFICATION_VERIFIER);
 	}
 
 	/**
-	 * Obtain an {@link LogVerifier} in order to verify that the {@link Logger} for the specified {@link Class} logged something. 
-	 *  
-	 * @param clazz {@link Class} used to create a name for the {@link Logger} for  which we want to verify something was logged
+	 * Obtain an {@link LogVerifier} in order to verify that the {@link Logger} for the specified {@link Class} logged something.
+	 * 
+	 * @param clazz {@link Class} used to create a name for the {@link Logger} for which we want to verify something was logged
 	 * @return An {@link LogVerifier} which allows us to verify certain things were logged
 	 */
 	public static LogVerifier verifyLogger(Class<?> clazz) {

@@ -64,13 +64,13 @@ public class MarkerLogEntrySpecificationTest {
 		// Then
 		assertThat(description, is("with marker <" + markerName + ">"));
 	}
-	
+
 	@Test
 	public void shouldFailToConstructGivenNull() {
 		// Given
 		Marker marker = null;
 
-			// When
+		// When
 		try {
 			new MarkerLogEntrySpecification(marker);
 
@@ -84,7 +84,7 @@ public class MarkerLogEntrySpecificationTest {
 	private static Marker aMarker() {
 		return MARKER_FACTORY.getMarker("A Marker");
 	}
-	
+
 	private static Marker aDifferentMarker() {
 		return MARKER_FACTORY.getMarker("A Different Marker");
 	}

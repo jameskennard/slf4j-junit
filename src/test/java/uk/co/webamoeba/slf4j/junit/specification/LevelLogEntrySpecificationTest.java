@@ -61,7 +61,7 @@ public class LevelLogEntrySpecificationTest {
 		// Then
 		assertThat(description, is("at level <" + level + ">"));
 	}
-	
+
 	@Test
 	public void shouldFailToConstructGivenNull() {
 		// Given

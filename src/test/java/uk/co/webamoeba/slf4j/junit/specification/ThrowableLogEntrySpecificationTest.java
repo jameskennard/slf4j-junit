@@ -75,7 +75,7 @@ public class ThrowableLogEntrySpecificationTest {
 			assertThat(e.getMessage(), is("throwable must not be null"));
 		}
 	}
-	
+
 	private static Throwable aThrowable() {
 		return new Throwable("A Throwable");
 	}
