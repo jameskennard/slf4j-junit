@@ -22,7 +22,7 @@ public class DebugLevelLogVerifierTest extends LevelLogVerifierTest {
 
 	@Override
 	protected void loggedLevelMethodIsCalled(LogVerifier verifier, String message, String... arguments) {
-		verifier.loggedDebug(message, arguments);
+		verifier.loggedDebug(message, (Object[]) arguments);
 	}
 
 	@Override
@@ -37,7 +37,7 @@ public class DebugLevelLogVerifierTest extends LevelLogVerifierTest {
 
 	@Override
 	protected void loggedLevelMethodIsCalled(LogVerifier verifier, Marker marker, String message, String... arguments) {
-		verifier.loggedDebug(marker, message, arguments);
+		verifier.loggedDebug(marker, message, (Object[]) arguments);
 	}
 
 	@Override
