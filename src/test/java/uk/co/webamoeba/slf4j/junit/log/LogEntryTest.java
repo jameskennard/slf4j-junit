@@ -1,23 +1,13 @@
 package uk.co.webamoeba.slf4j.junit.log;
 
-import static org.hamcrest.CoreMatchers.instanceOf;
+import org.junit.Test;
+import uk.co.webamoeba.slf4j.junit.log.LogEntry.FormattedMessage;
+import uk.co.webamoeba.slf4j.junit.log.LogEntry.StringMessage;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertThat;
-import static uk.co.webamoeba.slf4j.junit.log.Level.INFO;
-import static uk.co.webamoeba.slf4j.junit.log.Level.WARN;
 import static uk.co.webamoeba.slf4j.junit.testsupport.LevelTestFactory.aLevel;
-
-import org.hamcrest.Description;
-import org.hamcrest.SelfDescribing;
-import org.hamcrest.StringDescription;
-import org.junit.Test;
-import org.slf4j.Marker;
-import org.slf4j.helpers.BasicMarkerFactory;
-import uk.co.webamoeba.slf4j.junit.log.LogEntry;
-import uk.co.webamoeba.slf4j.junit.log.LogEntry.FormattedMessage;
-import uk.co.webamoeba.slf4j.junit.log.LogEntry.StringMessage;
-import uk.co.webamoeba.slf4j.junit.testsupport.LevelTestFactory;
 
 /**
  * Test for {@link LogEntry}
