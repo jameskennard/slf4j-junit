@@ -1,7 +1,5 @@
 package uk.co.webamoeba.slf4j.junit.log;
 
-import org.hamcrest.Description;
-import org.hamcrest.SelfDescribing;
 import org.slf4j.Marker;
 import org.slf4j.helpers.MessageFormatter;
 
@@ -10,7 +8,7 @@ import org.slf4j.helpers.MessageFormatter;
  * 
  * @author James Kennard
  */
-public class LogEntry implements SelfDescribing {
+public class LogEntry {
 
 	private final Level level;
 
@@ -69,18 +67,6 @@ public class LogEntry implements SelfDescribing {
 
 	public Marker getMarker() {
 		return marker;
-	}
-
-	public void describeTo(Description description) {
-		description.appendText(level.name().toLowerCase()).appendText("(");
-		if (marker != null) {
-			description.appendValue(marker).appendText(", ");
-		}
-		description.appendValue(message.getMessageAsString());
-		if (throwable != null) {
-			description.appendText(", ").appendValue(throwable);
-		}
-		description.appendText(")");
 	}
 
 	/**

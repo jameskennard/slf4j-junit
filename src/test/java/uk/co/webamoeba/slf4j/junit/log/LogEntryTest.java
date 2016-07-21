@@ -160,56 +160,6 @@ public class LogEntryTest {
 		assertThat(string, is("Some Message"));
 	}
 
-	@Test
-	public void shouldBeSelfDescribing() {
-		assertThat(new LogEntry(validLevel(), "Message"), is(instanceOf(SelfDescribing.class)));
-	}
-
-	@Test
-	public void shouldDescribeGivenMessage() {
-		// Given
-		Level level = validLevel();
-		LogEntry logEntry = new LogEntry(level, "Some Message");
-		Description description = new StringDescription();
-
-		// When
-		logEntry.describeTo(description);
-
-		// Then
-		assertThat(description.toString(), is("info(\"Some Message\")"));
-	}
-
-	@Test
-	public void shouldDescribeGivenMarkerAndMessage() {
-		// Given
-		Level level = INFO;
-		Marker marker = new BasicMarkerFactory().getMarker("Some Marker");
-		LogEntry logEntry = new LogEntry(level, marker, "Some Message");
-		Description description = new StringDescription();
-
-		// When
-		logEntry.describeTo(description);
-
-		// Then
-		assertThat(description.toString(), is("info(<Some Marker>, \"Some Message\")"));
-	}
-
-	@Test
-	public void shouldDescribeGivenMessageAndThrowable() {
-		// Given
-		Level level = WARN;
-		String message = "Some Message";
-		Throwable throwable = new Throwable();
-		LogEntry logEntry = new LogEntry(level, message, throwable);
-		Description description = new StringDescription();
-
-		// When
-		logEntry.describeTo(description);
-
-		// Then
-		assertThat(description.toString(), is("warn(\"Some Message\", <" + throwable + ">)"));
-	}
-
 	private Level validLevel() {
 		return INFO;
 	}

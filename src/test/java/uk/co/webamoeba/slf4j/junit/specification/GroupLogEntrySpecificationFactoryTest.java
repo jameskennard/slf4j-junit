@@ -116,7 +116,7 @@ public class GroupLogEntrySpecificationFactoryTest {
 		private Throwable throwable;
 
 		public void describeTo(Description description) {
-			description.appendText("Specification should be satified by: ").appendDescriptionOf(satisfyingLogEntry());
+			description.appendText("Specification should be satified by: ").appendValue(satisfyingLogEntry());
 		}
 
 		public LogEntrySpecificationMatcher atLevel(Level level) {
