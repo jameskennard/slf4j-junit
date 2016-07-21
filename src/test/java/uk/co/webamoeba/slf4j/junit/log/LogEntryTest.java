@@ -6,6 +6,7 @@ import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertThat;
 import static uk.co.webamoeba.slf4j.junit.log.Level.INFO;
 import static uk.co.webamoeba.slf4j.junit.log.Level.WARN;
+import static uk.co.webamoeba.slf4j.junit.testsupport.LevelTestFactory.aLevel;
 
 import org.hamcrest.Description;
 import org.hamcrest.SelfDescribing;
@@ -16,6 +17,7 @@ import org.slf4j.helpers.BasicMarkerFactory;
 import uk.co.webamoeba.slf4j.junit.log.LogEntry;
 import uk.co.webamoeba.slf4j.junit.log.LogEntry.FormattedMessage;
 import uk.co.webamoeba.slf4j.junit.log.LogEntry.StringMessage;
+import uk.co.webamoeba.slf4j.junit.testsupport.LevelTestFactory;
 
 /**
  * Test for {@link LogEntry}
@@ -27,7 +29,7 @@ public class LogEntryTest {
 	@Test
 	public void shouldGetMessageGivenStringMessage() {
 		// Given
-		Level level = validLevel();
+		Level level = aLevel();
 		String expectedMessage = "some message";
 		LogEntry logEntry = new LogEntry(level, expectedMessage);
 
@@ -41,7 +43,7 @@ public class LogEntryTest {
 	@Test
 	public void shouldGetMessageGivenFormattedMessage() {
 		// Given
-		Level level = validLevel();
+		Level level = aLevel();
 		String format = "some {}";
 		Object[] arguments = new Object[] { "message" };
 		String expectedMessage = "some message";
@@ -158,9 +160,5 @@ public class LogEntryTest {
 
 		// Then
 		assertThat(string, is("Some Message"));
-	}
-
-	private Level validLevel() {
-		return INFO;
 	}
 }
